@@ -1,0 +1,69 @@
+name: monthly-refresh
+
+on:
+  schedule:
+    - cron: "17 11 1 * *"   # 1st of each month, 11:17 UTC (pre-market ET; prior month fully closed)
+  workflow_dispatch: {}      # run manually any time from the Actions tab
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: monthly-refresh
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline (fetch holdings + prices, backtest, build site)
+        env:
+          PYTHONPATH: src
+        run: python -m halalmo.run
+
+      - name: Commit refreshed outputs back to the repo
+        run: |
+          git config user.name "crescent-momentum-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs history data/universe_seed.csv
+          git commit -m "Monthly refresh $(date -u +%F)" || echo "nothing to commit"
+          git push
+
+      - name: Read picks date for release tag
+        id: meta
+        run: echo "tag=picks-$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish monthly release (friends who watch releases get notified)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "Picks — ${{ steps.meta.outputs.tag }}"
+          body_path: docs/picks.md
+        continue-on-error: true
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

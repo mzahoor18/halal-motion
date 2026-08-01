@@ -1,0 +1,16 @@
+# Halal Momentum Engine configuration
+funds: [spus]                  # universe source(s): spus and/or mnzl (MNZL excluded — launched Nov 2025, too new)
+start_backtest: "2020-01-01"   # first month traded
+price_history_start: "2018-01-01"  # extra history for 12m lookbacks + ATR
+cost_bps_per_side: 10          # transaction cost assumption, basis points per side
+atr_multiple: 3.0              # chandelier stop distance (x ATR-22)
+benchmarks: [SPY, QQQ, "^DJI"]  # SPY/QQQ: dividend-adjusted ETFs; ^DJI: Dow price index
+tracks:
+  focused:  {n: 8,  weighting: equal,   label: "Focused — top 8, equal weight"}
+  balanced: {n: 20, weighting: inv_vol, label: "Balanced — top 20, inverse-volatility weight"}
+selector:
+  window_months: 24     # trailing evaluation window
+  min_months: 12        # months of history before adaptive selection kicks in
+  switch_margin: 0.25   # challenger must beat incumbent Sortino by this to take over
+  default_variant: "mom_12_1"   # literature-standard default during warm-up
+site_title: "Crescent Momentum"

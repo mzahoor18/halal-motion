@@ -1,0 +1,36 @@
+Crescent Momentum — April 2024 picks (as of 2024-04-24)
+
+Focused — top 8, equal weight  [model: SROC (6-month)]
+   1. SMCI   12.5%  last $754.72  stop $818.49  [held]
+   2. NVDA   12.5%  last $796.77  stop $794.04  [held]
+   3. MU     12.5%  last $111.78  stop $95.15  [NEW]
+   4. DECK   12.5%  last $851.71  stop $856.94  [held]
+   5. CEG    12.5%  last $186.16  stop $169.16  [held]
+   6. UBER   12.5%  last $69.36  stop $69.65  [held]
+   7. BLDR   12.5%  last $186.69  stop $185.30  [held]
+   8. DXCM   12.5%  last $137.87  stop $125.38  [NEW]
+
+Balanced — top 20, inverse-volatility weight  [model: 12-1 momentum]
+   1. SMCI    1.6%  last $754.72  stop $818.49  [held]
+   2. NVDA    3.8%  last $796.77  stop $794.04  [held]
+   3. CEG     4.2%  last $186.16  stop $169.16  [held]
+   4. UBER    4.8%  last $69.36  stop $69.65  [held]
+   5. BLDR    4.5%  last $186.69  stop $185.30  [held]
+   6. LLY     6.3%  last $732.20  stop $731.79  [held]
+   7. AVGO    4.7%  last $1256.82  stop $1247.50  [held]
+   8. DECK    4.2%  last $851.71  stop $856.94  [held]
+   9. PHM     5.8%  last $112.26  stop $108.68  [held]
+  10. MU      4.2%  last $111.78  stop $95.15  [NEW]
+  11. LRCX    5.4%  last $884.89  stop $899.51  [held]
+  12. URI     4.8%  last $655.19  stop $599.58  [NEW]
+  13. FICO    5.5%  last $1193.03  stop $1155.45  [held]
+  14. MLM     8.3%  last $591.82  stop $553.23  [NEW]
+  15. KLAC    5.4%  last $656.54  stop $651.20  [held]
+  16. HUBB    7.7%  last $398.55  stop $369.26  [NEW]
+  17. ANET    4.1%  last $254.77  stop $267.79  [held]
+  18. AMD     3.5%  last $151.74  stop $162.33  [held]
+  19. NOW     6.4%  last $746.29  stop $727.67  [held]
+  20. NTAP    4.7%  last $100.06  stop $94.00  [NEW]
+
+Stops are advisory chandelier exits (3 x ATR-22 below the recent high).
+Educational only — not investment advice.
