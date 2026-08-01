@@ -1,21 +1,21 @@
 # Crescent Momentum — picks for August 2026
 _As of 2026-07-31 close · educational project, not investment advice._
 
-## Focused — top 8, equal weight
+## Focused — top 8, inverse-volatility weight
 Live model: **SROC (3-month)**
 
 | # | Ticker | Weight | Last | Suggested stop | |
 |---|--------|--------|------|----------------|---|
-| 1 | PANW | 12.5% | $331.83 | $281.03 | NEW |
-| 2 | FTNT | 12.5% | $161.95 | $139.92 | NEW |
-| 3 | MU | 12.5% | $823.03 | $776.29 | held |
-| 4 | CRWD | 12.5% | $190.86 | $159.99 | NEW |
-| 5 | AMD | 12.5% | $476.15 | $436.29 | held |
-| 6 | NTAP | 12.5% | $178.50 | $156.39 | NEW |
-| 7 | STX | 12.5% | $856.13 | $672.48 | held |
-| 8 | BBY | 12.5% | $86.26 | $78.80 | NEW |
+| 1 | PANW | 14.3% | $331.83 | $281.03 | NEW |
+| 2 | FTNT | 15.1% | $161.95 | $139.92 | NEW |
+| 3 | MU | 7.5% | $823.03 | $776.29 | held |
+| 4 | CRWD | 12.9% | $190.86 | $159.99 | NEW |
+| 5 | AMD | 9.1% | $476.15 | $436.29 | held |
+| 6 | NTAP | 14.0% | $178.50 | $156.39 | NEW |
+| 7 | STX | 9.4% | $856.13 | $672.48 | held |
+| 8 | BBY | 17.8% | $86.26 | $78.80 | NEW |
 
-Backtest since 2020: CAGR +29.2% · Sharpe 0.952 · Max DD -36.8% (SPY over same span: CAGR +15.1%, Sharpe 0.884)
+Backtest since 2020: CAGR +24.3% · Sharpe 0.886 · Max DD -28.3% (SPY over same span: CAGR +15.1%, Sharpe 0.884)
 
 ## Balanced — top 20, inverse-volatility weight
 Live model: **3-month momentum**
@@ -35,7 +35,7 @@ Live model: **3-month momentum**
 | 11 | TECH | 4.4% | $72.09 | $70.91 | NEW |
 | 12 | RVTY | 6.0% | $112.52 | $101.86 | NEW |
 | 13 | ZBRA | 5.3% | $293.82 | $261.91 | NEW |
-| 14 | AMAT | 3.5% | $507.67 | $512.93 | held |
+| 14 | AMAT | 3.5% | $507.67 | $369.69 | STOP ALREADY HIT |
 | 15 | CSCO | 6.0% | $115.99 | $104.97 | NEW |
 | 16 | STX | 3.2% | $856.13 | $672.48 | held |
 | 17 | WSM | 7.0% | $228.66 | $208.40 | NEW |
