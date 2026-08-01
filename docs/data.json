@@ -1,106 +1,734 @@
 {
  "as_of": "2026-07-31",
- "generated": "2026-08-01 05:19 UTC",
+ "generated": "2026-08-01 15:44 UTC",
  "period": "Jan 2020 \u2013 Jul 2026",
  "cost_bps": 10.0,
- "universe_size": 501,
+ "universe_size": 352,
  "universe_funds": [
   "spus",
   "mnzl"
  ],
- "sector_count": 11,
+ "sector_count": 9,
  "data_mode": "live",
  "track_order": [
   "aggressive",
   "balanced",
   "conservative"
  ],
+ "compliance": {
+  "source": "Musaffa",
+  "checked": 511,
+  "compliant": 357,
+  "excluded_counts": {
+   "NON_COMPLIANT": 123,
+   "QUESTIONABLE": 30,
+   "UNKNOWN": 1
+  },
+  "excluded": [
+   {
+    "ticker": "ABBV",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ACN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ADI",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "ADM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AGCO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AHR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "APA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "APP",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "ARW",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ATO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AU",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AUGO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AUR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AVB",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AVT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "AVTR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BEPC",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BG",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BIO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BKNG",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "BKR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BMNR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "BWA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CART",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "CAVA",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "CBRE",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "CDE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CEG",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CHWY",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CMG",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "COO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "COP",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CRH",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CTSH",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "CVNA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DAL",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DGX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DINO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DLR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DLTR",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "DOCN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DOW",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DTM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "DUOL",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "DVN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "EBAY",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "EGP",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "EQR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ESAB",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ESI",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "EXPE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "FCN",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "FCX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "FDX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "FDXF",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "FIVE",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "FTAI",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "G",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "GLXY",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "GOOGL",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "GSAT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "GTES",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "GXO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "HALO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "HAYW",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "HL",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "HPQ",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "HSIC",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "IBM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "IFF",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "INGM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "INSM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "IONQ",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "IONS",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "IP",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "JAN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "JHX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "JLL",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "KD",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "KHC",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LBRDA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LBRDK",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LEA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LH",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LINE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LITE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LKQ",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LLYVA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LLYVK",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "LOAR",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "LSCC",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "LUV",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "LYFT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "M",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MAA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MAR",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "MDLZ",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "MFP",
+    "status": "UNKNOWN"
+   },
+   {
+    "ticker": "MOS",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MSFT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MSTR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MTDR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "MTSI",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "NEM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "NFG",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "NOV",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "NOW",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "NVST",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ORCL",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "OVV",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "OXY",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PAYC",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PCAR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PEP",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "PFE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PINS",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "PLD",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PLNT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PPLI",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PSX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "PVH",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "QXO",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "RDDT",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "REGN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "REXR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "RIVN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "RKLB",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "ROP",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "RYN",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SANM",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SCCO",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "SCI",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SMCI",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SMMT",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SNA",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SNX",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SOLS",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SPCX",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "SRE",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SUI",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "SW",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "SWK",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "T",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "TGT",
+    "status": "QUESTIONABLE"
+   },
+   {
+    "ticker": "TKR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "UAL",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "UHS",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "UTHR",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "VIAV",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "WDAY",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "WING",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "WLK",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ZBH",
+    "status": "NON_COMPLIANT"
+   },
+   {
+    "ticker": "ZM",
+    "status": "NON_COMPLIANT"
+   }
+  ]
+ },
  "tracks": {
   "aggressive": {
    "label": "Aggressive \u2014 top 8, concentrated",
    "blurb": "The eight strongest trends in the halal universe, sized by inverse volatility. No sector limits, widest stops. Highest expected return and the hardest drawdowns.",
-   "live_variant": "sroc_3+stops",
-   "live_label": "SROC (3-month) \u00b7 stops",
+   "live_variant": "mom_3+stops",
+   "live_label": "3-month momentum \u00b7 stops",
    "picks": [
     {
      "ticker": "FTNT",
      "sector": "Technology",
-     "weight": 0.1712,
+     "weight": 0.1614,
      "price": 161.95,
      "stop": 139.92,
      "stop_drop_pct": 0.136,
-     "signal_score": 0.8575,
+     "signal_score": 0.9209,
      "status": "new"
     },
     {
      "ticker": "PANW",
      "sector": "Technology",
-     "weight": 0.1627,
+     "weight": 0.1533,
      "price": 331.83,
      "stop": 282.06,
      "stop_drop_pct": 0.15,
-     "signal_score": 0.8758,
+     "signal_score": 0.8505,
+     "status": "new"
+    },
+    {
+     "ticker": "BRKR",
+     "sector": "Healthcare",
+     "weight": 0.1376,
+     "price": 62.84,
+     "stop": 54.03,
+     "stop_drop_pct": 0.1402,
+     "signal_score": 0.7133,
      "status": "new"
     },
     {
      "ticker": "GH",
      "sector": "Healthcare",
-     "weight": 0.1383,
+     "weight": 0.1303,
      "price": 161.99,
      "stop": 137.69,
      "stop_drop_pct": 0.15,
-     "signal_score": 0.7439,
+     "signal_score": 0.8602,
      "status": "new"
     },
     {
      "ticker": "CORT",
      "sector": "Healthcare",
-     "weight": 0.1148,
+     "weight": 0.1082,
      "price": 114.49,
      "stop": 97.9,
      "stop_drop_pct": 0.1449,
-     "signal_score": 1.1781,
+     "signal_score": 1.4611,
      "status": "new"
     },
     {
      "ticker": "DDOG",
      "sector": "Technology",
-     "weight": 0.1122,
+     "weight": 0.1058,
      "price": 267.97,
      "stop": 227.98,
      "stop_drop_pct": 0.1492,
-     "signal_score": 1.0151,
+     "signal_score": 1.0272,
      "status": "new"
     },
     {
      "ticker": "OKTA",
      "sector": "Technology",
-     "weight": 0.1118,
+     "weight": 0.1054,
      "price": 141.93,
      "stop": 120.64,
      "stop_drop_pct": 0.15,
-     "signal_score": 0.8712,
+     "signal_score": 0.9271,
      "status": "new"
     },
     {
      "ticker": "SNOW",
      "sector": "Technology",
-     "weight": 0.1041,
+     "weight": 0.0981,
      "price": 293.28,
      "stop": 253.12,
      "stop_drop_pct": 0.1369,
-     "signal_score": 0.9251,
+     "signal_score": 1.149,
      "status": "new"
-    },
-    {
-     "ticker": "MU",
-     "sector": "Technology",
-     "weight": 0.0849,
-     "price": 823.03,
-     "stop": 699.58,
-     "stop_drop_pct": 0.15,
-     "signal_score": 0.8346,
-     "status": "breached"
     }
    ],
    "cash_pct": 0.0,
@@ -110,21 +738,21 @@
    ],
    "max_per_sector": null,
    "sector_mix": {
-    "Technology": 0.7469,
-    "Healthcare": 0.2531
+    "Technology": 0.624,
+    "Healthcare": 0.3761
    },
    "metrics": {
     "months": 79,
-    "total_return": 11.6049,
-    "cagr": 0.4695,
-    "ann_vol": 0.4414,
-    "sharpe": 1.097,
-    "sortino": 2.119,
-    "max_drawdown": -0.4006,
-    "calmar": 1.172,
-    "win_rate": 0.633,
-    "best_month": 0.3368,
-    "worst_month": -0.2698
+    "total_return": 10.1064,
+    "cagr": 0.4415,
+    "ann_vol": 0.3887,
+    "sharpe": 1.144,
+    "sortino": 2.144,
+    "max_drawdown": -0.3404,
+    "calmar": 1.297,
+    "win_rate": 0.658,
+    "best_month": 0.3079,
+    "worst_month": -0.223
    },
    "equity": {
     "labels": [
@@ -211,332 +839,332 @@
     ],
     "values": [
      100.0,
-     107.74,
-     108.51,
-     83.05,
-     108.62,
-     126.52,
-     132.58,
-     160.25,
-     204.01,
-     193.56,
-     174.36,
-     224.13,
-     265.68,
-     289.14,
-     366.25,
-     382.2,
-     358.96,
-     396.41,
-     377.69,
-     333.57,
-     340.78,
-     347.83,
-     379.21,
-     351.49,
-     317.59,
-     272.83,
-     260.67,
-     294.26,
-     284.39,
-     325.42,
-     237.62,
-     265.71,
-     281.6,
-     262.1,
-     300.57,
-     296.43,
-     259.33,
-     274.58,
-     267.74,
-     265.36,
-     259.02,
-     319.78,
-     332.19,
-     334.35,
-     370.27,
-     334.0,
-     303.43,
-     371.81,
-     403.39,
-     410.77,
-     452.23,
-     458.71,
-     435.18,
-     459.6,
-     469.74,
-     466.55,
-     458.77,
-     530.44,
-     552.56,
-     738.65,
-     715.64,
-     778.15,
-     619.47,
-     575.36,
-     521.66,
-     541.46,
-     556.9,
-     621.25,
-     632.47,
-     702.58,
-     728.15,
-     731.42,
-     803.53,
-     1001.14,
-     1198.09,
-     1055.29,
-     1340.84,
-     1369.63,
-     1514.97,
-     1260.49
+     106.94,
+     108.12,
+     84.01,
+     109.88,
+     128.05,
+     135.26,
+     163.65,
+     194.99,
+     184.24,
+     167.95,
+     209.6,
+     245.85,
+     280.93,
+     307.4,
+     285.78,
+     308.47,
+     308.68,
+     294.93,
+     288.39,
+     297.94,
+     288.72,
+     316.13,
+     286.84,
+     280.22,
+     248.63,
+     251.34,
+     292.64,
+     278.51,
+     288.83,
+     232.27,
+     248.57,
+     263.75,
+     247.69,
+     269.42,
+     301.83,
+     282.89,
+     321.25,
+     332.1,
+     340.43,
+     324.9,
+     367.52,
+     401.03,
+     423.22,
+     486.82,
+     449.63,
+     432.95,
+     514.96,
+     538.94,
+     620.88,
+     677.31,
+     685.41,
+     632.87,
+     711.34,
+     675.5,
+     660.43,
+     664.93,
+     721.94,
+     746.57,
+     867.36,
+     829.87,
+     852.21,
+     672.68,
+     595.23,
+     572.13,
+     597.53,
+     610.5,
+     625.33,
+     673.38,
+     719.6,
+     834.49,
+     776.13,
+     896.59,
+     1150.13,
+     1180.13,
+     1046.84,
+     1292.94,
+     1307.48,
+     1422.66,
+     1110.64
     ]
    },
-   "stop_exits": 316,
+   "stop_exits": 279,
    "recent_selections": {
-    "2026-02": "sroc_3+stops",
-    "2026-03": "sroc_3+stops",
-    "2026-04": "sroc_3+stops",
-    "2026-05": "sroc_3+stops",
-    "2026-06": "sroc_3+stops",
-    "2026-07": "sroc_3+stops"
+    "2026-02": "mom_3+stops",
+    "2026-03": "mom_3+stops",
+    "2026-04": "mom_3+stops",
+    "2026-05": "sroc_3",
+    "2026-06": "sroc_3",
+    "2026-07": "sroc_3"
    }
   },
   "balanced": {
    "label": "Balanced \u2014 top 20, sector-capped",
    "blurb": "Twenty names with no more than three from any one sector, so the sleeve can't quietly become an all-tech bet. Middle-of-the-road stops.",
-   "live_variant": "sroc_3",
-   "live_label": "SROC (3-month)",
+   "live_variant": "mom_6",
+   "live_label": "6-month momentum",
    "picks": [
     {
-     "ticker": "MNST",
-     "sector": "Consumer Defensive",
-     "weight": 0.0857,
-     "price": 96.38,
-     "stop": 91.94,
-     "stop_drop_pct": 0.046,
-     "signal_score": 0.2592,
+     "ticker": "WELL",
+     "sector": "Real Estate",
+     "weight": 0.0868,
+     "price": 234.44,
+     "stop": 215.68,
+     "stop_drop_pct": 0.08,
+     "signal_score": 0.2713,
+     "status": "new"
+    },
+    {
+     "ticker": "EQIX",
+     "sector": "Real Estate",
+     "weight": 0.0812,
+     "price": 1019.28,
+     "stop": 987.22,
+     "stop_drop_pct": 0.0315,
+     "signal_score": 0.2468,
      "status": "held"
     },
     {
-     "ticker": "PSX",
-     "sector": "Energy",
-     "weight": 0.0773,
-     "price": 211.68,
-     "stop": 193.32,
-     "stop_drop_pct": 0.0867,
-     "signal_score": 0.2399,
+     "ticker": "MSM",
+     "sector": "Industrials",
+     "weight": 0.0811,
+     "price": 123.4,
+     "stop": 112.37,
+     "stop_drop_pct": 0.0894,
+     "signal_score": 0.4897,
      "status": "new"
     },
     {
-     "ticker": "NEU",
+     "ticker": "EOG",
+     "sector": "Energy",
+     "weight": 0.0732,
+     "price": 148.69,
+     "stop": 136.79,
+     "stop_drop_pct": 0.08,
+     "signal_score": 0.3469,
+     "status": "held"
+    },
+    {
+     "ticker": "NUE",
      "sector": "Basic Materials",
-     "weight": 0.0688,
-     "price": 850.16,
-     "stop": 772.65,
-     "stop_drop_pct": 0.0912,
-     "signal_score": 0.2036,
-     "status": "new"
+     "weight": 0.0697,
+     "price": 257.29,
+     "stop": 243.45,
+     "stop_drop_pct": 0.0538,
+     "signal_score": 0.4385,
+     "status": "held"
+    },
+    {
+     "ticker": "FTI",
+     "sector": "Energy",
+     "weight": 0.0673,
+     "price": 71.66,
+     "stop": 69.73,
+     "stop_drop_pct": 0.0269,
+     "signal_score": 0.2834,
+     "status": "held"
+    },
+    {
+     "ticker": "WST",
+     "sector": "Healthcare",
+     "weight": 0.064,
+     "price": 340.96,
+     "stop": 334.61,
+     "stop_drop_pct": 0.0186,
+     "signal_score": 0.4676,
+     "status": "held"
+    },
+    {
+     "ticker": "STLD",
+     "sector": "Basic Materials",
+     "weight": 0.0589,
+     "price": 251.26,
+     "stop": 235.75,
+     "stop_drop_pct": 0.0617,
+     "signal_score": 0.3882,
+     "status": "held"
     },
     {
      "ticker": "BBY",
      "sector": "Consumer Cyclical",
-     "weight": 0.0621,
+     "weight": 0.0554,
      "price": 86.26,
      "stop": 78.8,
      "stop_drop_pct": 0.0865,
-     "signal_score": 0.4164,
+     "signal_score": 0.3621,
      "status": "new"
     },
     {
-     "ticker": "LINE",
-     "sector": "Real Estate",
-     "weight": 0.0608,
-     "price": 42.37,
-     "stop": 40.72,
-     "stop_drop_pct": 0.039,
-     "signal_score": 0.2013,
+     "ticker": "COKE",
+     "sector": "Consumer Defensive",
+     "weight": 0.0515,
+     "price": 187.9,
+     "stop": 166.13,
+     "stop_drop_pct": 0.1159,
+     "signal_score": 0.2619,
+     "status": "new"
+    },
+    {
+     "ticker": "VIK",
+     "sector": "Consumer Cyclical",
+     "weight": 0.0497,
+     "price": 104.35,
+     "stop": 95.21,
+     "stop_drop_pct": 0.0876,
+     "signal_score": 0.4046,
      "status": "held"
     },
     {
-     "ticker": "DINO",
-     "sector": "Energy",
-     "weight": 0.0585,
-     "price": 91.47,
-     "stop": 81.64,
-     "stop_drop_pct": 0.1075,
-     "signal_score": 0.4396,
-     "status": "new"
-    },
-    {
-     "ticker": "SN",
+     "ticker": "CROX",
      "sector": "Consumer Cyclical",
-     "weight": 0.0555,
-     "price": 161.77,
-     "stop": 146.51,
-     "stop_drop_pct": 0.0943,
-     "signal_score": 0.3461,
-     "status": "new"
-    },
-    {
-     "ticker": "DLTR",
-     "sector": "Consumer Defensive",
-     "weight": 0.0547,
-     "price": 127.21,
-     "stop": 114.86,
-     "stop_drop_pct": 0.0971,
-     "signal_score": 0.2438,
-     "status": "new"
-    },
-    {
-     "ticker": "JHX",
-     "sector": "Basic Materials",
-     "weight": 0.0501,
-     "price": 26.29,
-     "stop": 23.46,
-     "stop_drop_pct": 0.1075,
-     "signal_score": 0.2254,
-     "status": "new"
-    },
-    {
-     "ticker": "PANW",
-     "sector": "Technology",
-     "weight": 0.0499,
-     "price": 331.83,
-     "stop": 292.01,
+     "weight": 0.0454,
+     "price": 128.01,
+     "stop": 112.65,
      "stop_drop_pct": 0.12,
-     "signal_score": 0.8758,
+     "signal_score": 0.5514,
      "status": "new"
     },
     {
-     "ticker": "HRB",
-     "sector": "Consumer Cyclical",
-     "weight": 0.0461,
-     "price": 44.03,
-     "stop": 39.09,
-     "stop_drop_pct": 0.1121,
-     "signal_score": 0.3742,
-     "status": "new"
-    },
-    {
-     "ticker": "UAL",
-     "sector": "Industrials",
-     "weight": 0.0458,
-     "price": 121.33,
-     "stop": 107.0,
-     "stop_drop_pct": 0.1181,
-     "signal_score": 0.3067,
-     "status": "new"
-    },
-    {
-     "ticker": "BRKR",
-     "sector": "Healthcare",
-     "weight": 0.0448,
-     "price": 62.84,
-     "stop": 56.62,
-     "stop_drop_pct": 0.099,
-     "signal_score": 0.6463,
+     "ticker": "CF",
+     "sector": "Basic Materials",
+     "weight": 0.0445,
+     "price": 125.19,
+     "stop": 114.77,
+     "stop_drop_pct": 0.0832,
+     "signal_score": 0.344,
      "status": "held"
     },
     {
      "ticker": "GH",
      "sector": "Healthcare",
-     "weight": 0.0424,
+     "weight": 0.0378,
      "price": 161.99,
      "stop": 150.28,
      "stop_drop_pct": 0.0723,
-     "signal_score": 0.7439,
+     "signal_score": 0.4662,
      "status": "held"
-    },
-    {
-     "ticker": "ELF",
-     "sector": "Consumer Defensive",
-     "weight": 0.0396,
-     "price": 82.89,
-     "stop": 72.94,
-     "stop_drop_pct": 0.12,
-     "signal_score": 0.2256,
-     "status": "new"
     },
     {
      "ticker": "CORT",
      "sector": "Healthcare",
-     "weight": 0.0352,
+     "weight": 0.0314,
      "price": 114.49,
-     "stop": 104.12,
-     "stop_drop_pct": 0.0906,
-     "signal_score": 1.1781,
-     "status": "held"
-    },
-    {
-     "ticker": "DDOG",
-     "sector": "Technology",
-     "weight": 0.0344,
-     "price": 267.97,
-     "stop": 235.81,
+     "stop": 100.75,
      "stop_drop_pct": 0.12,
-     "signal_score": 1.0151,
+     "signal_score": 1.5665,
      "status": "new"
     },
     {
-     "ticker": "RHI",
+     "ticker": "IESC",
      "sector": "Industrials",
-     "weight": 0.0335,
-     "price": 37.8,
-     "stop": 33.26,
+     "weight": 0.0256,
+     "price": 744.54,
+     "stop": 655.2,
      "stop_drop_pct": 0.12,
-     "signal_score": 0.455,
+     "signal_score": 0.5687,
      "status": "new"
     },
     {
-     "ticker": "SNOW",
+     "ticker": "MRVL",
      "sector": "Technology",
-     "weight": 0.0319,
-     "price": 293.28,
-     "stop": 258.09,
+     "weight": 0.0237,
+     "price": 187.56,
+     "stop": 165.05,
      "stop_drop_pct": 0.12,
-     "signal_score": 0.9251,
+     "signal_score": 1.3076,
      "status": "new"
     },
     {
      "ticker": "STRL",
      "sector": "Industrials",
-     "weight": 0.0229,
+     "weight": 0.0204,
      "price": 596.77,
      "stop": 525.16,
      "stop_drop_pct": 0.12,
-     "signal_score": 0.3127,
+     "signal_score": 0.5736,
+     "status": "breached"
+    },
+    {
+     "ticker": "SNDK",
+     "sector": "Technology",
+     "weight": 0.0187,
+     "price": 1214.83,
+     "stop": 1069.05,
+     "stop_drop_pct": 0.12,
+     "signal_score": 1.2526,
+     "status": "breached"
+    },
+    {
+     "ticker": "AAOI",
+     "sector": "Technology",
+     "weight": 0.0136,
+     "price": 94.32,
+     "stop": 83.0,
+     "stop_drop_pct": 0.12,
+     "signal_score": 1.3836,
      "status": "breached"
     }
    ],
-   "cash_pct": 0.0,
+   "cash_pct": 0.0001,
    "stop_band": [
     0.08,
     0.12
    ],
    "max_per_sector": 3,
    "sector_mix": {
-    "Consumer Defensive": 0.18,
-    "Consumer Cyclical": 0.1637,
-    "Energy": 0.1358,
-    "Healthcare": 0.1224,
-    "Basic Materials": 0.1189,
-    "Technology": 0.1162,
-    "Industrials": 0.1022,
-    "Real Estate": 0.0608
+    "Basic Materials": 0.1731,
+    "Real Estate": 0.168,
+    "Consumer Cyclical": 0.1505,
+    "Energy": 0.1405,
+    "Healthcare": 0.1332,
+    "Industrials": 0.1271,
+    "Technology": 0.056,
+    "Consumer Defensive": 0.0515
    },
    "metrics": {
     "months": 79,
-    "total_return": 3.2798,
-    "cagr": 0.2471,
-    "ann_vol": 0.2709,
-    "sharpe": 0.956,
-    "sortino": 1.524,
-    "max_drawdown": -0.2614,
-    "calmar": 0.945,
-    "win_rate": 0.62,
-    "best_month": 0.2796,
-    "worst_month": -0.256
+    "total_return": 2.9859,
+    "cagr": 0.2337,
+    "ann_vol": 0.2532,
+    "sharpe": 0.962,
+    "sortino": 1.419,
+    "max_drawdown": -0.2737,
+    "calmar": 0.854,
+    "win_rate": 0.633,
+    "best_month": 0.2573,
+    "worst_month": -0.255
    },
    "equity": {
     "labels": [
@@ -623,95 +1251,95 @@
     ],
     "values": [
      100.0,
-     102.59,
-     101.83,
-     75.77,
-     96.95,
-     105.8,
-     113.18,
-     133.88,
-     149.15,
-     145.28,
-     139.88,
-     166.86,
-     185.33,
-     202.01,
-     218.62,
-     190.9,
-     199.15,
-     198.21,
-     199.91,
-     187.15,
-     186.2,
-     179.69,
-     195.07,
-     192.61,
-     192.63,
-     175.8,
-     174.69,
-     190.93,
-     179.03,
-     185.17,
-     171.9,
-     176.43,
-     183.08,
-     175.66,
-     191.9,
-     203.99,
-     186.11,
-     203.75,
-     210.15,
-     206.86,
-     203.95,
-     206.04,
-     221.41,
-     238.99,
-     264.0,
-     242.44,
-     236.92,
-     260.38,
-     272.25,
-     273.52,
-     314.29,
-     329.45,
-     313.06,
-     323.26,
-     329.5,
-     330.39,
-     347.53,
-     362.86,
-     364.99,
-     410.67,
-     384.29,
-     408.04,
-     375.7,
-     356.05,
-     329.77,
-     349.04,
-     358.77,
-     372.69,
-     377.88,
-     400.34,
-     398.86,
-     403.4,
-     410.96,
-     446.81,
-     469.4,
-     458.79,
-     501.21,
-     487.86,
-     450.22,
-     427.98
+     105.58,
+     102.93,
+     76.69,
+     96.42,
+     109.68,
+     117.45,
+     133.94,
+     144.71,
+     140.12,
+     133.91,
+     155.1,
+     170.23,
+     177.37,
+     184.97,
+     179.66,
+     192.35,
+     189.64,
+     202.57,
+     194.94,
+     197.05,
+     191.49,
+     206.63,
+     207.36,
+     211.17,
+     188.62,
+     188.38,
+     201.91,
+     193.47,
+     195.75,
+     185.78,
+     201.95,
+     208.83,
+     201.19,
+     218.54,
+     227.99,
+     212.57,
+     224.23,
+     226.68,
+     228.64,
+     226.2,
+     225.41,
+     249.44,
+     257.83,
+     285.17,
+     263.32,
+     257.86,
+     280.07,
+     284.69,
+     290.16,
+     327.33,
+     323.51,
+     304.59,
+     326.9,
+     317.64,
+     308.55,
+     315.08,
+     337.39,
+     346.34,
+     391.31,
+     367.51,
+     389.15,
+     338.85,
+     334.9,
+     303.62,
+     321.83,
+     323.3,
+     324.19,
+     333.14,
+     335.38,
+     339.65,
+     345.91,
+     347.47,
+     367.71,
+     396.14,
+     374.45,
+     418.96,
+     421.73,
+     399.62,
+     398.59
     ]
    },
    "stop_exits": 0,
    "recent_selections": {
-    "2026-02": "sroc_6",
-    "2026-03": "sroc_6",
-    "2026-04": "sroc_6",
-    "2026-05": "sroc_6",
-    "2026-06": "sroc_6",
-    "2026-07": "sroc_3"
+    "2026-02": "mom_6",
+    "2026-03": "mom_6",
+    "2026-04": "mom_6",
+    "2026-05": "mom_6",
+    "2026-06": "mom_6",
+    "2026-07": "mom_6"
    }
   },
   "conservative": {
@@ -721,9 +1349,29 @@
    "live_label": "6-month momentum",
    "picks": [
     {
+     "ticker": "ELS",
+     "sector": "Real Estate",
+     "weight": 0.0633,
+     "price": 65.07,
+     "stop": 63.12,
+     "stop_drop_pct": 0.03,
+     "signal_score": 0.0548,
+     "status": "held"
+    },
+    {
+     "ticker": "KVUE",
+     "sector": "Consumer Defensive",
+     "weight": 0.0556,
+     "price": 19.24,
+     "stop": 17.88,
+     "stop_drop_pct": 0.0707,
+     "signal_score": 0.1451,
+     "status": "new"
+    },
+    {
      "ticker": "CSX",
      "sector": "Industrials",
-     "weight": 0.0535,
+     "weight": 0.0498,
      "price": 50.4,
      "stop": 47.06,
      "stop_drop_pct": 0.0663,
@@ -733,7 +1381,7 @@
     {
      "ticker": "WELL",
      "sector": "Real Estate",
-     "weight": 0.0505,
+     "weight": 0.047,
      "price": 234.44,
      "stop": 217.81,
      "stop_drop_pct": 0.0709,
@@ -741,29 +1389,29 @@
      "status": "breached"
     },
     {
-     "ticker": "DGX",
-     "sector": "Healthcare",
-     "weight": 0.0493,
-     "price": 233.01,
-     "stop": 214.37,
+     "ticker": "KMB",
+     "sector": "Consumer Defensive",
+     "weight": 0.0462,
+     "price": 109.31,
+     "stop": 100.57,
      "stop_drop_pct": 0.08,
-     "signal_score": 0.2886,
+     "signal_score": 0.137,
      "status": "new"
     },
     {
-     "ticker": "ADM",
-     "sector": "Consumer Defensive",
-     "weight": 0.0484,
-     "price": 79.27,
-     "stop": 73.18,
-     "stop_drop_pct": 0.0768,
-     "signal_score": 0.2013,
-     "status": "breached"
+     "ticker": "AIT",
+     "sector": "Industrials",
+     "weight": 0.0448,
+     "price": 345.21,
+     "stop": 319.89,
+     "stop_drop_pct": 0.0734,
+     "signal_score": 0.3348,
+     "status": "new"
     },
     {
      "ticker": "EQIX",
      "sector": "Real Estate",
-     "weight": 0.0472,
+     "weight": 0.044,
      "price": 1019.28,
      "stop": 997.5,
      "stop_drop_pct": 0.0214,
@@ -773,7 +1421,7 @@
     {
      "ticker": "MSM",
      "sector": "Industrials",
-     "weight": 0.0472,
+     "weight": 0.0439,
      "price": 123.4,
      "stop": 113.53,
      "stop_drop_pct": 0.08,
@@ -781,9 +1429,19 @@
      "status": "new"
     },
     {
+     "ticker": "XOM",
+     "sector": "Energy",
+     "weight": 0.0417,
+     "price": 155.44,
+     "stop": 144.71,
+     "stop_drop_pct": 0.069,
+     "signal_score": 0.1212,
+     "status": "new"
+    },
+    {
      "ticker": "MNST",
      "sector": "Consumer Defensive",
-     "weight": 0.0444,
+     "weight": 0.0413,
      "price": 96.38,
      "stop": 93.53,
      "stop_drop_pct": 0.0296,
@@ -793,7 +1451,7 @@
     {
      "ticker": "ROST",
      "sector": "Consumer Cyclical",
-     "weight": 0.0443,
+     "weight": 0.0412,
      "price": 251.07,
      "stop": 234.84,
      "stop_drop_pct": 0.0646,
@@ -803,27 +1461,17 @@
     {
      "ticker": "EOG",
      "sector": "Energy",
-     "weight": 0.0426,
+     "weight": 0.0396,
      "price": 148.69,
      "stop": 137.18,
      "stop_drop_pct": 0.0774,
      "signal_score": 0.3469,
-     "status": "new"
-    },
-    {
-     "ticker": "TGT",
-     "sector": "Consumer Defensive",
-     "weight": 0.0405,
-     "price": 144.49,
-     "stop": 134.23,
-     "stop_drop_pct": 0.071,
-     "signal_score": 0.4327,
      "status": "held"
     },
     {
      "ticker": "NUE",
      "sector": "Basic Materials",
-     "weight": 0.0405,
+     "weight": 0.0377,
      "price": 257.29,
      "stop": 244.37,
      "stop_drop_pct": 0.0502,
@@ -831,29 +1479,29 @@
      "status": "held"
     },
     {
-     "ticker": "PSX",
+     "ticker": "FTI",
      "sector": "Energy",
-     "weight": 0.0401,
-     "price": 211.68,
-     "stop": 195.29,
-     "stop_drop_pct": 0.0774,
-     "signal_score": 0.492,
+     "weight": 0.0364,
+     "price": 71.66,
+     "stop": 70.61,
+     "stop_drop_pct": 0.0147,
+     "signal_score": 0.2834,
      "status": "held"
     },
     {
-     "ticker": "LLYVK",
-     "sector": "Communication Services",
-     "weight": 0.0381,
-     "price": 98.6,
-     "stop": 90.71,
-     "stop_drop_pct": 0.08,
-     "signal_score": 0.1669,
-     "status": "breached"
+     "ticker": "CHE",
+     "sector": "Healthcare",
+     "weight": 0.0355,
+     "price": 532.25,
+     "stop": 492.47,
+     "stop_drop_pct": 0.0747,
+     "signal_score": 0.241,
+     "status": "new"
     },
     {
      "ticker": "EXEL",
      "sector": "Healthcare",
-     "weight": 0.0378,
+     "weight": 0.0352,
      "price": 53.03,
      "stop": 48.79,
      "stop_drop_pct": 0.08,
@@ -863,7 +1511,7 @@
     {
      "ticker": "WST",
      "sector": "Healthcare",
-     "weight": 0.0372,
+     "weight": 0.0346,
      "price": 340.96,
      "stop": 336.26,
      "stop_drop_pct": 0.0138,
@@ -871,19 +1519,19 @@
      "status": "held"
     },
     {
-     "ticker": "SNX",
+     "ticker": "FFIV",
      "sector": "Technology",
-     "weight": 0.0359,
-     "price": 255.7,
-     "stop": 239.97,
-     "stop_drop_pct": 0.0615,
-     "signal_score": 0.5876,
+     "weight": 0.0346,
+     "price": 402.57,
+     "stop": 396.76,
+     "stop_drop_pct": 0.0144,
+     "signal_score": 0.4249,
      "status": "held"
     },
     {
      "ticker": "NEU",
      "sector": "Basic Materials",
-     "weight": 0.0357,
+     "weight": 0.0332,
      "price": 850.16,
      "stop": 782.15,
      "stop_drop_pct": 0.08,
@@ -891,29 +1539,9 @@
      "status": "new"
     },
     {
-     "ticker": "TKR",
-     "sector": "Industrials",
-     "weight": 0.0352,
-     "price": 137.55,
-     "stop": 130.97,
-     "stop_drop_pct": 0.0478,
-     "signal_score": 0.4704,
-     "status": "held"
-    },
-    {
-     "ticker": "OVV",
-     "sector": "Energy",
-     "weight": 0.0351,
-     "price": 62.46,
-     "stop": 58.08,
-     "stop_drop_pct": 0.0701,
-     "signal_score": 0.4523,
-     "status": "held"
-    },
-    {
      "ticker": "STLD",
      "sector": "Basic Materials",
-     "weight": 0.0343,
+     "weight": 0.0319,
      "price": 251.26,
      "stop": 238.96,
      "stop_drop_pct": 0.049,
@@ -923,7 +1551,7 @@
     {
      "ticker": "BURL",
      "sector": "Consumer Cyclical",
-     "weight": 0.034,
+     "weight": 0.0317,
      "price": 368.48,
      "stop": 339.0,
      "stop_drop_pct": 0.08,
@@ -931,19 +1559,19 @@
      "status": "new"
     },
     {
-     "ticker": "ARW",
+     "ticker": "GRMN",
      "sector": "Technology",
-     "weight": 0.0325,
-     "price": 216.57,
-     "stop": 201.29,
-     "stop_drop_pct": 0.0706,
-     "signal_score": 0.6294,
-     "status": "held"
+     "weight": 0.0309,
+     "price": 293.78,
+     "stop": 270.28,
+     "stop_drop_pct": 0.08,
+     "signal_score": 0.4474,
+     "status": "new"
     },
     {
      "ticker": "BBY",
      "sector": "Consumer Cyclical",
-     "weight": 0.0322,
+     "weight": 0.03,
      "price": 86.26,
      "stop": 79.36,
      "stop_drop_pct": 0.08,
@@ -953,53 +1581,42 @@
     {
      "ticker": "CSCO",
      "sector": "Technology",
-     "weight": 0.032,
+     "weight": 0.0298,
      "price": 115.99,
-     "stop": 106.71,
-     "stop_drop_pct": 0.08,
+     "stop": 111.61,
+     "stop_drop_pct": 0.0378,
      "signal_score": 0.4925,
-     "status": "new"
-    },
-    {
-     "ticker": "LINE",
-     "sector": "Real Estate",
-     "weight": 0.0315,
-     "price": 42.37,
-     "stop": 38.98,
-     "stop_drop_pct": 0.08,
-     "signal_score": 0.212,
-     "status": "new"
+     "status": "held"
     }
    ],
-   "cash_pct": 0.0,
+   "cash_pct": 0.0401,
    "stop_band": [
     0.05,
     0.08
    ],
    "max_per_sector": 3,
    "sector_mix": {
-    "Industrials": 0.1359,
-    "Consumer Defensive": 0.1333,
-    "Real Estate": 0.1292,
-    "Healthcare": 0.1243,
-    "Energy": 0.1178,
-    "Basic Materials": 0.1105,
-    "Consumer Cyclical": 0.1105,
-    "Technology": 0.1004,
-    "Communication Services": 0.0381
+    "Real Estate": 0.1543,
+    "Consumer Defensive": 0.1431,
+    "Industrials": 0.1385,
+    "Energy": 0.1177,
+    "Healthcare": 0.1053,
+    "Consumer Cyclical": 0.1029,
+    "Basic Materials": 0.1028,
+    "Technology": 0.0953
    },
    "metrics": {
     "months": 79,
-    "total_return": 1.1016,
-    "cagr": 0.1194,
-    "ann_vol": 0.1758,
-    "sharpe": 0.733,
-    "sortino": 1.047,
-    "max_drawdown": -0.2422,
-    "calmar": 0.493,
-    "win_rate": 0.646,
-    "best_month": 0.1557,
-    "worst_month": -0.2037
+    "total_return": 0.8148,
+    "cagr": 0.0948,
+    "ann_vol": 0.151,
+    "sharpe": 0.678,
+    "sortino": 0.926,
+    "max_drawdown": -0.2204,
+    "calmar": 0.43,
+    "win_rate": 0.582,
+    "best_month": 0.1225,
+    "worst_month": -0.1879
    },
    "equity": {
     "labels": [
@@ -1086,90 +1703,90 @@
     ],
     "values": [
      100.0,
-     103.27,
-     98.28,
-     78.26,
-     90.45,
-     100.81,
-     102.79,
-     113.89,
-     119.0,
-     114.6,
-     115.11,
-     121.1,
-     122.09,
-     125.23,
-     127.37,
-     130.05,
-     135.93,
-     137.06,
-     133.47,
-     136.61,
-     142.14,
-     135.59,
-     142.7,
-     141.24,
-     148.86,
-     140.65,
+     103.91,
+     99.75,
+     81.01,
+     90.94,
+     100.7,
+     103.07,
+     112.81,
+     117.65,
+     113.57,
+     111.76,
+     114.13,
+     114.5,
+     114.3,
+     117.23,
+     119.47,
+     125.2,
+     124.56,
+     124.91,
+     126.79,
+     130.79,
+     125.25,
+     128.87,
+     126.22,
+     133.55,
+     127.82,
+     125.1,
+     129.8,
+     125.7,
+     125.04,
+     120.36,
+     121.72,
+     117.55,
+     114.41,
+     122.77,
+     126.77,
+     123.85,
+     128.76,
+     123.96,
+     126.84,
+     130.77,
+     129.46,
+     137.55,
+     137.74,
      137.57,
-     148.16,
-     141.51,
-     140.27,
-     132.69,
-     134.21,
-     127.98,
-     121.91,
-     133.03,
-     139.08,
-     130.28,
-     134.19,
-     131.34,
-     134.61,
-     135.61,
-     132.63,
-     140.69,
-     141.76,
-     140.21,
-     133.95,
-     131.66,
-     139.82,
-     140.93,
-     144.89,
-     150.99,
-     155.39,
-     150.33,
-     155.55,
-     155.82,
-     160.59,
-     161.74,
-     168.09,
-     168.14,
-     182.23,
-     171.6,
-     178.3,
-     177.13,
-     168.01,
-     164.6,
-     172.45,
-     177.56,
-     175.29,
-     180.75,
-     185.93,
-     179.64,
-     184.99,
-     185.21,
-     192.8,
-     208.19,
-     198.72,
-     214.15,
-     214.72,
-     205.04,
-     210.16
+     131.85,
+     130.53,
+     136.33,
+     136.85,
+     142.27,
+     151.79,
+     153.23,
+     147.1,
+     151.51,
+     150.63,
+     157.37,
+     160.93,
+     163.31,
+     162.19,
+     173.26,
+     162.92,
+     171.14,
+     165.84,
+     161.78,
+     155.64,
+     161.36,
+     159.79,
+     157.6,
+     161.71,
+     165.68,
+     159.79,
+     164.73,
+     164.77,
+     172.05,
+     179.5,
+     172.06,
+     178.44,
+     179.69,
+     179.5,
+     181.48
     ]
    },
    "stop_exits": 0,
    "recent_selections": {
-    "2026-02": "mom_6",
+    "2026-02": "mom_12_1",
     "2026-03": "mom_6",
     "2026-04": "mom_6",
     "2026-05": "mom_6",
@@ -1350,7 +1967,7 @@
      228.86,
      227.84,
      229.48,
-     233.59,
+     233.6,
      230.56,
      220.7,
      242.73,
@@ -1726,254 +2343,254 @@
  "leaderboard": [
   {
    "track": "Aggressive",
-   "variant": "sroc_3+stops",
-   "label": "SROC (3-month) \u00b7 stops",
-   "trailing_sortino": 8.29,
+   "variant": "mom_3+stops",
+   "label": "3-month momentum \u00b7 stops",
+   "trailing_sortino": 4.547,
    "live": true
   },
   {
    "track": "Aggressive",
-   "variant": "mom_6+stops",
-   "label": "6-month momentum \u00b7 stops",
-   "trailing_sortino": 4.596,
-   "live": false
-  },
-  {
-   "track": "Aggressive",
-   "variant": "mom_3+stops",
-   "label": "3-month momentum \u00b7 stops",
-   "trailing_sortino": 4.181,
-   "live": false
-  },
-  {
-   "track": "Aggressive",
-   "variant": "sroc_6+stops",
-   "label": "SROC (6-month) \u00b7 stops",
-   "trailing_sortino": 3.819,
+   "variant": "sroc_3+stops",
+   "label": "SROC (3-month) \u00b7 stops",
+   "trailing_sortino": 4.371,
    "live": false
   },
   {
    "track": "Aggressive",
    "variant": "sroc_3",
    "label": "SROC (3-month)",
-   "trailing_sortino": 3.742,
-   "live": false
-  },
-  {
-   "track": "Aggressive",
-   "variant": "mom_6",
-   "label": "6-month momentum",
-   "trailing_sortino": 3.281,
+   "trailing_sortino": 3.958,
    "live": false
   },
   {
    "track": "Aggressive",
    "variant": "mom_3",
    "label": "3-month momentum",
-   "trailing_sortino": 3.157,
+   "trailing_sortino": 2.696,
    "live": false
   },
   {
    "track": "Aggressive",
-   "variant": "sroc_6",
-   "label": "SROC (6-month)",
-   "trailing_sortino": 3.13,
+   "variant": "mom_6+stops",
+   "label": "6-month momentum \u00b7 stops",
+   "trailing_sortino": 2.307,
    "live": false
   },
   {
    "track": "Aggressive",
-   "variant": "mom_12_1",
-   "label": "12-1 momentum",
-   "trailing_sortino": 3.122,
+   "variant": "sroc_6+stops",
+   "label": "SROC (6-month) \u00b7 stops",
+   "trailing_sortino": 2.21,
    "live": false
   },
   {
    "track": "Aggressive",
    "variant": "mom_12_1+stops",
    "label": "12-1 momentum \u00b7 stops",
-   "trailing_sortino": 2.964,
+   "trailing_sortino": 2.177,
+   "live": false
+  },
+  {
+   "track": "Aggressive",
+   "variant": "sroc_6",
+   "label": "SROC (6-month)",
+   "trailing_sortino": 2.171,
+   "live": false
+  },
+  {
+   "track": "Aggressive",
+   "variant": "mom_6",
+   "label": "6-month momentum",
+   "trailing_sortino": 2.17,
+   "live": false
+  },
+  {
+   "track": "Aggressive",
+   "variant": "mom_12_1",
+   "label": "12-1 momentum",
+   "trailing_sortino": 2.075,
    "live": false
   },
   {
    "track": "Aggressive",
    "variant": "ramom_12_1",
    "label": "Risk-adjusted 12-1",
-   "trailing_sortino": 2.16,
+   "trailing_sortino": 1.473,
    "live": false
   },
   {
    "track": "Aggressive",
    "variant": "ramom_12_1+stops",
    "label": "Risk-adjusted 12-1 \u00b7 stops",
-   "trailing_sortino": 1.776,
+   "trailing_sortino": 1.15,
    "live": false
   },
   {
    "track": "Balanced",
-   "variant": "sroc_3",
-   "label": "SROC (3-month)",
-   "trailing_sortino": 5.764,
+   "variant": "mom_6",
+   "label": "6-month momentum",
+   "trailing_sortino": 2.684,
    "live": true
   },
   {
    "track": "Balanced",
    "variant": "sroc_6",
    "label": "SROC (6-month)",
-   "trailing_sortino": 4.849,
-   "live": false
-  },
-  {
-   "track": "Balanced",
-   "variant": "mom_6",
-   "label": "6-month momentum",
-   "trailing_sortino": 4.589,
-   "live": false
-  },
-  {
-   "track": "Balanced",
-   "variant": "mom_6+stops",
-   "label": "6-month momentum \u00b7 stops",
-   "trailing_sortino": 3.755,
+   "trailing_sortino": 2.516,
    "live": false
   },
   {
    "track": "Balanced",
    "variant": "sroc_6+stops",
    "label": "SROC (6-month) \u00b7 stops",
-   "trailing_sortino": 3.684,
+   "trailing_sortino": 2.403,
+   "live": false
+  },
+  {
+   "track": "Balanced",
+   "variant": "ramom_12_1",
+   "label": "Risk-adjusted 12-1",
+   "trailing_sortino": 1.888,
+   "live": false
+  },
+  {
+   "track": "Balanced",
+   "variant": "mom_6+stops",
+   "label": "6-month momentum \u00b7 stops",
+   "trailing_sortino": 1.865,
+   "live": false
+  },
+  {
+   "track": "Balanced",
+   "variant": "sroc_3",
+   "label": "SROC (3-month)",
+   "trailing_sortino": 1.771,
    "live": false
   },
   {
    "track": "Balanced",
    "variant": "mom_3",
    "label": "3-month momentum",
-   "trailing_sortino": 3.644,
+   "trailing_sortino": 1.767,
    "live": false
   },
   {
    "track": "Balanced",
-   "variant": "mom_3+stops",
-   "label": "3-month momentum \u00b7 stops",
-   "trailing_sortino": 3.03,
+   "variant": "mom_12_1",
+   "label": "12-1 momentum",
+   "trailing_sortino": 1.711,
    "live": false
   },
   {
    "track": "Balanced",
    "variant": "mom_12_1+stops",
    "label": "12-1 momentum \u00b7 stops",
-   "trailing_sortino": 2.963,
+   "trailing_sortino": 1.147,
    "live": false
   },
   {
    "track": "Balanced",
    "variant": "sroc_3+stops",
    "label": "SROC (3-month) \u00b7 stops",
-   "trailing_sortino": 2.814,
+   "trailing_sortino": 1.117,
    "live": false
   },
   {
    "track": "Balanced",
-   "variant": "mom_12_1",
-   "label": "12-1 momentum",
-   "trailing_sortino": 2.576,
-   "live": false
-  },
-  {
-   "track": "Balanced",
-   "variant": "ramom_12_1",
-   "label": "Risk-adjusted 12-1",
-   "trailing_sortino": 2.42,
+   "variant": "mom_3+stops",
+   "label": "3-month momentum \u00b7 stops",
+   "trailing_sortino": 1.018,
    "live": false
   },
   {
    "track": "Balanced",
    "variant": "ramom_12_1+stops",
    "label": "Risk-adjusted 12-1 \u00b7 stops",
-   "trailing_sortino": 1.956,
+   "trailing_sortino": 0.92,
+   "live": false
+  },
+  {
+   "track": "Conservative",
+   "variant": "sroc_6",
+   "label": "SROC (6-month)",
+   "trailing_sortino": 1.927,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "mom_6",
    "label": "6-month momentum",
-   "trailing_sortino": 3.089,
+   "trailing_sortino": 1.788,
    "live": true
-  },
-  {
-   "track": "Conservative",
-   "variant": "sroc_6",
-   "label": "SROC (6-month)",
-   "trailing_sortino": 2.815,
-   "live": false
   },
   {
    "track": "Conservative",
    "variant": "mom_12_1",
    "label": "12-1 momentum",
-   "trailing_sortino": 2.49,
+   "trailing_sortino": 1.546,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "ramom_12_1",
    "label": "Risk-adjusted 12-1",
-   "trailing_sortino": 1.8,
+   "trailing_sortino": 1.028,
+   "live": false
+  },
+  {
+   "track": "Conservative",
+   "variant": "mom_6+stops",
+   "label": "6-month momentum \u00b7 stops",
+   "trailing_sortino": 0.926,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "sroc_3",
    "label": "SROC (3-month)",
-   "trailing_sortino": 1.531,
-   "live": false
-  },
-  {
-   "track": "Conservative",
-   "variant": "mom_3",
-   "label": "3-month momentum",
-   "trailing_sortino": 1.484,
-   "live": false
-  },
-  {
-   "track": "Conservative",
-   "variant": "mom_6+stops",
-   "label": "6-month momentum \u00b7 stops",
-   "trailing_sortino": 1.12,
+   "trailing_sortino": 0.779,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "sroc_6+stops",
    "label": "SROC (6-month) \u00b7 stops",
-   "trailing_sortino": 1.071,
+   "trailing_sortino": 0.77,
+   "live": false
+  },
+  {
+   "track": "Conservative",
+   "variant": "mom_3",
+   "label": "3-month momentum",
+   "trailing_sortino": 0.733,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "mom_12_1+stops",
    "label": "12-1 momentum \u00b7 stops",
-   "trailing_sortino": 0.623,
-   "live": false
-  },
-  {
-   "track": "Conservative",
-   "variant": "sroc_3+stops",
-   "label": "SROC (3-month) \u00b7 stops",
-   "trailing_sortino": 0.543,
+   "trailing_sortino": 0.366,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "ramom_12_1+stops",
    "label": "Risk-adjusted 12-1 \u00b7 stops",
-   "trailing_sortino": 0.392,
+   "trailing_sortino": 0.141,
+   "live": false
+  },
+  {
+   "track": "Conservative",
+   "variant": "sroc_3+stops",
+   "label": "SROC (3-month) \u00b7 stops",
+   "trailing_sortino": 0.072,
    "live": false
   },
   {
    "track": "Conservative",
    "variant": "mom_3+stops",
    "label": "3-month momentum \u00b7 stops",
-   "trailing_sortino": 0.282,
+   "trailing_sortino": -0.003,
    "live": false
   }
  ]

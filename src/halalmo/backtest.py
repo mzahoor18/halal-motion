@@ -127,8 +127,10 @@ def select_targets(sig_row: pd.Series, close_row: pd.Series, vol_row: pd.Series,
     else:
         w = pd.Series(1.0 / len(top), index=top.index)
 
-    # cash fallback: if the screen could not fill the sleeve, stay partly in cash
-    invested = min(1.0, len(top) / spec.n) if spec.require_positive else 1.0
+    # cash fallback: whatever screen left the sleeve short of n names — momentum
+    # requirement, sector cap, or simply a thin universe — the shortfall sits in
+    # cash rather than silently over-concentrating into fewer, larger positions.
+    invested = min(1.0, len(top) / spec.n)
     return w * invested
 
 

@@ -66,24 +66,22 @@ def cap_by_sector(ranked: pd.Series, sectors: pd.Series, n: int,
     more than `max_per_sector` names from any one sector.
 
     'Unknown' is treated as its own bucket but never capped — otherwise an
-    incomplete map would silently shrink the portfolio. If the cap makes it
-    impossible to reach `n`, we backfill with the best remaining names so the
-    sleeve is still fully invested.
+    incomplete map would silently shrink the portfolio. The cap is a hard
+    constraint: if too few sectors have enough qualifying names to reach `n`,
+    this returns fewer than `n` rather than breaching it. The caller (see
+    `select_targets`) treats the shortfall as cash, same as any other screen
+    that can't fill every slot.
     """
     if max_per_sector is None or max_per_sector <= 0:
         return ranked.head(n)
     picked: list[str] = []
     counts: dict[str, int] = {}
-    overflow: list[str] = []
     for t in ranked.index:
         sec = sectors.get(t, UNKNOWN)
         if sec != UNKNOWN and counts.get(sec, 0) >= max_per_sector:
-            overflow.append(t)
             continue
         picked.append(t)
         counts[sec] = counts.get(sec, 0) + 1
         if len(picked) == n:
             break
-    if len(picked) < n:
-        picked += overflow[: n - len(picked)]
     return ranked.loc[picked]

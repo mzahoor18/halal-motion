@@ -46,6 +46,13 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
     md = [f"# {title} — picks for {month_lbl}",
           f"_As of {p['as_of']} close · educational project, not investment advice._", ""]
     txt = [f"{title} — {month_lbl} picks (as of {p['as_of']})", ""]
+    comp = p.get("compliance")
+    if comp and comp.get("excluded"):
+        names = ", ".join(e["ticker"] for e in comp["excluded"])
+        md += [f"_Musaffa screen: {comp['compliant']}/{comp['checked']} fund holdings compliant. "
+               f"Excluded this run: {names}._", ""]
+        txt += [f"Musaffa screen: {comp['compliant']}/{comp['checked']} compliant. "
+                f"Excluded: {names}", ""]
     for key in _track_keys(p):
         tr = p["tracks"][key]
         band = tr.get("stop_band", [0.05, 0.15])
@@ -65,8 +72,8 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
                        f"(−{drop * 100:.1f}%)  [{tag}]")
         if tr.get("cash_pct", 0) > 0.005:
             md.append(f"| | CASH | – | {tr['cash_pct'] * 100:.1f}% | | | not enough "
-                      f"positive-momentum names |")
-            txt.append(f"      CASH   {tr['cash_pct'] * 100:4.1f}%  (not enough positive-momentum names)")
+                      f"names cleared every screen |")
+            txt.append(f"      CASH   {tr['cash_pct'] * 100:4.1f}%  (not enough names cleared every screen)")
         m, b = tr["metrics"], p["benchmarks"].get("SPY", {}).get("metrics", {})
         md += ["", f"Backtest since 2020: CAGR {_fmt_pct(m.get('cagr'))} · Sharpe "
                f"{m.get('sharpe', '–')} · Max DD {_fmt_pct(m.get('max_drawdown'))} "
@@ -273,8 +280,14 @@ footer p{max-width:80ch;margin-bottom:10px}
   <h2>How it works</h2>
   <p><b><span class="term" data-term="universe">Universe</span>.</b> The combined holdings of SPUS
   (S&amp;P 500 Sharia Industry Exclusions) and MNZL (Manzil US Equity), refreshed monthly from the
-  issuers' published holdings files — currently <span id="unisize"></span> stocks across
-  <span id="seccount"></span> sectors.</p>
+  issuers' published holdings files, then run through an independent
+  <span class="term" data-term="musaffa">Musaffa compliance screen</span> — currently
+  <span id="unisize"></span> stocks across <span id="seccount"></span> sectors.</p>
+  <p><b>Compliance screen.</b> SPUS and MNZL each follow their own Shariah board's methodology, which
+  can drift from stock to stock between the funds' own rebalances. Every ticker is separately checked
+  against Musaffa's <span class="term" data-term="aaoifi">AAOIFI-based</span> screen; only names marked
+  fully <b>Compliant</b> stay in the tradeable universe — <b>Questionable</b> (doubtful) and uncovered
+  tickers are excluded, not guessed at. <span id="compsummary"></span></p>
   <p><b>Signals.</b> Six pre-registered momentum definitions compete:
   <span class="term" data-term="mom121">12-1</span>, 6-month and 3-month momentum,
   <span class="term" data-term="sroc">smoothed rate of change</span> over 3 and 6 months, and
@@ -297,6 +310,8 @@ footer p{max-width:80ch;margin-bottom:10px}
   month, with 0.10% (<span class="term" data-term="bps">10 bps</span>) per-side costs.</p>
   <details><summary><span class="live-dot"></span>Model leaderboard — trailing 24-month Sortino by variant</summary>
     <div class="inner mtable" id="leader"></div></details>
+  <details id="compdetails"><summary>Compliance screen — stocks excluded and why</summary>
+    <div class="inner" id="complist"></div></details>
   <details><summary>Full glossary — every term on this page, in plain English</summary>
     <div class="inner"><dl class="glossary" id="gloss"></dl></div></details>
 </section>
@@ -332,8 +347,10 @@ const GLOSSARY={
  trailing:["Trailing stop","A sell level that rises as the stock rises but never falls. It locks in gains on the way up while still capping the loss if the trend reverses. Here it's set below the highest close since you bought, capped at 15%."],
  atr:["ATR","Average True Range — the average size of a stock's daily price swing over the last 22 trading days. Used to set stops: a jumpy stock needs more room before you call the trend broken."],
  sectorcap:["Sector cap","A hard limit on how many holdings can come from one industry group (technology, healthcare, energy…). It stops the whole portfolio betting on a single corner of the market at the same time."],
- cash:["Cash allocation","Money deliberately left uninvested. The Conservative sleeve does this when too few stocks have positive momentum — it would rather hold cash than buy something falling."],
- universe:["Universe","The list of stocks the system is allowed to choose from — here, everything held by the SPUS and MNZL halal ETFs, so the whole selection is already Sharia-screened."],
+ cash:["Cash allocation","Money deliberately left uninvested, rather than stretched into a weaker pick just to fill every slot. Happens when a sleeve's screens — momentum, volatility, or the sector cap — leave fewer qualifying names than its target count."],
+ universe:["Universe","The list of stocks the system is allowed to choose from — here, everything held by the SPUS and MNZL halal ETFs that also passes the separate Musaffa compliance screen."],
+ musaffa:["Musaffa compliance screen","A second, independent Shariah screen run on every ticker in addition to the fund's own. Catches names that have drifted out of compliance since the fund's last rebalance, or that a different screening methodology reads differently. Only 'Compliant' names are kept; anything 'Questionable' or unrated is dropped."],
+ aaoifi:["AAOIFI standard","A widely used set of Shariah screening rules (business activity + financial-ratio thresholds like debt-to-market-cap) published by the Accounting and Auditing Organization for Islamic Financial Institutions. Musaffa's screen is based on it."],
  rebalance:["Rebalance","The monthly reset: sell what's no longer in the list, buy what is, and reset each position to its target size."],
  bps:["Basis points (bps)","One basis point is 0.01%. A 10 bps cost per side means every purchase and every sale is assumed to cost 0.10% of the amount traded, covering commissions and spread."],
  cagr:["CAGR","Compound Annual Growth Rate — the steady yearly rate that would take you from the starting value to the ending value. It smooths out the good and bad years into one number."],
@@ -395,6 +412,25 @@ document.getElementById("asof").innerHTML=`<span class="chip">as of <b>${esc(DAT
 document.getElementById("unisize").textContent=DATA.universe_size;
 document.getElementById("seccount").textContent=DATA.sector_count||"11";
 
+/* ---------------- compliance screen ---------------- */
+const COMP=DATA.compliance;
+if(COMP){
+  document.getElementById("compsummary").textContent=
+    `Of ${COMP.checked} fund holdings checked, ${COMP.compliant} passed and `
+   +`${COMP.excluded.length} were excluded this run.`;
+  if(COMP.excluded.length){
+    const STATLBL={NON_COMPLIANT:"Non-compliant",QUESTIONABLE:"Questionable",UNKNOWN:"Not covered by Musaffa"};
+    const rows=COMP.excluded.map(e=>`<tr><td class="tick">${esc(e.ticker)}</td>
+      <td>${esc(STATLBL[e.status]||e.status)}</td></tr>`).join("");
+    document.getElementById("complist").innerHTML=`<p style="color:var(--muted);font-size:13px;margin-bottom:10px">
+      Excluded from every sleeve this run — a fund holding, but not Musaffa-compliant:</p>
+      <div class="mtable"><table><thead><tr><th style="text-align:left">Ticker</th><th style="text-align:left">Reason</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`;
+  } else {
+    document.getElementById("compdetails").style.display="none";
+  }
+}
+
 /* ---------------- picks cards ---------------- */
 const SECCOL=["#5fcb92","#d9ac33","#7fb3d5","#c98f6d","#9a8fbf","#6fbfae","#cf7f9c","#8fae5c","#d0a96a","#7f9fd5","#b98fc9","#8a9a95"];
 const secColor=(()=>{const m={};let i=0;return s=>(m[s]??=SECCOL[i++%SECCOL.length]);})();
@@ -406,7 +442,7 @@ for(const key of ORDER){
       <span class="sec">${esc(r.sector||"")}</span></td>
     <td>${fmtP(r.weight)}</td><td>$${r.price.toFixed(2)}</td>
     <td class="stop">$${r.stop.toFixed(2)}<span class="drop">(−${(100*(r.stop_drop_pct||0)).toFixed(1)}%)</span></td></tr>`).join("")
-   +((t.cash_pct||0)>0.005?`<tr class="cash"><td class="tick">— CASH<span class="sec">no forced picks</span></td>
+   +((t.cash_pct||0)>0.005?`<tr class="cash"><td class="tick">— <span class="term" data-term="cash">CASH</span><span class="sec">screens left this slot unfilled</span></td>
       <td>${fmtP(t.cash_pct)}</td><td>–</td><td>–</td></tr>`:"");
   const mix=Object.entries(t.sector_mix||{});
   const total=mix.reduce((a,[,v])=>a+v,0)||1;

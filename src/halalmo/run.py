@@ -23,6 +23,7 @@ from . import data as data_mod
 from . import report
 from .backtest import (Variant, TrackSpec, run_variant, bench_monthly, current_picks,
                        rebalance_schedule, select_targets)
+from .compliance import load_compliance, filter_compliant
 from .metrics import summarize, equity_points
 from .sectors import load_sectors
 from .selector import walk_forward
@@ -59,6 +60,7 @@ def main() -> None:
     hist_dir = os.path.join(ROOT, "history")
     seed_path = os.path.join(ROOT, "data", "universe_seed.csv")
     sector_path = os.path.join(ROOT, "data", "sectors.csv")
+    compliance_path = os.path.join(ROOT, "data", "compliance.csv")
 
     # ---------------- universe & prices ----------------
     funds = tuple(cfg.get("funds", ["spus"]))
@@ -66,6 +68,17 @@ def main() -> None:
     tickers = uni.ticker.tolist()
     benchmarks = list(cfg["benchmarks"])
     start_px = cfg["price_history_start"]
+
+    # ---------------- Musaffa compliance screen ----------------
+    # SPUS and MNZL each run their own Shariah board's methodology, which can
+    # drift from Musaffa's AAOIFI-based ratios between fund rebalances. Only
+    # tickers Musaffa marks fully COMPLIANT stay in the tradeable universe;
+    # QUESTIONABLE (doubtful) and uncovered names are excluded, not guessed at.
+    comp_status = load_compliance(compliance_path, tickers, refresh=args.source == "yfinance")
+    tickers, excluded = filter_compliant(tickers, comp_status)
+    excl_counts = pd.Series([e["status"] for e in excluded]).value_counts().to_dict() if excluded else {}
+    log.info("Musaffa screen: %d compliant / %d checked, excluded %s",
+             len(tickers), len(tickers) + len(excluded), excl_counts)
 
     if args.source == "synthetic":
         pdata_all = data_mod.synthetic(tickers + benchmarks, start_px)
@@ -79,7 +92,8 @@ def main() -> None:
         data_mode = "live"
 
     bench_close = {b: pdata_all.close[b].dropna() for b in benchmarks if b in pdata_all.close}
-    stock_cols = [t for t in pdata_all.close.columns if t not in benchmarks]
+    compliant_set = set(tickers)
+    stock_cols = [t for t in pdata_all.close.columns if t not in benchmarks and t in compliant_set]
     pdata = data_mod.PriceData(pdata_all.close[stock_cols], pdata_all.high[stock_cols],
                                pdata_all.low[stock_cols]).usable()
     close = pdata.close
@@ -177,6 +191,13 @@ def main() -> None:
         "sector_count": int(sectors[sectors != "Unknown"].nunique()),
         "data_mode": data_mode,
         "track_order": list(specs),
+        "compliance": {
+            "source": "Musaffa",
+            "checked": len(tickers) + len(excluded),
+            "compliant": len(tickers),
+            "excluded_counts": excl_counts,
+            "excluded": sorted(excluded, key=lambda e: e["ticker"]),
+        },
         "tracks": tracks_payload,
         "benchmarks": bench_payload,
         "leaderboard": leaderboard_rows,

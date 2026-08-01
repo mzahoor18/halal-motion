@@ -14,6 +14,20 @@ current leader for each sleeve, and publishes:
 - a **GitHub Release** each month, so anyone watching releases gets an email,
 - **`history/picks.csv`** — an append-only audit trail of every published pick.
 
+## Compliance screen
+
+SPUS and MNZL each run their own Shariah board's methodology, and holdings can
+drift out of compliance between a fund's own rebalances — or simply read
+differently under another screen's ratios. Before any backtest or ranking runs,
+every ticker in the combined universe is checked a second time against
+**Musaffa**'s AAOIFI-based screen (`src/halalmo/compliance.py`, cached in
+`data/compliance.csv`, refreshed incrementally like the sector map). Only
+`COMPLIANT` names stay in the tradeable universe — `QUESTIONABLE` (doubtful,
+e.g. borderline debt ratios) and anything Musaffa doesn't cover are dropped,
+not guessed at. A live run currently excludes roughly 30% of the raw SPUS+MNZL
+union on this basis; the excluded tickers and reasons are published on the
+dashboard (`Compliance screen` panel) and at the top of `docs/picks.md`.
+
 ## The three sleeves
 
 | Sleeve | Holdings | Sector cap | Extra screens | Stop band |
@@ -62,6 +76,7 @@ full band for a fresh pick, less for a name that has already pulled back.
 | Key | Meaning | Default |
 |---|---|---|
 | `funds` | universe sources | `[spus, mnzl]` |
+| `data/compliance.csv` | cached Musaffa status per ticker (not a config key — delete a row to force a re-check) | – |
 | `tracks.<name>.n` | number of holdings | 8 / 20 / 25 |
 | `tracks.<name>.max_per_sector` | diversification cap | – / 3 / 3 |
 | `tracks.<name>.vol_screen_pct` | keep only the calmest X of the universe | – / – / 0.5 |
