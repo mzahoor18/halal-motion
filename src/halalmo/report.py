@@ -48,30 +48,44 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
     txt = [f"{title} — {month_lbl} picks (as of {p['as_of']})", ""]
     comp = p.get("compliance")
     if comp and comp.get("excluded"):
-        names = ", ".join(e["ticker"] for e in comp["excluded"])
+        names = ", ".join(f"{e['ticker']} ({e['exchange']})" if e.get("exchange") else e["ticker"]
+                          for e in comp["excluded"])
         md += [f"_Musaffa screen: {comp['compliant']}/{comp['checked']} fund holdings compliant. "
                f"Excluded this run: {names}._", ""]
         txt += [f"Musaffa screen: {comp['compliant']}/{comp['checked']} compliant. "
                 f"Excluded: {names}", ""]
+    activity = p.get("business_activity_screen")
+    if activity and activity.get("excluded"):
+        names = ", ".join(f"{e['ticker']} ({e['exchange']})" if e.get("exchange") else e["ticker"]
+                          for e in activity["excluded"])
+        md += [f"_Business-activity screen excluded: {names}._", ""]
+        txt += [f"Business-activity screen excluded: {names}", ""]
+    bds = p.get("bds_screen")
+    if bds and bds.get("excluded"):
+        names = ", ".join(f"{e['ticker']} ({e['exchange']})" if e.get("exchange") else e["ticker"]
+                          for e in bds["excluded"])
+        md += [f"_BDS/boycott screen excluded: {names}._", ""]
+        txt += [f"BDS/boycott screen excluded: {names}", ""]
     for key in _track_keys(p):
         tr = p["tracks"][key]
         band = tr.get("stop_band", [0.05, 0.15])
         md += [f"## {tr['label']}", f"Live model: **{tr['live_label']}** · stop band "
                f"{band[0] * 100:.0f}–{band[1] * 100:.0f}%", "",
-               "| # | Ticker | Sector | Weight | Last | Sell if it falls to | |",
-               "|---|--------|--------|--------|------|---------------------|---|"]
+               "| # | Ticker | Exchange | Sector | Weight | Last | Sell if it falls to | |",
+               "|---|--------|----------|--------|--------|------|---------------------|---|"]
         txt.append(f"{tr['label']}  [model: {tr['live_label']}]")
         for i, row in enumerate(tr["picks"], 1):
             tag = {"held": "held", "new": "NEW", "breached": "STOP ALREADY HIT"}[row["status"]]
             drop = row.get("stop_drop_pct", 0.0)
-            md.append(f"| {i} | {row['ticker']} | {row.get('sector', '–')} | "
+            exch = row.get("exchange", "") or "–"
+            md.append(f"| {i} | {row['ticker']} | {exch} | {row.get('sector', '–')} | "
                       f"{row['weight'] * 100:.1f}% | ${row['price']:.2f} | "
                       f"${row['stop']:.2f} (−{drop * 100:.1f}%) | {tag} |")
-            txt.append(f"  {i:>2}. {row['ticker']:<6} {row['weight'] * 100:4.1f}%  "
+            txt.append(f"  {i:>2}. {row['ticker']:<6} ({exch:<7})  {row['weight'] * 100:4.1f}%  "
                        f"last ${row['price']:.2f}  sell at ${row['stop']:.2f} "
                        f"(−{drop * 100:.1f}%)  [{tag}]")
         if tr.get("cash_pct", 0) > 0.005:
-            md.append(f"| | CASH | – | {tr['cash_pct'] * 100:.1f}% | | | not enough "
+            md.append(f"| | CASH | – | – | {tr['cash_pct'] * 100:.1f}% | | | not enough "
                       f"names cleared every screen |")
             txt.append(f"      CASH   {tr['cash_pct'] * 100:4.1f}%  (not enough names cleared every screen)")
         m, b = tr["metrics"], p["benchmarks"].get("SPY", {}).get("metrics", {})
@@ -91,7 +105,7 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
 
 def _append_history(p: dict, history_dir: str) -> None:
     path = os.path.join(history_dir, "picks.csv")
-    cols = ("ticker", "sector", "weight", "price", "stop", "stop_drop_pct", "status")
+    cols = ("ticker", "exchange", "sector", "weight", "price", "stop", "stop_drop_pct", "status")
     rows = []
     for key in _track_keys(p):
         tr = p["tracks"][key]
@@ -288,6 +302,15 @@ footer p{max-width:80ch;margin-bottom:10px}
   against Musaffa's <span class="term" data-term="aaoifi">AAOIFI-based</span> screen; only names marked
   fully <b>Compliant</b> stay in the tradeable universe — <b>Questionable</b> (doubtful) and uncovered
   tickers are excluded, not guessed at. <span id="compsummary"></span></p>
+  <p><b><span class="term" data-term="businessactivity">Business-activity screen</span>.</b> A
+  financial-ratio verdict alone can pass a company whose core business routinely involves alcohol or
+  gambling revenue (cruise operators, casino operators) or runs conventional insurance — Musaffa's own
+  reported industry classification catches these on top of its ratio screen. Config-driven, so it's
+  easy to review and extend. <span id="activitysummary"></span></p>
+  <p><b><span class="term" data-term="bds">BDS / boycott screen</span>.</b> A small, explicitly-sourced,
+  hand-maintained list of publicly documented boycott targets — not a comprehensive database, since no
+  clean machine-readable source for this exists. Every entry cites where the claim comes from.
+  <span id="bdssummary"></span></p>
   <p><b>Signals.</b> Six pre-registered momentum definitions compete:
   <span class="term" data-term="mom121">12-1</span>, 6-month and 3-month momentum,
   <span class="term" data-term="sroc">smoothed rate of change</span> over 3 and 6 months, and
@@ -312,6 +335,10 @@ footer p{max-width:80ch;margin-bottom:10px}
     <div class="inner mtable" id="leader"></div></details>
   <details id="compdetails"><summary>Compliance screen — stocks excluded and why</summary>
     <div class="inner" id="complist"></div></details>
+  <details id="activitydetails"><summary>Business-activity screen — stocks excluded and why</summary>
+    <div class="inner" id="activitylist"></div></details>
+  <details id="bdsdetails"><summary>BDS / boycott screen — stocks excluded and why</summary>
+    <div class="inner" id="bdslist"></div></details>
   <details><summary>Full glossary — every term on this page, in plain English</summary>
     <div class="inner"><dl class="glossary" id="gloss"></dl></div></details>
 </section>
@@ -351,6 +378,8 @@ const GLOSSARY={
  universe:["Universe","The list of stocks the system is allowed to choose from — here, everything held by the SPUS and MNZL halal ETFs that also passes the separate Musaffa compliance screen."],
  musaffa:["Musaffa compliance screen","A second, independent Shariah screen run on every ticker in addition to the fund's own. Catches names that have drifted out of compliance since the fund's last rebalance, or that a different screening methodology reads differently. Only 'Compliant' names are kept; anything 'Questionable' or unrated is dropped."],
  aaoifi:["AAOIFI standard","A widely used set of Shariah screening rules (business activity + financial-ratio thresholds like debt-to-market-cap) published by the Accounting and Auditing Organization for Islamic Financial Institutions. Musaffa's screen is based on it."],
+ businessactivity:["Business-activity screen","Checks what a company actually does, not just its balance sheet. A cruise line can pass every financial ratio test while still routinely selling alcohol and running onboard casinos — this screen catches business lines like that by GICS industry classification, on top of Musaffa's ratio-based verdict."],
+ bds:["BDS / boycott screen","Boycott, Divestment, Sanctions — a Palestinian-led movement targeting companies over alleged complicity in the Israeli occupation. This is a separate, non-religious ethical screen from the halal compliance checks above. The list here is small and hand-curated, not a comprehensive database — treat it as a starting point, not a verdict."],
  rebalance:["Rebalance","The monthly reset: sell what's no longer in the list, buy what is, and reset each position to its target size."],
  bps:["Basis points (bps)","One basis point is 0.01%. A 10 bps cost per side means every purchase and every sale is assumed to cost 0.10% of the amount traded, covering commissions and spread."],
  cagr:["CAGR","Compound Annual Growth Rate — the steady yearly rate that would take you from the starting value to the ending value. It smooths out the good and bad years into one number."],
@@ -412,23 +441,46 @@ document.getElementById("asof").innerHTML=`<span class="chip">as of <b>${esc(DAT
 document.getElementById("unisize").textContent=DATA.universe_size;
 document.getElementById("seccount").textContent=DATA.sector_count||"11";
 
+/* ---------------- exclusion-list rendering (shared) ---------------- */
+const tickExch=e=>`${esc(e.ticker)}${e.exchange?` <span class="sec" style="display:inline">(${esc(e.exchange)})</span>`:""}`;
+function renderExclusions(listEl, detailsEl, rows, blurb){
+  if(!rows.length){ if(detailsEl) detailsEl.style.display="none"; return; }
+  const trs=rows.map(e=>`<tr><td class="tick">${tickExch(e)}</td>
+    <td>${e.reasonHTML!=null?e.reasonHTML:esc(e.reason||"")}</td></tr>`).join("");
+  listEl.innerHTML=`<p style="color:var(--muted);font-size:13px;margin-bottom:10px">${blurb}</p>
+    <div class="mtable"><table><thead><tr><th style="text-align:left">Ticker</th><th style="text-align:left">Reason</th></tr></thead>
+    <tbody>${trs}</tbody></table></div>`;
+}
+
 /* ---------------- compliance screen ---------------- */
 const COMP=DATA.compliance;
 if(COMP){
   document.getElementById("compsummary").textContent=
     `Of ${COMP.checked} fund holdings checked, ${COMP.compliant} passed and `
-   +`${COMP.excluded.length} were excluded this run.`;
-  if(COMP.excluded.length){
-    const STATLBL={NON_COMPLIANT:"Non-compliant",QUESTIONABLE:"Questionable",UNKNOWN:"Not covered by Musaffa"};
-    const rows=COMP.excluded.map(e=>`<tr><td class="tick">${esc(e.ticker)}</td>
-      <td>${esc(STATLBL[e.status]||e.status)}</td></tr>`).join("");
-    document.getElementById("complist").innerHTML=`<p style="color:var(--muted);font-size:13px;margin-bottom:10px">
-      Excluded from every sleeve this run — a fund holding, but not Musaffa-compliant:</p>
-      <div class="mtable"><table><thead><tr><th style="text-align:left">Ticker</th><th style="text-align:left">Reason</th></tr></thead>
-      <tbody>${rows}</tbody></table></div>`;
-  } else {
-    document.getElementById("compdetails").style.display="none";
-  }
+   +`${COMP.excluded.length} were excluded by Musaffa this run.`;
+  const STATLBL={NON_COMPLIANT:"Non-compliant",QUESTIONABLE:"Questionable",UNKNOWN:"Not covered by Musaffa"};
+  renderExclusions(document.getElementById("complist"), document.getElementById("compdetails"),
+    COMP.excluded.map(e=>({...e, reason:STATLBL[e.status]||e.status})),
+    "Excluded from every sleeve this run — a fund holding, but not Musaffa-compliant:");
+}
+
+/* ---------------- business-activity screen ---------------- */
+const ACT=DATA.business_activity_screen;
+if(ACT){
+  document.getElementById("activitysummary").textContent=
+    ACT.excluded.length ? `${ACT.excluded.length} name(s) excluded this run.` : "Nothing excluded this run.";
+  renderExclusions(document.getElementById("activitylist"), document.getElementById("activitydetails"),
+    ACT.excluded, "Excluded for business activity — passed Musaffa's ratio screen, but flagged on industry:");
+}
+
+/* ---------------- BDS / boycott screen ---------------- */
+const BDS=DATA.bds_screen;
+if(BDS){
+  document.getElementById("bdssummary").textContent = !BDS.enabled ? "Currently disabled." :
+    BDS.excluded.length ? `${BDS.excluded.length} name(s) excluded this run.` : "Nothing on the list held this run.";
+  renderExclusions(document.getElementById("bdslist"), document.getElementById("bdsdetails"),
+    BDS.excluded.map(e=>({...e, reasonHTML: esc(e.reason||"")+(e.source?` <a href="${esc(e.source)}" target="_blank" rel="noopener">source</a>`:"")})),
+    "Excluded by the hand-maintained boycott list:");
 }
 
 /* ---------------- picks cards ---------------- */
@@ -439,7 +491,7 @@ for(const key of ORDER){
   const t=DATA.tracks[key],color=COLORS[key]||"jade";
   const rows=t.picks.map((r,i)=>`<tr>
     <td class="tick">${i+1}&nbsp; ${esc(r.ticker)}${r.status==="new"?'<span class="new">NEW</span>':r.status==="breached"?'<span class="brch">STOP HIT</span>':""}
-      <span class="sec">${esc(r.sector||"")}</span></td>
+      <span class="sec">${[r.exchange,r.sector].filter(Boolean).map(esc).join(" · ")}</span></td>
     <td>${fmtP(r.weight)}</td><td>$${r.price.toFixed(2)}</td>
     <td class="stop">$${r.stop.toFixed(2)}<span class="drop">(−${(100*(r.stop_drop_pct||0)).toFixed(1)}%)</span></td></tr>`).join("")
    +((t.cash_pct||0)>0.005?`<tr class="cash"><td class="tick">— <span class="term" data-term="cash">CASH</span><span class="sec">screens left this slot unfilled</span></td>

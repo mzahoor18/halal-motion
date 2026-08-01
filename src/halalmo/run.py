@@ -24,6 +24,7 @@ from . import report
 from .backtest import (Variant, TrackSpec, run_variant, bench_monthly, current_picks,
                        rebalance_schedule, select_targets)
 from .compliance import load_compliance, filter_compliant
+from .manual_screen import apply_business_activity_screen, apply_bds_screen
 from .metrics import summarize, equity_points
 from .sectors import load_sectors
 from .selector import walk_forward
@@ -74,11 +75,34 @@ def main() -> None:
     # drift from Musaffa's AAOIFI-based ratios between fund rebalances. Only
     # tickers Musaffa marks fully COMPLIANT stay in the tradeable universe;
     # QUESTIONABLE (doubtful) and uncovered names are excluded, not guessed at.
-    comp_status = load_compliance(compliance_path, tickers, refresh=args.source == "yfinance")
-    tickers, excluded = filter_compliant(tickers, comp_status)
-    excl_counts = pd.Series([e["status"] for e in excluded]).value_counts().to_dict() if excluded else {}
+    comp = load_compliance(compliance_path, tickers, refresh=args.source == "yfinance")
+    exchange_of = comp.exchange.to_dict()
+    tickers, musaffa_excluded = filter_compliant(tickers, comp)
+    for e in musaffa_excluded:
+        e["exchange"] = exchange_of.get(e["ticker"], "")
+    excl_counts = pd.Series([e["status"] for e in musaffa_excluded]).value_counts().to_dict() \
+        if musaffa_excluded else {}
     log.info("Musaffa screen: %d compliant / %d checked, excluded %s",
-             len(tickers), len(tickers) + len(excluded), excl_counts)
+             len(tickers), len(tickers) + len(musaffa_excluded), excl_counts)
+
+    # ---------------- business-activity screen ----------------
+    # A financial-ratio screen alone can pass a company whose core business
+    # routinely involves alcohol or gambling revenue (e.g. cruise operators) or
+    # runs conventional insurance. Config-driven GICS sub-industry + one-off
+    # ticker exclusions, on top of the Musaffa ratio verdict above.
+    tickers, activity_excluded = apply_business_activity_screen(
+        tickers, comp, cfg.get("business_activity_screen", {}))
+    for e in activity_excluded:
+        e["exchange"] = exchange_of.get(e["ticker"], "")
+    log.info("Business-activity screen: %d remain, %d excluded", len(tickers), len(activity_excluded))
+
+    # ---------------- BDS / boycott screen ----------------
+    # A small, explicitly-sourced, hand-maintained list — see manual_screen.py
+    # and config.yaml for scope and caveats.
+    tickers, bds_excluded = apply_bds_screen(tickers, cfg.get("bds_screen", {}))
+    for e in bds_excluded:
+        e["exchange"] = exchange_of.get(e["ticker"], "")
+    log.info("BDS screen: %d remain, %d excluded", len(tickers), len(bds_excluded))
 
     if args.source == "synthetic":
         pdata_all = data_mod.synthetic(tickers + benchmarks, start_px)
@@ -92,8 +116,8 @@ def main() -> None:
         data_mode = "live"
 
     bench_close = {b: pdata_all.close[b].dropna() for b in benchmarks if b in pdata_all.close}
-    compliant_set = set(tickers)
-    stock_cols = [t for t in pdata_all.close.columns if t not in benchmarks and t in compliant_set]
+    screened_set = set(tickers)  # survived Musaffa + business-activity + BDS screens
+    stock_cols = [t for t in pdata_all.close.columns if t not in benchmarks and t in screened_set]
     pdata = data_mod.PriceData(pdata_all.close[stock_cols], pdata_all.high[stock_cols],
                                pdata_all.low[stock_cols]).usable()
     close = pdata.close
@@ -143,6 +167,8 @@ def main() -> None:
 
         live_sig = sel.live_variant.partition("+")[0]
         picks = current_picks(pdata, live_sig, spec, atr_mult, sectors, prev_set, pre)
+        if len(picks):
+            picks["exchange"] = picks["ticker"].map(exchange_of).fillna("")
         labels, values = equity_points(meta)
         cash_pct = max(0.0, 1.0 - float(picks.weight.sum())) if len(picks) else 1.0
         tracks_payload[key] = {
@@ -193,10 +219,18 @@ def main() -> None:
         "track_order": list(specs),
         "compliance": {
             "source": "Musaffa",
-            "checked": len(tickers) + len(excluded),
-            "compliant": len(tickers),
+            "checked": len(tickers) + len(musaffa_excluded) + len(activity_excluded) + len(bds_excluded),
+            "compliant": len(tickers) + len(activity_excluded) + len(bds_excluded),
             "excluded_counts": excl_counts,
-            "excluded": sorted(excluded, key=lambda e: e["ticker"]),
+            "excluded": sorted(musaffa_excluded, key=lambda e: e["ticker"]),
+        },
+        "business_activity_screen": {
+            "excluded_subindustries": cfg.get("business_activity_screen", {}).get("excluded_subindustries", []),
+            "excluded": sorted(activity_excluded, key=lambda e: e["ticker"]),
+        },
+        "bds_screen": {
+            "enabled": bool(cfg.get("bds_screen", {}).get("enabled", True)),
+            "excluded": sorted(bds_excluded, key=lambda e: e["ticker"]),
         },
         "tracks": tracks_payload,
         "benchmarks": bench_payload,

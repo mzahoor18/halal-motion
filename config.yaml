@@ -35,6 +35,35 @@ tracks:
     label: "Conservative — top 25, low-volatility, sector-capped"
     blurb: "Ranks only the calmest half of the universe, caps each sector at three names, holds cash rather than forcing picks when momentum is negative, and runs the tightest stops."
 
+# GICS sub-industries excluded regardless of the Musaffa ratio verdict — catches
+# business lines (routine alcohol/gambling exposure, conventional insurance)
+# that a pure financial-ratio screen doesn't always flag. Sub-industry comes
+# from Musaffa's own reported GICS classification. excluded_tickers is for
+# one-off overrides not caught by the sub-industry list.
+business_activity_screen:
+  excluded_subindustries:
+    - "Hotels, Resorts & Cruise Lines"    # routine onboard alcohol/casino revenue
+    - "Casinos & Gaming"
+    - "Life & Health Insurance"           # conventional (non-takaful) insurance
+    - "Multi-line Insurance"
+    - "Property & Casualty Insurance"
+    - "Reinsurance"
+    - "Insurance Brokers"
+  excluded_tickers: []
+
+# A small, explicitly-sourced, editable list of publicly documented boycott
+# targets — NOT a comprehensive database. No clean machine-readable BDS/boycott
+# API exists (unlike Musaffa's compliance data); this is a starting point you
+# extend by hand as you become aware of specific, well-documented cases. Every
+# entry should cite where the claim comes from. Set enabled: false to turn off.
+bds_screen:
+  enabled: true
+  excluded_tickers:
+    - ticker: SBUX
+      exchange: NASDAQ
+      reason: "Widely reported consumer boycott target since late 2023, tied to Starbucks Workers United's Palestine solidarity statement and the company's response to it."
+      source: "https://time.com/6694986/israel-palestine-bds-boycotts-starbucks-mcdonalds/"
+
 selector:
   window_months: 24     # trailing evaluation window
   min_months: 12        # months of history before adaptive selection kicks in

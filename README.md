@@ -28,6 +28,29 @@ not guessed at. A live run currently excludes roughly 30% of the raw SPUS+MNZL
 union on this basis; the excluded tickers and reasons are published on the
 dashboard (`Compliance screen` panel) and at the top of `docs/picks.md`.
 
+Two more screens run on top of that, both driven entirely by `config.yaml` so
+they're easy to review and extend without touching code:
+
+- **Business-activity screen** (`business_activity_screen` in config,
+  `src/halalmo/manual_screen.py`) — a financial-ratio verdict alone can pass a
+  company whose core business routinely involves alcohol or gambling revenue
+  (cruise operators, casino operators) or runs conventional insurance. This
+  screen excludes by GICS sub-industry (sourced from Musaffa's own reported
+  classification, same fetch as the compliance check) plus a one-off ticker
+  override list, on top of the ratio screen above.
+- **BDS / boycott screen** (`bds_screen` in config) — a small, hand-maintained,
+  explicitly-sourced list of publicly documented boycott targets. This is a
+  separate, non-religious ethical screen, **not a comprehensive database** —
+  no clean machine-readable source for this exists, unlike Musaffa's compliance
+  data. Every entry cites where the claim comes from; extend it by hand in
+  `config.yaml` as you become aware of specific, well-documented cases. Set
+  `bds_screen.enabled: false` to turn it off entirely.
+
+Every ticker shown anywhere on the site or in the picks files — current picks,
+and all three exclusion lists — carries its **exchange** (from Musaffa's own
+data), so a symbol can never be confused with a same-ticker company on a
+different market when you look it up directly on musaffa.com.
+
 ## The three sleeves
 
 | Sleeve | Holdings | Sector cap | Extra screens | Stop band |
@@ -76,7 +99,11 @@ full band for a fresh pick, less for a name that has already pulled back.
 | Key | Meaning | Default |
 |---|---|---|
 | `funds` | universe sources | `[spus, mnzl]` |
-| `data/compliance.csv` | cached Musaffa status per ticker (not a config key — delete a row to force a re-check) | – |
+| `data/compliance.csv` | cached Musaffa status/exchange/sub-industry per ticker (not a config key — delete a row to force a re-check) | – |
+| `business_activity_screen.excluded_subindustries` | GICS sub-industries hard-excluded regardless of Musaffa's ratio verdict | cruise/casino/insurance lines |
+| `business_activity_screen.excluded_tickers` | one-off ticker overrides for the business-activity screen | `[]` |
+| `bds_screen.enabled` | turn the boycott screen on/off | `true` |
+| `bds_screen.excluded_tickers` | hand-maintained `{ticker, exchange, reason, source}` list | `[SBUX]` |
 | `tracks.<name>.n` | number of holdings | 8 / 20 / 25 |
 | `tracks.<name>.max_per_sector` | diversification cap | – / 3 / 3 |
 | `tracks.<name>.vol_screen_pct` | keep only the calmest X of the universe | – / – / 0.5 |
