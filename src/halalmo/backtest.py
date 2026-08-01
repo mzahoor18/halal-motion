@@ -6,9 +6,19 @@ Timing discipline (no lookahead):
                    you could realistically place these orders that morning)
   * costs        = cost_bps_per_side x sum(|weight changes|), charged at each
                    rebalance and on every intramonth stop exit
-  * stops        = chandelier exit: running max close since entry minus
-                   atr_multiple x ATR(22); breach on close => sold at the NEXT
-                   day's close, proceeds sit in cash until the next rebalance
+  * stops        = trailing exit at a *percentage* below the running max close
+                   since entry. The percentage is atr_multiple x ATR(22)
+                   expressed as a fraction of that high, then clamped into the
+                   track's [stop_min_pct, stop_max_pct] band — so a stop is
+                   never wider than the band allows, however wild the stock.
+                   Breach on close => sold at the NEXT day's close, proceeds
+                   sit in cash until the next rebalance.
+
+Portfolio construction per track (TrackSpec):
+  * optional low-volatility screen (keep the calmest X% of the eligible names)
+  * optional positive-momentum requirement, with the shortfall held in CASH
+  * optional per-sector cap, so a sleeve can't become an all-Technology bet
+  * equal or inverse-volatility weighting of whatever survives
 
 Monthly return for month M = value change between consecutive post-rebalance
 closes, so the adaptive selector consumes genuinely out-of-sample numbers.
@@ -20,9 +30,40 @@ import numpy as np
 import pandas as pd
 
 from .signals import SIGNALS, ann_vol, atr, MIN_VOL
+from .sectors import cap_by_sector, UNKNOWN
 from .data import PriceData
 
 log = logging.getLogger("halalmo.backtest")
+
+
+@dataclass(frozen=True)
+class TrackSpec:
+    """Everything that makes one sleeve different from another."""
+    key: str
+    label: str
+    blurb: str = ""
+    n: int = 20
+    weighting: str = "inv_vol"          # 'inv_vol' | 'equal'
+    max_per_sector: int | None = None   # None => no diversification cap
+    vol_screen_pct: float | None = None # e.g. 0.5 => only the calmest half rank
+    require_positive: bool = False      # drop negative-momentum names, hold cash
+    stop_min_pct: float = 0.05
+    stop_max_pct: float = 0.15
+
+    @classmethod
+    def from_config(cls, key: str, cfg: dict) -> "TrackSpec":
+        return cls(
+            key=key,
+            label=cfg["label"],
+            blurb=cfg.get("blurb", ""),
+            n=int(cfg["n"]),
+            weighting=cfg.get("weighting", "inv_vol"),
+            max_per_sector=cfg.get("max_per_sector"),
+            vol_screen_pct=cfg.get("vol_screen_pct"),
+            require_positive=bool(cfg.get("require_positive", False)),
+            stop_min_pct=float(cfg.get("stop_min_pct", 0.05)),
+            stop_max_pct=float(cfg.get("stop_max_pct", 0.15)),
+        )
 
 
 @dataclass
@@ -57,9 +98,55 @@ def rebalance_schedule(dates: pd.DatetimeIndex, start: str) -> list[tuple[pd.Tim
     return pairs
 
 
-def run_variant(pdata: PriceData, variant: Variant, n: int, weighting: str,
+# ---------------------------------------------------------------- selection --
+def select_targets(sig_row: pd.Series, close_row: pd.Series, vol_row: pd.Series,
+                   spec: TrackSpec, sectors: pd.Series) -> pd.Series:
+    """Target weights for one rebalance. May sum to < 1 (the remainder is cash)
+    when `require_positive` leaves fewer than `n` qualifying names."""
+    s = sig_row.dropna()
+    s = s[close_row.reindex(s.index).notna()]
+    needs_vol = spec.weighting == "inv_vol" or spec.vol_screen_pct is not None
+    if needs_vol:
+        v_all = vol_row.reindex(s.index)
+        s = s[v_all.notna()]
+    if spec.vol_screen_pct is not None and len(s):
+        v = vol_row.reindex(s.index)
+        s = s[v <= v.quantile(spec.vol_screen_pct)]
+    if spec.require_positive:
+        s = s[s > 0]
+    if not len(s):
+        return pd.Series(dtype=float)
+
+    top = cap_by_sector(s.sort_values(ascending=False), sectors, spec.n, spec.max_per_sector)
+    if not len(top):
+        return pd.Series(dtype=float)
+
+    if spec.weighting == "inv_vol":
+        iv = 1.0 / vol_row.reindex(top.index).clip(lower=MIN_VOL)
+        w = iv / iv.sum()
+    else:
+        w = pd.Series(1.0 / len(top), index=top.index)
+
+    # cash fallback: if the screen could not fill the sleeve, stay partly in cash
+    invested = min(1.0, len(top) / spec.n) if spec.require_positive else 1.0
+    return w * invested
+
+
+def stop_distance(price_ref: float, atr_val: float, atr_mult: float,
+                  spec: TrackSpec) -> float:
+    """Trailing-stop distance as a fraction of `price_ref`, clamped to the
+    track's band. Falls back to the middle of the band when ATR is unavailable."""
+    if np.isfinite(atr_val) and price_ref > 0:
+        raw = atr_mult * atr_val / price_ref
+    else:
+        raw = (spec.stop_min_pct + spec.stop_max_pct) / 2.0
+    return float(min(max(raw, spec.stop_min_pct), spec.stop_max_pct))
+
+
+# ----------------------------------------------------------------- backtest --
+def run_variant(pdata: PriceData, variant: Variant, spec: TrackSpec,
                 start: str, cost_bps: float, atr_mult: float,
-                precomputed: dict | None = None) -> VariantResult:
+                sectors: pd.Series, precomputed: dict | None = None) -> VariantResult:
     close = pdata.close
     dates = close.index
     pre = precomputed or {}
@@ -93,20 +180,7 @@ def run_variant(pdata: PriceData, variant: Variant, n: int, weighting: str,
 
     for i, (sd, ed) in enumerate(pairs):
         # ---- select targets from signal date data ----
-        s = sig.loc[sd].dropna()
-        alive = close.loc[sd].notna()
-        s = s[alive.reindex(s.index, fill_value=False)]
-        if weighting == "inv_vol":
-            v = vol.loc[sd].reindex(s.index)
-            s = s[v.notna()]
-        top = s.nlargest(n)
-        if len(top) == 0:
-            targets = pd.Series(dtype=float)
-        elif weighting == "inv_vol":
-            iv = 1.0 / vol.loc[sd].reindex(top.index).clip(lower=MIN_VOL)
-            targets = iv / iv.sum()
-        else:
-            targets = pd.Series(1.0 / len(top), index=top.index)
+        targets = select_targets(sig.loc[sd], close.loc[sd], vol.loc[sd], spec, sectors)
 
         # ---- rebalance at close of ed ----
         cur_w = {t: v_ / total for t, v_ in holdings.items()} if total > 0 else {}
@@ -151,8 +225,8 @@ def run_variant(pdata: PriceData, variant: Variant, n: int, weighting: str,
                         continue
                     if p1 > run_max[t]:
                         run_max[t] = p1
-                    a_ = A[r_i, ci]
-                    if np.isfinite(a_) and p1 < run_max[t] - atr_mult * a_:
+                    dist = stop_distance(run_max[t], A[r_i, ci], atr_mult, spec)
+                    if p1 < run_max[t] * (1.0 - dist):
                         pending.add(t)
             total = cash + sum(holdings.values())
             totals[d] = total
@@ -187,55 +261,63 @@ def bench_monthly(close: pd.Series, dates_ref: pd.DatetimeIndex, start: str) -> 
     return rets, equity.loc[eds[0]:]
 
 
-def current_picks(pdata: PriceData, sig_key: str, n: int, weighting: str,
-                  atr_mult: float, prev_selection: set[str] | None = None) -> pd.DataFrame:
-    """Picks as of the latest available close, with suggested chandelier stops.
+def current_picks(pdata: PriceData, sig_key: str, spec: TrackSpec, atr_mult: float,
+                  sectors: pd.Series, prev_selection: set[str] | None = None,
+                  precomputed: dict | None = None) -> pd.DataFrame:
+    """Picks as of the latest available close, with suggested trailing stops.
 
-    Names that were already held last month keep their trailing stop (running
-    max over the holding period); brand-new entries start at close - k*ATR.
+    Names that were already held last month keep their trailing stop (anchored
+    at the running max over the holding period); brand-new entries anchor at the
+    latest close. `stop_drop_pct` is what a holder actually watches: how far the
+    stock must fall *from here* before the stop trips.
     """
     close = pdata.close
     sd = close.index[-1]
-    sig = SIGNALS[sig_key](close)
-    vol = ann_vol(close)
-    atr22 = atr(pdata.high, pdata.low, close, 22)
+    pre = precomputed or {}
+    sig = pre.get(("sig", sig_key))
+    if sig is None:
+        sig = SIGNALS[sig_key](close)
+    vol = pre.get("vol")
+    if vol is None:
+        vol = ann_vol(close)
+    atr22 = pre.get("atr")
+    if atr22 is None:
+        atr22 = atr(pdata.high, pdata.low, close, 22)
 
-    s = sig.loc[sd].dropna()
-    s = s[close.loc[sd].reindex(s.index).notna()]
-    if weighting == "inv_vol":
-        s = s[vol.loc[sd].reindex(s.index).notna()]
-    top = s.nlargest(n)
-    if weighting == "inv_vol":
-        iv = 1.0 / vol.loc[sd].reindex(top.index).clip(lower=MIN_VOL)
-        w = iv / iv.sum()
-    else:
-        w = pd.Series(1.0 / len(top), index=top.index)
-
+    w = select_targets(sig.loc[sd], close.loc[sd], vol.loc[sd], spec, sectors)
     month_start = sd.to_period("M").start_time
     prev = prev_selection or set()
     rows = []
-    for t in top.index:
+    for t in w.index:
         px = float(close.at[sd, t])
-        a_ = atr22.at[sd, t]
-        a_ = float(a_) if np.isfinite(a_) else px * 0.08 / 3.0
+        a_ = float(atr22.at[sd, t])
         if t in prev:
             hist = close[t].loc[month_start:sd]
             ref = float(np.nanmax(hist.values)) if len(hist) else px
         else:
             ref = px
-        stop = ref - atr_mult * a_
+        dist = stop_distance(ref, a_, atr_mult, spec)
+        stop = ref * (1.0 - dist)
         # A trailing stop can sit ABOVE the current price when a held name has
-        # already fallen more than atr_mult x ATR from its running high — i.e.
-        # the exit has effectively already triggered. Publishing that as a buy
-        # level is incoherent, so we re-anchor the stop to the current price and
-        # flag the name as already breached.
+        # already fallen further than the band allows from its running high —
+        # i.e. the exit has effectively already triggered. Publishing that as a
+        # sell level below today's price would be incoherent, so we re-anchor to
+        # the current price and flag the name as already breached.
         breached = stop >= px
         if breached:
-            stop = px - atr_mult * a_
+            dist = stop_distance(px, a_, atr_mult, spec)
+            stop = px * (1.0 - dist)
         rows.append({
-            "ticker": t, "weight": round(float(w[t]), 4), "price": round(px, 2),
+            "ticker": t,
+            "sector": str(sectors.get(t, UNKNOWN)),
+            "weight": round(float(w[t]), 4),
+            "price": round(px, 2),
             "stop": round(max(stop, 0.01), 2),
-            "signal_score": round(float(top[t]), 4),
+            "stop_drop_pct": round(max(0.0, (px - stop) / px), 4),
+            "signal_score": round(float(sig.at[sd, t]), 4),
             "status": "breached" if breached else ("held" if t in prev else "new"),
         })
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if len(df):
+        df = df.sort_values("weight", ascending=False).reset_index(drop=True)
+    return df

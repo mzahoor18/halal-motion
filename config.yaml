@@ -1,16 +1,44 @@
-# Halal Momentum Engine configuration
-funds: [spus]                  # universe source(s): spus and/or mnzl (MNZL excluded — launched Nov 2025, too new)
+# Halal Motion configuration
+funds: [spus, mnzl]            # universe source(s): union of the SPUS and MNZL halal ETFs
 start_backtest: "2020-01-01"   # first month traded
 price_history_start: "2018-01-01"  # extra history for 12m lookbacks + ATR
 cost_bps_per_side: 10          # transaction cost assumption, basis points per side
-atr_multiple: 3.0              # chandelier stop distance (x ATR-22)
+atr_multiple: 3.0              # raw stop distance (x ATR-22) before the % band clamps it
 benchmarks: [SPY, QQQ, "^DJI"]  # SPY/QQQ: dividend-adjusted ETFs; ^DJI: Dow price index
+
+# Three sleeves, ordered from most to least risk. stop_min_pct/stop_max_pct clamp
+# every trailing stop into a sane band (never wider than 15%).
 tracks:
-  focused:  {n: 8,  weighting: inv_vol, label: "Focused — top 8, inverse-volatility weight"}
-  balanced: {n: 20, weighting: inv_vol, label: "Balanced — top 20, inverse-volatility weight"}
+  aggressive:
+    n: 8
+    weighting: inv_vol
+    stop_min_pct: 0.10
+    stop_max_pct: 0.15
+    label: "Aggressive — top 8, concentrated"
+    blurb: "The eight strongest trends in the halal universe, sized by inverse volatility. No sector limits, widest stops. Highest expected return and the hardest drawdowns."
+  balanced:
+    n: 20
+    weighting: inv_vol
+    max_per_sector: 3
+    stop_min_pct: 0.08
+    stop_max_pct: 0.12
+    label: "Balanced — top 20, sector-capped"
+    blurb: "Twenty names with no more than three from any one sector, so the sleeve can't quietly become an all-tech bet. Middle-of-the-road stops."
+  conservative:
+    n: 25
+    weighting: inv_vol
+    max_per_sector: 3
+    vol_screen_pct: 0.5        # only the calmest half of the universe is eligible
+    require_positive: true     # negative-momentum slots stay in cash
+    stop_min_pct: 0.05
+    stop_max_pct: 0.08
+    label: "Conservative — top 25, low-volatility, sector-capped"
+    blurb: "Ranks only the calmest half of the universe, caps each sector at three names, holds cash rather than forcing picks when momentum is negative, and runs the tightest stops."
+
 selector:
   window_months: 24     # trailing evaluation window
   min_months: 12        # months of history before adaptive selection kicks in
   switch_margin: 0.25   # challenger must beat incumbent Sortino by this to take over
   default_variant: "mom_12_1"   # literature-standard default during warm-up
-site_title: "Crescent Momentum"
+
+site_title: "Halal Motion"

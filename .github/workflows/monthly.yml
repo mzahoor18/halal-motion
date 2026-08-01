@@ -35,9 +35,9 @@ jobs:
 
       - name: Commit refreshed outputs back to the repo
         run: |
-          git config user.name "crescent-momentum-bot"
+          git config user.name "halal-motion-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add docs history data/universe_seed.csv
+          git add docs history data/universe_seed.csv data/sectors.csv
           git commit -m "Monthly refresh $(date -u +%F)" || echo "nothing to commit"
           git push
 
