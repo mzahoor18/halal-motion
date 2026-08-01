@@ -49,7 +49,7 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
                "|---|--------|--------|------|----------------|---|"]
         txt.append(f"{tr['label']}  [model: {tr['live_label']}]")
         for i, row in enumerate(tr["picks"], 1):
-            tag = "held" if row["status"] == "held" else "NEW"
+            tag = {"held": "held", "new": "NEW", "breached": "STOP ALREADY HIT"}[row["status"]]
             md.append(f"| {i} | {row['ticker']} | {row['weight'] * 100:.1f}% | "
                       f"${row['price']:.2f} | ${row['stop']:.2f} | {tag} |")
             txt.append(f"  {i:>2}. {row['ticker']:<6} {row['weight'] * 100:4.1f}%  "
@@ -143,6 +143,7 @@ tbody td{padding:7px 8px;text-align:right;border-bottom:1px dashed rgba(36,70,60
 tbody tr:last-child td{border-bottom:none}
 td.tick{font-weight:500;color:var(--text)}
 td .new{font-size:10px;letter-spacing:.1em;color:var(--bg);background:var(--jade);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px}
+td .brch{font-size:10px;letter-spacing:.1em;color:var(--bg);background:var(--rose);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px}
 td.stop{color:var(--rose)}
 /* chart + metrics */
 .panel{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:22px}
@@ -265,7 +266,7 @@ const cards=document.getElementById("cards");
 for(const [key,color] of [["focused","gold"],["balanced","jade"]]){
   const t=DATA.tracks[key];
   const rows=t.picks.map((r,i)=>`<tr>
-    <td class="tick">${i+1}&nbsp; ${r.ticker}${r.status==="new"?'<span class="new">NEW</span>':""}</td>
+    <td class="tick">${i+1}&nbsp; ${r.ticker}${r.status==="new"?'<span class="new">NEW</span>':r.status==="breached"?'<span class="brch">STOP HIT</span>':""}</td>
     <td>${fmtP(r.weight)}</td><td>$${r.price.toFixed(2)}</td>
     <td class="stop">$${r.stop.toFixed(2)}</td></tr>`).join("");
   cards.insertAdjacentHTML("beforeend",`<div class="card ${color}">

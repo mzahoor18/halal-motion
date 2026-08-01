@@ -6,7 +6,7 @@ cost_bps_per_side: 10          # transaction cost assumption, basis points per s
 atr_multiple: 3.0              # chandelier stop distance (x ATR-22)
 benchmarks: [SPY, QQQ, "^DJI"]  # SPY/QQQ: dividend-adjusted ETFs; ^DJI: Dow price index
 tracks:
-  focused:  {n: 8,  weighting: equal,   label: "Focused — top 8, equal weight"}
+  focused:  {n: 8,  weighting: inv_vol, label: "Focused — top 8, inverse-volatility weight"}
   balanced: {n: 20, weighting: inv_vol, label: "Balanced — top 20, inverse-volatility weight"}
 selector:
   window_months: 24     # trailing evaluation window

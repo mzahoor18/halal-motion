@@ -223,10 +223,19 @@ def current_picks(pdata: PriceData, sig_key: str, n: int, weighting: str,
             ref = float(np.nanmax(hist.values)) if len(hist) else px
         else:
             ref = px
+        stop = ref - atr_mult * a_
+        # A trailing stop can sit ABOVE the current price when a held name has
+        # already fallen more than atr_mult x ATR from its running high — i.e.
+        # the exit has effectively already triggered. Publishing that as a buy
+        # level is incoherent, so we re-anchor the stop to the current price and
+        # flag the name as already breached.
+        breached = stop >= px
+        if breached:
+            stop = px - atr_mult * a_
         rows.append({
             "ticker": t, "weight": round(float(w[t]), 4), "price": round(px, 2),
-            "stop": round(max(ref - atr_mult * a_, 0.01), 2),
+            "stop": round(max(stop, 0.01), 2),
             "signal_score": round(float(top[t]), 4),
-            "status": "held" if t in prev else "new",
+            "status": "breached" if breached else ("held" if t in prev else "new"),
         })
     return pd.DataFrame(rows)
