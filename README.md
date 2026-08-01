@@ -89,3 +89,4 @@ PYTHONPATH=src python -m halalmo.run --source synthetic # plumbing test, fake pr
 (196 SPUS names + SPY/QQQ/^DJI, dividend/split-adjusted, through 2024-04-24)
 so the backtest can be reproduced without any network access. The GitHub
 Actions run always uses live yfinance data through the present.
+# halal-motion
