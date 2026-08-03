@@ -5,3 +5,7 @@ requests>=2.31
 beautifulsoup4>=4.12
 PyYAML>=6.0
 scikit-learn>=1.3
+# reads data/snapshot_prices.parquet — needed by `--source snapshot` and by the
+# no-lookahead tests, which run off that committed real-price panel. The live
+# yfinance path never touches parquet, which is why this gap went unnoticed.
+pyarrow>=14.0
