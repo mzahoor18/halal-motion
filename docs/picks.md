@@ -12,77 +12,77 @@ Live model: **3-month momentum · stops** · stop band 10–15%
 
 | # | Ticker | Exchange | Sector | Weight | Last | Sell if it falls to | |
 |---|--------|----------|--------|--------|------|---------------------|---|
-| 1 | FTNT | NASDAQ | Technology | 16.1% | $163.41 | $141.67 (−13.3%) | held |
-| 2 | PANW | NASDAQ | Technology | 15.3% | $338.61 | $288.82 (−14.7%) | held |
-| 3 | CRWD | NASDAQ | Technology | 13.8% | $197.01 | $167.45 (−15.0%) | NEW |
-| 4 | GH | NASDAQ | Healthcare | 13.0% | $163.15 | $138.68 (−15.0%) | held |
-| 5 | CORT | NASDAQ | Healthcare | 11.1% | $113.83 | $97.15 (−14.6%) | held |
-| 6 | DDOG | NASDAQ | Technology | 10.5% | $275.38 | $235.35 (−14.5%) | held |
-| 7 | OKTA | NASDAQ | Technology | 10.5% | $143.70 | $122.14 (−15.0%) | held |
-| 8 | SNOW | NYSE | Technology | 9.7% | $312.75 | $270.84 (−13.4%) | held |
+| 1 | FTNT | NASDAQ | Technology | 16.1% | $162.75 | $141.01 (−13.4%) | held |
+| 2 | PANW | NASDAQ | Technology | 15.3% | $339.97 | $290.03 (−14.7%) | held |
+| 3 | CRWD | NASDAQ | Technology | 13.7% | $198.29 | $168.55 (−15.0%) | NEW |
+| 4 | GH | NASDAQ | Healthcare | 13.0% | $161.45 | $137.23 (−15.0%) | held |
+| 5 | CORT | NASDAQ | Healthcare | 11.1% | $114.57 | $97.87 (−14.6%) | held |
+| 6 | DDOG | NASDAQ | Technology | 10.5% | $273.02 | $232.99 (−14.7%) | held |
+| 7 | OKTA | NASDAQ | Technology | 10.5% | $143.50 | $121.97 (−15.0%) | held |
+| 8 | SNOW | NYSE | Technology | 9.7% | $313.67 | $271.67 (−13.4%) | held |
 
-Backtest since 2020: CAGR +43.0% · Sharpe 1.089 · Max DD -33.8% (SPY over same span: CAGR +15.3%, Sharpe 0.894)
+Backtest since 2020: CAGR +43.9% · Sharpe 1.095 · Max DD -33.8% (SPY over same span: CAGR +15.3%, Sharpe 0.895)
 
 ## Balanced — top 20, sector-capped
 Live model: **Learned trees (gradient boosting)** · stop band 8–12%
 
 | # | Ticker | Exchange | Sector | Weight | Last | Sell if it falls to | |
 |---|--------|----------|--------|--------|------|---------------------|---|
-| 1 | ROST | NASDAQ | Consumer Cyclical | 9.7% | $252.71 | $232.49 (−8.0%) | NEW |
-| 2 | CHE | NYSE | Healthcare | 8.3% | $540.23 | $497.01 (−8.0%) | NEW |
-| 3 | COKE | NASDAQ | Consumer Defensive | 6.6% | $184.66 | $162.99 (−11.7%) | held |
-| 4 | CF | NYSE | Basic Materials | 5.6% | $120.68 | $107.76 (−10.7%) | held |
-| 5 | FRPT | NASDAQ | Consumer Defensive | 5.6% | $59.20 | $52.10 (−12.0%) | held |
-| 6 | BFAM | NYSE | Consumer Cyclical | 5.5% | $76.49 | $67.31 (−12.0%) | NEW |
-| 7 | TPL | NYSE | Energy | 5.5% | $400.12 | $352.81 (−11.8%) | held |
-| 8 | BROS | NYSE | Consumer Cyclical | 5.4% | $67.04 | $58.99 (−12.0%) | held |
-| 9 | EL | NYSE | Consumer Defensive | 5.3% | $84.62 | $76.76 (−9.3%) | held |
-| 10 | TECH | NASDAQ | Healthcare | 5.1% | $72.17 | $66.40 (−8.0%) | held |
-| 11 | AA | NYSE | Basic Materials | 5.0% | $44.47 | $39.13 (−12.0%) | held |
-| 12 | ALB | NYSE | Basic Materials | 5.0% | $118.93 | $104.66 (−12.0%) | held |
-| 13 | GH | NASDAQ | Healthcare | 4.8% | $163.15 | $143.57 (−12.0%) | held |
-| 14 | TTD | NASDAQ | Communication Services | 4.8% | $18.55 | $16.32 (−12.0%) | NEW |
-| 15 | GNRC | NYSE | Industrials | 4.7% | $203.95 | $179.48 (−12.0%) | NEW |
-| 16 | MRVL | NASDAQ | Technology | 3.0% | $190.12 | $167.31 (−12.0%) | NEW |
-| 17 | PRIM | NYSE | Industrials | 2.8% | $87.54 | $77.04 (−12.0%) | held |
-| 18 | ALAB | NASDAQ | Technology | 2.6% | $319.49 | $281.15 (−12.0%) | held |
-| 19 | SNDK | NASDAQ | Technology | 2.4% | $1255.50 | $1104.84 (−12.0%) | held |
-| 20 | BE | NYSE | Industrials | 2.4% | $216.75 | $190.74 (−12.0%) | held |
+| 1 | WFRD | NASDAQ | Energy | 7.0% | $87.54 | $77.04 (−12.0%) | NEW |
+| 2 | DXCM | NASDAQ | Healthcare | 6.8% | $86.42 | $77.10 (−10.8%) | NEW |
+| 3 | COKE | NASDAQ | Consumer Defensive | 6.7% | $184.04 | $162.37 (−11.8%) | held |
+| 4 | XPO | NYSE | Industrials | 6.3% | $197.02 | $174.95 (−11.2%) | NEW |
+| 5 | CF | NYSE | Basic Materials | 5.8% | $119.96 | $107.04 (−10.8%) | held |
+| 6 | BFAM | NYSE | Consumer Cyclical | 5.7% | $76.39 | $67.23 (−12.0%) | NEW |
+| 7 | NTRA | NASDAQ | Healthcare | 5.6% | $269.47 | $237.13 (−12.0%) | held |
+| 8 | TPL | NYSE | Energy | 5.6% | $397.61 | $350.30 (−11.9%) | held |
+| 9 | BROS | NYSE | Consumer Cyclical | 5.5% | $66.72 | $58.72 (−12.0%) | held |
+| 10 | EL | NYSE | Consumer Defensive | 5.5% | $84.12 | $76.26 (−9.3%) | held |
+| 11 | TECH | NASDAQ | Healthcare | 5.2% | $72.14 | $66.37 (−8.0%) | held |
+| 12 | AA | NYSE | Basic Materials | 5.1% | $44.57 | $39.22 (−12.0%) | held |
+| 13 | ALB | NYSE | Basic Materials | 5.1% | $118.53 | $104.31 (−12.0%) | held |
+| 14 | BIRK | NYSE | Consumer Cyclical | 5.0% | $38.86 | $34.20 (−12.0%) | held |
+| 15 | TTD | NASDAQ | Communication Services | 4.9% | $18.51 | $16.29 (−12.0%) | NEW |
+| 16 | STX | NASDAQ | Technology | 3.9% | $826.44 | $727.27 (−12.0%) | NEW |
+| 17 | PRIM | NYSE | Industrials | 2.9% | $87.04 | $76.60 (−12.0%) | held |
+| 18 | ALAB | NASDAQ | Technology | 2.7% | $319.95 | $281.55 (−12.0%) | held |
+| 19 | SNDK | NASDAQ | Technology | 2.4% | $1281.02 | $1127.29 (−12.0%) | held |
+| 20 | BE | NYSE | Industrials | 2.4% | $217.66 | $191.54 (−12.0%) | held |
 
-Backtest since 2020: CAGR +30.3% · Sharpe 1.163 · Max DD -27.4% (SPY over same span: CAGR +15.3%, Sharpe 0.894)
+Backtest since 2020: CAGR +29.5% · Sharpe 1.113 · Max DD -27.4% (SPY over same span: CAGR +15.3%, Sharpe 0.895)
 
 ## Conservative — top 25, low-volatility, sector-capped
 Live model: **6-month momentum** · stop band 5–8%
 
 | # | Ticker | Exchange | Sector | Weight | Last | Sell if it falls to | |
 |---|--------|----------|--------|--------|------|---------------------|---|
-| 1 | ELS | NYSE | Real Estate | 6.4% | $65.61 | $61.09 (−6.9%) | held |
-| 2 | KVUE | NYSE | Consumer Defensive | 5.7% | $19.34 | $17.97 (−7.1%) | held |
-| 3 | WELL | NYSE | Real Estate | 4.8% | $236.12 | $219.57 (−7.0%) | held |
-| 4 | KMB | NASDAQ | Consumer Defensive | 4.7% | $110.15 | $101.34 (−8.0%) | held |
-| 5 | AIT | NYSE | Industrials | 4.5% | $350.02 | $324.95 (−7.2%) | held |
-| 6 | EQIX | NASDAQ | Real Estate | 4.5% | $1024.65 | $942.68 (−8.0%) | held |
-| 7 | MSM | NYSE | Industrials | 4.5% | $124.90 | $114.96 (−8.0%) | held |
-| 8 | XOM | NYSE | Energy | 4.2% | $155.41 | $144.50 (−7.0%) | held |
-| 9 | ROST | NASDAQ | Consumer Cyclical | 4.2% | $252.71 | $236.12 (−6.6%) | held |
-| 10 | MNST | NASDAQ | Consumer Defensive | 4.2% | $94.01 | $87.42 (−7.0%) | held |
-| 11 | EOG | NYSE | Energy | 4.0% | $146.93 | $135.26 (−7.9%) | held |
-| 12 | NUE | NYSE | Basic Materials | 3.8% | $256.61 | $236.08 (−8.0%) | held |
-| 13 | FTI | NYSE | Energy | 3.7% | $69.79 | $64.20 (−8.0%) | held |
-| 14 | CHE | NYSE | Healthcare | 3.6% | $540.23 | $501.17 (−7.2%) | held |
-| 15 | EXEL | NASDAQ | Healthcare | 3.6% | $54.08 | $49.75 (−8.0%) | held |
-| 16 | FFIV | NASDAQ | Technology | 3.5% | $405.99 | $373.52 (−8.0%) | held |
-| 17 | WST | NYSE | Healthcare | 3.5% | $347.35 | $319.56 (−8.0%) | held |
-| 18 | JBHT | NASDAQ | Industrials | 3.5% | $272.12 | $250.36 (−8.0%) | NEW |
-| 19 | NEU | NYSE | Basic Materials | 3.4% | $839.92 | $772.73 (−8.0%) | held |
-| 20 | STLD | NASDAQ | Basic Materials | 3.2% | $252.72 | $232.50 (−8.0%) | held |
-| 21 | BURL | NYSE | Consumer Cyclical | 3.2% | $367.80 | $338.38 (−8.0%) | held |
-| 22 | GRMN | NYSE | Technology | 3.1% | $300.88 | $276.81 (−8.0%) | held |
-| 23 | BBY | NYSE | Consumer Cyclical | 3.0% | $83.77 | $77.07 (−8.0%) | held |
-| 24 | CSCO | NASDAQ | Technology | 3.0% | $115.05 | $105.85 (−8.0%) | held |
+| 1 | ELS | NYSE | Real Estate | 6.4% | $65.45 | $60.93 (−6.9%) | held |
+| 2 | KVUE | NYSE | Consumer Defensive | 5.7% | $19.26 | $17.89 (−7.1%) | held |
+| 3 | WELL | NYSE | Real Estate | 4.8% | $234.42 | $217.86 (−7.1%) | held |
+| 4 | KMB | NASDAQ | Consumer Defensive | 4.7% | $109.65 | $100.88 (−8.0%) | held |
+| 5 | AIT | NYSE | Industrials | 4.5% | $349.83 | $324.75 (−7.2%) | held |
+| 6 | EQIX | NASDAQ | Real Estate | 4.5% | $1027.25 | $945.07 (−8.0%) | held |
+| 7 | MSM | NYSE | Industrials | 4.5% | $125.04 | $115.10 (−8.0%) | held |
+| 8 | XOM | NYSE | Energy | 4.2% | $154.85 | $143.94 (−7.0%) | held |
+| 9 | ROST | NASDAQ | Consumer Cyclical | 4.2% | $252.07 | $235.48 (−6.6%) | held |
+| 10 | MNST | NASDAQ | Consumer Defensive | 4.1% | $93.03 | $86.32 (−7.2%) | held |
+| 11 | EOG | NYSE | Energy | 4.0% | $146.26 | $134.59 (−8.0%) | held |
+| 12 | NUE | NYSE | Basic Materials | 3.8% | $258.36 | $237.70 (−8.0%) | held |
+| 13 | FTI | NYSE | Energy | 3.7% | $69.38 | $63.83 (−8.0%) | held |
+| 14 | CHE | NYSE | Healthcare | 3.6% | $538.34 | $499.28 (−7.3%) | held |
+| 15 | EXEL | NASDAQ | Healthcare | 3.6% | $53.99 | $49.67 (−8.0%) | held |
+| 16 | FFIV | NASDAQ | Technology | 3.5% | $406.77 | $374.23 (−8.0%) | held |
+| 17 | WST | NYSE | Healthcare | 3.5% | $347.04 | $319.28 (−8.0%) | held |
+| 18 | JBHT | NASDAQ | Industrials | 3.5% | $270.90 | $249.23 (−8.0%) | NEW |
+| 19 | NEU | NYSE | Basic Materials | 3.4% | $844.50 | $776.94 (−8.0%) | held |
+| 20 | STLD | NASDAQ | Basic Materials | 3.2% | $255.00 | $234.60 (−8.0%) | held |
+| 21 | BURL | NYSE | Consumer Cyclical | 3.2% | $368.03 | $338.59 (−8.0%) | held |
+| 22 | GRMN | NYSE | Technology | 3.1% | $300.24 | $276.22 (−8.0%) | held |
+| 23 | CSCO | NASDAQ | Technology | 3.0% | $115.48 | $106.24 (−8.0%) | held |
+| 24 | BBY | NYSE | Consumer Cyclical | 3.0% | $84.06 | $77.33 (−8.0%) | held |
 | | CASH | – | – | 4.0% | | | not enough names cleared every screen |
 
-Backtest since 2020: CAGR +9.2% · Sharpe 0.663 · Max DD -22.0% (SPY over same span: CAGR +15.3%, Sharpe 0.894)
+Backtest since 2020: CAGR +10.2% · Sharpe 0.723 · Max DD -22.0% (SPY over same span: CAGR +15.3%, Sharpe 0.895)
 
 ---
 _Educational project by a private individual — not investment advice, not a solicitation. Backtested results use today's fund holdings applied historically (survivorship bias) and assumed costs; live results will differ. Past performance never guarantees future results. Do your own research._
