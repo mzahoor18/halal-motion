@@ -2,8 +2,9 @@
 
     PYTHONPATH=src python -m halalmo.run [--offline]
 
-Steps: universe -> prices -> 12 variants x 2 tracks (walk-forward) ->
-adaptive selector -> current picks with stops -> dashboard + shareable files.
+Steps: universe -> compliance/activity/BDS screens -> prices -> every variant
+(signal x stops on/off) backtested walk-forward per sleeve -> adaptive selector
+-> current picks with stops -> dashboard + shareable files.
 
 --offline uses deterministic synthetic prices to validate the plumbing without
 network access; the dashboard is watermarked accordingly.
@@ -20,6 +21,7 @@ import pandas as pd
 import yaml
 
 from . import data as data_mod
+from . import ml
 from . import report
 from .backtest import (Variant, TrackSpec, run_variant, bench_monthly, current_picks,
                        rebalance_schedule, select_targets)
@@ -28,7 +30,7 @@ from .manual_screen import apply_business_activity_screen, apply_bds_screen
 from .metrics import summarize, equity_points
 from .sectors import load_sectors
 from .selector import walk_forward
-from .signals import SIGNALS, SIGNAL_LABELS, ann_vol, atr
+from .signals import SIGNALS, SIGNAL_LABELS, LEARNED, is_learned, ann_vol, atr
 from .universe import load_universe
 
 log = logging.getLogger("halalmo.run")
@@ -128,6 +130,11 @@ def main() -> None:
     sectors = load_sectors(sector_path, list(close.columns), refresh=args.source == "yfinance")
 
     # ---------------- precompute signals ----------------
+    # The learned entries (ml.py) each trigger a walk-forward training pass the
+    # first time they're touched; the rest are closed-form. Both kinds are
+    # ordinary members of SIGNALS from here on.
+    log.info("computing %d signals (%d hand-written, %d learned) …",
+             len(SIGNALS), len(SIGNALS) - len(LEARNED), len(LEARNED))
     pre = {("sig", k): fn(close) for k, fn in SIGNALS.items()}
     pre["vol"] = ann_vol(close)
     pre["atr"] = atr(pdata.high, pdata.low, close, 22)
@@ -176,6 +183,7 @@ def main() -> None:
             "blurb": spec.blurb,
             "live_variant": sel.live_variant,
             "live_label": pretty(sel.live_variant),
+            "live_learned": is_learned(sel.live_variant),
             "picks": picks.to_dict(orient="records"),
             "cash_pct": round(cash_pct, 4),
             "stop_band": [spec.stop_min_pct, spec.stop_max_pct],
@@ -187,11 +195,23 @@ def main() -> None:
             "stop_exits": results[sel.live_variant].stop_exits,
             "recent_selections": {str(k): v for k, v in sel.selections.tail(6).items()},
         }
+        # Full-period stats alongside the trailing window the selector actually
+        # uses. They answer the obvious reader question — "is the live model
+        # genuinely the best one, or just the best over the last two years?" —
+        # which the trailing column alone can't. They are deliberately NOT an
+        # input to selection: picking on them would be fitting to the whole
+        # sample, exactly what the walk-forward discipline exists to prevent.
+        full = {name: summarize(vm[name].dropna()) for name in vm.columns}
         for _, r in sel.leaderboard.iterrows():
+            f = full.get(r["variant"], {})
             leaderboard_rows.append({
                 "track": key.capitalize(), "variant": r["variant"], "label": pretty(r["variant"]),
                 "trailing_sortino": None if not np.isfinite(r["trailing_sortino"]) else round(float(r["trailing_sortino"]), 3),
+                "full_sortino": f.get("sortino"),
+                "full_cagr": f.get("cagr"),
+                "full_max_dd": f.get("max_drawdown"),
                 "live": bool(r["live"]),
+                "learned": is_learned(r["variant"]),
             })
         log.info("track %s live variant: %s | months=%d | stop_exits(live)=%d",
                  key, sel.live_variant, len(meta), results[sel.live_variant].stop_exits)
@@ -203,6 +223,15 @@ def main() -> None:
         m = m.reindex(meta_months_ref).dropna()
         lb, vv = equity_points(m)
         bench_payload[b] = {"metrics": summarize(m), "equity": {"labels": lb, "values": vv}}
+
+    # ---------------- learned-model introspection ----------------
+    # Ridge coefficients over the full realized history: display only, so the
+    # page can say what the linear learner currently leans on rather than
+    # asking anyone to take "machine learning" on trust. The backtest never
+    # touches this fit — it only ever uses the walk-forward ones.
+    coefs = ml.feature_importance(close)
+    log.info("ridge leans on: %s", ", ".join(
+        f"{r.feature}{'+' if r.coef > 0 else '−'}" for _, r in coefs.head(5).iterrows()))
 
     # ---------------- payload & outputs ----------------
     as_of = close.index[-1].date().isoformat()
@@ -235,6 +264,15 @@ def main() -> None:
         "tracks": tracks_payload,
         "benchmarks": bench_payload,
         "leaderboard": leaderboard_rows,
+        "model_menu": {
+            "variants": len(variants),
+            "signals": len(SIGNALS),
+            "learned_signals": [{"key": k, "label": SIGNAL_LABELS[k]} for k in LEARNED],
+            "features": list(ml.feature_frames(close)),
+            "coefs": [{"feature": r.feature, "coef": round(float(r.coef), 5)}
+                      for _, r in coefs.iterrows()],
+            "min_train_months": ml.MIN_TRAIN_MONTHS,
+        },
     }
     report.build_all(payload, docs_dir, hist_dir, cfg["site_title"])
     log.info("outputs written: docs/index.html, docs/picks.md, docs/picks.txt, "

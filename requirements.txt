@@ -4,3 +4,4 @@ yfinance>=0.2.40
 requests>=2.31
 beautifulsoup4>=4.12
 PyYAML>=6.0
+scikit-learn>=1.3

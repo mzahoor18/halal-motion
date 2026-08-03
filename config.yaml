@@ -1,7 +1,12 @@
 # Halal Motion configuration
 funds: [spus, mnzl]            # universe source(s): union of the SPUS and MNZL halal ETFs
 start_backtest: "2020-01-01"   # first month traded
-price_history_start: "2018-01-01"  # extra history for 12m lookbacks + ATR
+# Extra history before the first traded month. The hand-written signals only
+# need ~13 months for a 12-1 lookback; the learned signals (src/halalmo/ml.py)
+# additionally need 18 months of *realized* forward returns before their first
+# fit is trusted, so this reaches back further to keep them out of warm-up
+# fallback for the whole backtest.
+price_history_start: "2016-01-01"
 cost_bps_per_side: 10          # transaction cost assumption, basis points per side
 atr_multiple: 3.0              # raw stop distance (x ATR-22) before the % band clamps it
 benchmarks: [SPY, QQQ, "^DJI"]  # SPY/QQQ: dividend-adjusted ETFs; ^DJI: Dow price index

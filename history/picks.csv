@@ -79,3 +79,55 @@ run_date,track,variant,ticker,weight,price,stop,status,sector,stop_drop_pct,exch
 2026-07-31,conservative,mom_6,GRMN,0.0309,293.78,270.28,new,Technology,0.08,NYSE
 2026-07-31,conservative,mom_6,BBY,0.03,86.26,79.36,new,Consumer Cyclical,0.08,NYSE
 2026-07-31,conservative,mom_6,CSCO,0.0298,115.99,111.61,held,Technology,0.0378,NASDAQ
+2026-08-03,aggressive,mom_3+stops,FTNT,0.1609,163.41,141.67,held,Technology,0.133,NASDAQ
+2026-08-03,aggressive,mom_3+stops,PANW,0.1527,338.61,288.82,held,Technology,0.147,NASDAQ
+2026-08-03,aggressive,mom_3+stops,CRWD,0.1375,197.01,167.45,new,Technology,0.15,NASDAQ
+2026-08-03,aggressive,mom_3+stops,GH,0.1302,163.15,138.68,held,Healthcare,0.15,NASDAQ
+2026-08-03,aggressive,mom_3+stops,CORT,0.1108,113.83,97.15,held,Healthcare,0.1465,NASDAQ
+2026-08-03,aggressive,mom_3+stops,DDOG,0.1054,275.38,235.35,held,Technology,0.1454,NASDAQ
+2026-08-03,aggressive,mom_3+stops,OKTA,0.1051,143.7,122.14,held,Technology,0.15,NASDAQ
+2026-08-03,aggressive,mom_3+stops,SNOW,0.0974,312.75,270.84,held,Technology,0.134,NYSE
+2026-08-03,balanced,ml_gbm,ROST,0.0969,252.71,232.49,new,Consumer Cyclical,0.08,NASDAQ
+2026-08-03,balanced,ml_gbm,CHE,0.0833,540.23,497.01,new,Healthcare,0.08,NYSE
+2026-08-03,balanced,ml_gbm,COKE,0.0655,184.66,162.99,held,Consumer Defensive,0.1174,NASDAQ
+2026-08-03,balanced,ml_gbm,CF,0.0562,120.68,107.76,held,Basic Materials,0.107,NYSE
+2026-08-03,balanced,ml_gbm,FRPT,0.056,59.2,52.1,held,Consumer Defensive,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,BFAM,0.0552,76.49,67.31,new,Consumer Cyclical,0.12,NYSE
+2026-08-03,balanced,ml_gbm,TPL,0.055,400.12,352.81,held,Energy,0.1182,NYSE
+2026-08-03,balanced,ml_gbm,BROS,0.054,67.04,58.99,held,Consumer Cyclical,0.12,NYSE
+2026-08-03,balanced,ml_gbm,EL,0.0532,84.62,76.76,held,Consumer Defensive,0.0929,NYSE
+2026-08-03,balanced,ml_gbm,TECH,0.0507,72.17,66.4,held,Healthcare,0.08,NASDAQ
+2026-08-03,balanced,ml_gbm,AA,0.05,44.47,39.13,held,Basic Materials,0.12,NYSE
+2026-08-03,balanced,ml_gbm,ALB,0.0495,118.93,104.66,held,Basic Materials,0.12,NYSE
+2026-08-03,balanced,ml_gbm,GH,0.0482,163.15,143.57,held,Healthcare,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,TTD,0.0479,18.55,16.32,new,Communication Services,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,GNRC,0.0469,203.95,179.48,new,Industrials,0.12,NYSE
+2026-08-03,balanced,ml_gbm,MRVL,0.0301,190.12,167.31,new,Technology,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,PRIM,0.0279,87.54,77.04,held,Industrials,0.12,NYSE
+2026-08-03,balanced,ml_gbm,ALAB,0.026,319.49,281.15,held,Technology,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,SNDK,0.0238,1255.5,1104.84,held,Technology,0.12,NASDAQ
+2026-08-03,balanced,ml_gbm,BE,0.0235,216.75,190.74,held,Industrials,0.12,NYSE
+2026-08-03,conservative,mom_6,ELS,0.0644,65.61,61.09,held,Real Estate,0.0689,NYSE
+2026-08-03,conservative,mom_6,KVUE,0.0567,19.34,17.97,held,Consumer Defensive,0.0709,NYSE
+2026-08-03,conservative,mom_6,WELL,0.0479,236.12,219.57,held,Real Estate,0.0701,NYSE
+2026-08-03,conservative,mom_6,KMB,0.0471,110.15,101.34,held,Consumer Defensive,0.08,NASDAQ
+2026-08-03,conservative,mom_6,AIT,0.0454,350.02,324.95,held,Industrials,0.0716,NYSE
+2026-08-03,conservative,mom_6,EQIX,0.0447,1024.65,942.68,held,Real Estate,0.08,NASDAQ
+2026-08-03,conservative,mom_6,MSM,0.0446,124.9,114.96,held,Industrials,0.0796,NYSE
+2026-08-03,conservative,mom_6,XOM,0.0424,155.41,144.5,held,Energy,0.0702,NYSE
+2026-08-03,conservative,mom_6,ROST,0.042,252.71,236.12,held,Consumer Cyclical,0.0656,NASDAQ
+2026-08-03,conservative,mom_6,MNST,0.0417,94.01,87.42,held,Consumer Defensive,0.0701,NASDAQ
+2026-08-03,conservative,mom_6,EOG,0.0402,146.93,135.26,held,Energy,0.0794,NYSE
+2026-08-03,conservative,mom_6,NUE,0.0384,256.61,236.08,held,Basic Materials,0.08,NYSE
+2026-08-03,conservative,mom_6,FTI,0.0368,69.79,64.2,held,Energy,0.08,NYSE
+2026-08-03,conservative,mom_6,CHE,0.0361,540.23,501.17,held,Healthcare,0.0723,NYSE
+2026-08-03,conservative,mom_6,EXEL,0.0359,54.08,49.75,held,Healthcare,0.08,NASDAQ
+2026-08-03,conservative,mom_6,FFIV,0.0354,405.99,373.52,held,Technology,0.08,NASDAQ
+2026-08-03,conservative,mom_6,WST,0.0352,347.35,319.56,held,Healthcare,0.08,NYSE
+2026-08-03,conservative,mom_6,JBHT,0.035,272.12,250.36,new,Industrials,0.08,NASDAQ
+2026-08-03,conservative,mom_6,NEU,0.0337,839.92,772.73,held,Basic Materials,0.08,NYSE
+2026-08-03,conservative,mom_6,STLD,0.0325,252.72,232.5,held,Basic Materials,0.08,NASDAQ
+2026-08-03,conservative,mom_6,BURL,0.0322,367.8,338.38,held,Consumer Cyclical,0.08,NYSE
+2026-08-03,conservative,mom_6,GRMN,0.0314,300.88,276.81,held,Technology,0.08,NYSE
+2026-08-03,conservative,mom_6,BBY,0.0303,83.77,77.07,held,Consumer Cyclical,0.08,NYSE
+2026-08-03,conservative,mom_6,CSCO,0.0302,115.05,105.85,held,Technology,0.08,NASDAQ

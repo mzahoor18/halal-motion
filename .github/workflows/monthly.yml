@@ -26,7 +26,15 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt pytest
+
+      # The learned signals are refit on every run, so the no-lookahead check
+      # runs on every run too — a leak must never reach published picks. Uses
+      # the committed snapshot panel, so this needs no network.
+      - name: Verify the learned signals cannot see the future
+        env:
+          PYTHONPATH: src
+        run: pytest tests/ -q
 
       - name: Run pipeline (fetch holdings + prices, backtest, build site)
         env:

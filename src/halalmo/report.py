@@ -213,6 +213,16 @@ tr.cash td{color:var(--sky)}
 .mtable table{min-width:700px}
 .mtable td.name{text-align:left;color:var(--text)}
 .pos{color:var(--jade)} .neg{color:var(--rose)}
+/* learned-model badge + coefficient bars */
+.ml-tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--sky);border:1px solid var(--sky-dim);border-radius:4px;padding:1px 5px;margin-left:6px;
+  vertical-align:1px}
+.barcell{text-align:left;white-space:nowrap}
+.bar-track{display:inline-block;width:calc(100% - 46px);vertical-align:middle}
+.bar{display:block;height:9px;border-radius:2px;min-width:2px}
+.bar.pos{background:var(--jade-dim)} .bar.neg{background:var(--rose);opacity:.55}
+.bar-lab{display:inline-block;width:38px;margin-left:8px;vertical-align:middle;
+  font-family:var(--mono);font-size:11px;color:var(--faint)}
 /* how it works */
 .how p{color:var(--muted);max-width:78ch;margin-bottom:14px}
 .how b{color:var(--text);font-weight:600}
@@ -245,8 +255,10 @@ footer p{max-width:80ch;margin-bottom:10px}
     <div class="eyebrow">SPUS + MNZL universe · monthly rebalance · walk-forward</div>
     <h1>__TITLE__<span class="thin">.</span></h1>
     <p class="sub">An adaptive <span class="term" data-term="momentum">momentum</span> system over the
-    halal-screened stocks held by the SPUS and MNZL ETFs. Every month it re-tests six pre-registered
-    models <span class="term" data-term="oos">out-of-sample</span> and follows the current leader —
+    halal-screened stocks held by the SPUS and MNZL ETFs. Every month it re-tests a fixed menu of
+    ranking models — six hand-written momentum rules and three
+    <span class="term" data-term="learned">machine-learned</span> ones —
+    <span class="term" data-term="oos">out-of-sample</span>, and follows the current leader —
     in three sleeves: <b>Aggressive</b>, <b>Balanced</b> and <b>Conservative</b>.</p>
     <p class="sub" style="margin-top:10px;font-size:14px">Dotted underlines explain themselves —
     hover or tap any term you don't recognise.</p>
@@ -311,16 +323,35 @@ footer p{max-width:80ch;margin-bottom:10px}
   hand-maintained list of publicly documented boycott targets — not a comprehensive database, since no
   clean machine-readable source for this exists. Every entry cites where the claim comes from.
   <span id="bdssummary"></span></p>
-  <p><b>Signals.</b> Six pre-registered momentum definitions compete:
-  <span class="term" data-term="mom121">12-1</span>, 6-month and 3-month momentum,
-  <span class="term" data-term="sroc">smoothed rate of change</span> over 3 and 6 months, and
-  <span class="term" data-term="riskadj">volatility-adjusted 12-1</span> — each with and without stops.</p>
+  <p><b>Signals — written by hand.</b> Six momentum definitions, each asserting one fixed opinion
+  about what a strong trend looks like: <span class="term" data-term="mom121">12-1</span>, 6-month
+  and 3-month momentum, <span class="term" data-term="sroc">smoothed rate of change</span> over 3
+  and 6 months, and <span class="term" data-term="riskadj">volatility-adjusted 12-1</span>.</p>
+  <p><b>Signals — <span class="term" data-term="learned">learned from the data</span>.</b> Three more
+  don't assert a formula, they fit one. Each month a model is retrained on a
+  <span class="term" data-term="features">panel of <span id="nfeat">16</span> features</span> per
+  stock — momentum over four horizons, smoothed variants, volatility at two speeds and the ratio
+  between them, distance below the 52-week high, gap to the 200-day average, recent skew — and
+  predicts next month's return. The contestants are
+  <span class="term" data-term="ridge">ridge regression</span> (a learned <em>blend</em> of those
+  features), <span class="term" data-term="gbm">gradient-boosted trees</span> (which can find
+  interactions a blend cannot, like "6-month momentum only pays when volatility isn't expanding"),
+  and the <span class="term" data-term="ensemble">consensus</span> of the two.</p>
+  <p><b>Why the learners can't cheat.</b> Each monthly refit sees only months that had already
+  finished — the most recent training example ends on the very day the prediction is made, never
+  after it. Features are converted to within-month rankings so no single outlier can dominate the
+  fit; the target is capped at ±30%; the ridge penalty is tuned inside the training window only; the
+  trees are capped at depth 3, which is deliberately too shallow to memorize. This is enforced by a
+  test, not by assertion: the score for a given month is recomputed from a price history with every
+  later day physically deleted, and it has to come out identical.</p>
   <p><b>Adaptive selection.</b> Each month, every variant's trailing 24 months of
   <span class="term" data-term="oos">out-of-sample</span> returns are scored by
-  <span class="term" data-term="sortino">Sortino ratio</span>; the leader runs the next month. A
-  challenger must beat the incumbent by a clear margin to take over, and the menu itself never grows —
-  two deliberate guards against <span class="term" data-term="overfit">overfitting</span>. The first
-  year runs the academic default (12-1 momentum) while history accrues.</p>
+  <span class="term" data-term="sortino">Sortino ratio</span>; the leader runs the next month. Each
+  signal competes with and without stops, for <span id="nvariants">30</span> variants per sleeve. A
+  challenger must beat the incumbent by a clear margin to take over, and the menu itself is fixed in
+  advance and never grows during a run — two deliberate guards against
+  <span class="term" data-term="overfit">overfitting</span>. The first year runs the academic default
+  (12-1 momentum) while history accrues.</p>
   <p><b>The three sleeves.</b> <b>Aggressive</b> holds the 8 strongest names with no sector limits and
   the widest stops. <b>Balanced</b> holds 20 with a
   <span class="term" data-term="sectorcap">cap of 3 per sector</span>. <b>Conservative</b> ranks only
@@ -333,6 +364,14 @@ footer p{max-width:80ch;margin-bottom:10px}
   month, with 0.10% (<span class="term" data-term="bps">10 bps</span>) per-side costs.</p>
   <details><summary><span class="live-dot"></span>Model leaderboard — trailing 24-month Sortino by variant</summary>
     <div class="inner mtable" id="leader"></div></details>
+  <details><summary>Inside the learner — what the model currently leans on</summary>
+    <div class="inner">
+      <p style="margin-top:0">Ridge weights fitted over all realized history, strongest first. A
+      positive bar means "more of this feature ranks a stock higher"; negative means the model has
+      learned to <em>avoid</em> it. This is a readout for inspection only — the picks always come
+      from the monthly walk-forward refits, never from this whole-history fit.</p>
+      <div class="mtable" id="coefs"></div>
+    </div></details>
   <details id="compdetails"><summary>Compliance screen — stocks excluded and why</summary>
     <div class="inner" id="complist"></div></details>
   <details id="activitydetails"><summary>Business-activity screen — stocks excluded and why</summary>
@@ -351,8 +390,9 @@ footer p{max-width:80ch;margin-bottom:10px}
   <span class="term" data-term="rf">risk-free rate</span> in ratios, models stops on closing prices,
   and ignores taxes. Momentum strategies historically endure sharp drawdowns when trends reverse.
   Nothing here is investment, legal, or tax advice.</p>
-  <p>Built with an open pipeline: holdings → six momentum signals → walk-forward selector →
-  monthly picks. Regenerated automatically on the 1st of each month.</p>
+  <p>Built with an open pipeline: holdings → compliance screens → nine ranking models (six
+  hand-written, three learned) → walk-forward selector → monthly picks. Regenerated automatically on
+  the 1st of each month.</p>
 </div></footer>
 
 <script>
@@ -368,6 +408,11 @@ const GLOSSARY={
  mom121:["12-1 momentum","Return over the last 12 months, ignoring the most recent month. Skipping that month avoids a well-known short-term bounce-back effect that would otherwise muddy the signal."],
  sroc:["SROC","Smoothed Rate of Change. The same idea as momentum, but the price is smoothed first (a moving average) so one wild day doesn't decide whether a stock is in an uptrend."],
  riskadj:["Volatility-adjusted momentum","Momentum divided by how jumpy the stock is. A steady 30% gain scores better than a wild 30% gain, because it's more likely to be a real trend than luck."],
+ learned:["Learned signal","The hand-written signals above each state a rule up front — 'rank by the last six months' return'. A learned signal doesn't state one: it is shown many past months of stock features alongside what those stocks then did, and works out the weighting itself. It gets retrained every month on the months that have actually finished, so it can shift as the market changes — and it is judged by the same out-of-sample scoring as everything else, with no benefit of the doubt for being fancier."],
+ features:["Features","The measurements the learned models are given for each stock, each month: how much it rose over the last 1, 3, 6 and 12 months, smoothed versions of those, how volatile it has been over a month and over six months and whether that volatility is rising, how far it sits below its 52-week high, how far above its 200-day average, its biggest single up-day, and how lopsided its daily returns have been. All of them are computed from past prices only."],
+ ridge:["Ridge regression","The simplest of the learned models: it finds the best straight-line blend of the features — effectively 'what mix of these momentum measures has actually been paying?' The 'ridge' part is a penalty that keeps the weights small, so the model stays boring and stable instead of swinging wildly whenever one month looks unusual."],
+ gbm:["Gradient-boosted trees","A model built from many small decision trees, each correcting the last one's mistakes. Unlike a straight-line blend it can capture conditions — 'momentum works here, but not when volatility is spiking'. It's kept deliberately shallow (three questions deep) because a deeper one would start memorising history rather than learning from it."],
+ ensemble:["Ensemble","Two models voting instead of one. Where the ridge blend and the trees agree, the stock ranks highly; where they disagree, it doesn't. Combining differently-wrong models usually beats either alone, because their mistakes tend not to be the same mistakes."],
  vol:["Volatility","How much a price bounces around, day to day. High volatility means bigger swings in both directions — more potential gain, more potential pain."],
  invvol:["Inverse-volatility weighting","Calmer stocks get a bigger share of the money, jumpier stocks a smaller one. The aim is for every holding to contribute a similar amount of risk, instead of one wild stock dominating the portfolio."],
  stop:["Sell level (stop-loss)","A price at which you'd sell to cut a loss. If the stock closes below it, you're out. It's a discipline device: it decides in advance how much you're willing to lose on a position."],
@@ -391,7 +436,7 @@ const GLOSSARY={
  totalret:["Total return","The full cumulative gain over the whole period, not annualised. A 200% total return means the money tripled."],
  walkforward:["Walk-forward testing","Testing a strategy the way you'd actually live it: at each point in the past, the system is only shown data available up to that date. It prevents the classic cheat of using knowledge from the future."],
  oos:["Out-of-sample","Results from data the model had never seen when it made its choice. In-sample results are easy to make look brilliant; out-of-sample results are the only kind worth anything."],
- overfit:["Overfitting","Tuning a strategy so precisely to past data that it captures noise instead of a real pattern — and then falls apart in the real world. Guards here: a fixed six-model menu and a hysteresis rule so the system can't chase noise."],
+ overfit:["Overfitting","Tuning a strategy so precisely to past data that it captures noise instead of a real pattern — and then falls apart in the real world. This is the main risk of putting learned models on the menu at all, so the guards are worth naming: the menu of models is fixed in advance and never grows mid-run; a challenger must beat the sitting model by a clear margin before it takes over, so the system can't chase noise; the learned models are retrained only on months that had finished, are capped in complexity, and see rankings rather than raw numbers. None of that makes overfitting impossible — with roughly six years of monthly results, the gap between the best and second-best model on this page is usually smaller than the noise. Read the leaderboard as a rough ordering, not a verdict."],
  survivorship:["Survivorship bias","The backtest applies today's fund holdings to the past. Companies that failed and left the fund never appear, so historic results look better than reality would have been. Treat the numbers as a comparison between methods, not a promise."],
  benchmark:["Benchmark","A yardstick to compare against. SPY tracks the S&P 500, QQQ the Nasdaq-100, ^DJI the Dow Jones. Beating a benchmark is the point of active picking; not beating it means an index fund would have served you better."],
  logscale:["Log scale","On this chart, equal vertical distances mean equal percentage moves. A doubling from $100 to $200 looks the same size as $200 to $400 — which is the fair way to compare growth over many years."],
@@ -552,11 +597,50 @@ document.getElementById("mtable").innerHTML=`<table>
  <tbody>${mrows}</tbody></table>`;
 
 /* ---------------- leaderboard ---------------- */
-const lrows=DATA.leaderboard.map(r=>`<tr><td class="name">${esc(r.track)}</td><td class="name">${esc(r.label)}</td>
- <td>${fmtS(r.trailing_sortino)}</td><td>${r.live?'<span class="live-dot"></span>live':""}</td></tr>`).join("");
-document.getElementById("leader").innerHTML=`<table>
+const lrows=DATA.leaderboard.map(r=>`<tr><td class="name">${esc(r.track)}</td><td class="name">${esc(r.label)}${
+ r.learned?' <span class="ml-tag">learned</span>':""}</td>
+ <td>${fmtS(r.trailing_sortino)}</td><td>${fmtS(r.full_sortino)}</td>
+ <td class="${cls(r.full_cagr)}">${fmtP(r.full_cagr)}</td><td class="neg">${fmtP(r.full_max_dd)}</td>
+ <td>${r.live?'<span class="live-dot"></span>live':""}</td></tr>`).join("");
+document.getElementById("leader").innerHTML=`<p class="legend-note" style="margin:0 0 12px">
+ The system selects on the <b>trailing</b> column — the only one it could have known at the time.
+ The full-period columns are context for you, not an input: a model that wins over the whole
+ backtest but not over the last two years is not evidence the selector chose wrongly, it's the
+ reason the selector doesn't look at whole-period results at all.</p>
+ <table>
  <thead><tr><th style="text-align:left">Track</th><th style="text-align:left">Variant</th>
- <th><span class="term" data-term="sortino">Sortino (24m)</span></th><th></th></tr></thead><tbody>${lrows}</tbody></table>`;
+ <th><span class="term" data-term="sortino">Sortino (24m)</span></th>
+ <th><span class="term" data-term="sortino">Sortino (all)</span></th>
+ <th><span class="term" data-term="cagr">CAGR (all)</span></th>
+ <th><span class="term" data-term="maxdd">Max DD (all)</span></th>
+ <th></th></tr></thead><tbody>${lrows}</tbody></table>`;
+
+/* ---------------- what the learner leans on ---------------- */
+const MENU=DATA.model_menu||{};
+const FEATNAMES={r1:"1-month return",r3:"3-month return",r6:"6-month return",r12_1:"12-1 momentum",
+ sroc3:"Smoothed ROC (3m)",sroc6:"Smoothed ROC (6m)",ramom:"Return per unit of volatility",
+ accel:"Acceleration (3m vs 6m)",vol21:"Volatility (1 month)",vol126:"Volatility (6 months)",
+ volratio:"Volatility, rising or falling",dist52:"Distance below 52-week high",
+ sma200gap:"Gap to 200-day average",maxret21:"Biggest single up-day",skew126:"Return lopsidedness",
+ updays126:"Share of up days"};
+const coefs=MENU.coefs||[];
+if(coefs.length){
+  const peak=Math.max(...coefs.map(c=>Math.abs(c.coef)))||1;
+  document.getElementById("coefs").innerHTML=`<table><thead><tr>
+   <th style="text-align:left">Feature</th><th style="text-align:left">Pulls a stock…</th>
+   <th style="text-align:right">Weight</th></tr></thead><tbody>${
+   coefs.map(c=>{const w=100*Math.abs(c.coef)/peak, up=c.coef>=0;
+    return `<tr><td class="name">${esc(FEATNAMES[c.feature]||c.feature)}</td>
+     <td class="barcell"><span class="bar-track"><span class="bar ${up?"pos":"neg"}"
+      style="width:${w.toFixed(1)}%"></span></span><span class="bar-lab">${up?"up":"down"}</span></td>
+     <td style="text-align:right">${c.coef>=0?"+":""}${(1e4*c.coef).toFixed(1)}</td></tr>`;}).join("")
+   }</tbody></table>
+   <p class="legend-note">Weights are shown ×10,000 for legibility; on their own scale they are the
+   expected monthly-return contribution of moving a stock from the bottom of the pack to the top on
+   that one feature, holding the others fixed.</p>`;
+}
+if(MENU.features){document.getElementById("nfeat").textContent=MENU.features.length;}
+if(MENU.variants){document.getElementById("nvariants").textContent=MENU.variants;}
 
 /* re-arm terms created after initial pass */
 document.querySelectorAll(".term").forEach(el=>{el.tabIndex=0;});
