@@ -42,7 +42,6 @@ ATR,mnzl
 AU,mnzl
 AUGO,mnzl
 AUR,mnzl
-AVB,mnzl
 AVGO,both
 AVT,mnzl
 AVTR,mnzl
@@ -160,7 +159,6 @@ ENTG,mnzl
 EOG,both
 EPAM,mnzl
 EQIX,both
-EQR,mnzl
 ESAB,mnzl
 ESI,mnzl
 ESTC,mnzl
@@ -387,7 +385,7 @@ RAL,mnzl
 RBA,mnzl
 RBLX,mnzl
 RBRK,mnzl
-RDDT,mnzl
+RDDT,both
 REGN,both
 REXR,mnzl
 REYN,mnzl
@@ -484,6 +482,7 @@ VIK,mnzl
 VLTO,both
 VMC,both
 VMI,mnzl
+VMRK,mnzl
 VRSN,both
 VRT,both
 VRTX,both
