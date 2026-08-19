@@ -57,14 +57,14 @@ different market when you look it up directly on musaffa.com.
 
 | Sleeve | Holdings | Sector cap | Extra screens | Stop band |
 |---|---|---|---|---|
-| **Aggressive** | 8 | none | — | 10–15% |
-| **Balanced** | 20 | max 3 per sector | — | 8–12% |
-| **Conservative** | 25 | max 3 per sector | calmest half of the universe only; cash instead of negative-momentum picks | 5–8% |
+| **Aggressive** | 5 | none | — | 8–10% |
+| **Balanced** | 10 | max 3 per sector | — | 6–8% |
+| **Conservative** | 15 | max 3 per sector | calmest half of the universe only; cash instead of negative-momentum picks | 5–7% |
 
 All three size positions by inverse volatility. Every sleeve publishes a
 suggested **trailing sell level** per holding: the raw distance is 3×ATR(22)
 below the highest close since entry, then **clamped into that sleeve's band, so
-no stop is ever wider than 15%**. The bracketed percentage next to each sell
+no stop is ever wider than 10%**. The bracketed percentage next to each sell
 price is how far the stock must fall *from today's close* to trigger it — the
 full band for a fresh pick, less for a name that has already pulled back.
 
@@ -106,7 +106,7 @@ full band for a fresh pick, less for a name that has already pulled back.
 | `business_activity_screen.excluded_tickers` | one-off ticker overrides for the business-activity screen | `[]` |
 | `bds_screen.enabled` | turn the boycott screen on/off | `true` |
 | `bds_screen.excluded_tickers` | hand-maintained `{ticker, exchange, reason, source}` list | `[SBUX]` |
-| `tracks.<name>.n` | number of holdings | 8 / 20 / 25 |
+| `tracks.<name>.n` | number of holdings | 5 / 10 / 15 |
 | `tracks.<name>.max_per_sector` | diversification cap | – / 3 / 3 |
 | `tracks.<name>.vol_screen_pct` | keep only the calmest X of the universe | – / – / 0.5 |
 | `tracks.<name>.require_positive` | hold cash rather than buy falling names | – / – / true |

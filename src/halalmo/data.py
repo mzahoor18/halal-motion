@@ -44,10 +44,23 @@ def download(tickers: list[str], start: str) -> PriceData:
     return PriceData(close, high.reindex(idx), low.reindex(idx))
 
 
+def _read_parquet(path: str) -> pd.DataFrame:
+    """Read a parquet file, tolerating a pyarrow/file-format mismatch.
+
+    Some pyarrow versions raise "Repetition level histogram size mismatch" on
+    files written by a different version; fastparquet reads them fine. Try the
+    default engine first, then fall back rather than failing the whole run."""
+    try:
+        return pd.read_parquet(path)
+    except Exception as e:  # noqa: BLE001 - any engine/format error is worth a fallback
+        log.warning("default parquet engine failed (%s); retrying with fastparquet", e)
+        return pd.read_parquet(path, engine="fastparquet")
+
+
 def from_snapshot(path: str) -> PriceData:
     """Load a committed real-price snapshot (long-form parquet:
     date, ticker, close, high, low — closes dividend/split-adjusted)."""
-    df = pd.read_parquet(path)
+    df = _read_parquet(path)
     close = df.pivot(index="date", columns="ticker", values="close").sort_index()
     high = df.pivot(index="date", columns="ticker", values="high").sort_index()
     low = df.pivot(index="date", columns="ticker", values="low").sort_index()

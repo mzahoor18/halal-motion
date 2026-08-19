@@ -5,12 +5,133 @@ from __future__ import annotations
 import json
 import os
 import datetime as dt
+import numpy as np
 import pandas as pd
 
 DISCLAIMER = ("Educational project by a private individual — not investment advice, "
               "not a solicitation. Backtested results use today's fund holdings applied "
               "historically (survivorship bias) and assumed costs; live results will differ. "
               "Past performance never guarantees future results. Do your own research.")
+
+
+def load_holding_entry(history_dir: str, as_of: str) -> dict:
+    """Map (track, ticker) -> {entry_date, entry_price} for the name's current
+    unbroken holding streak, read from history/picks.csv *before* this run is
+    appended. A streak is the run of consecutive monthly runs, ending at the
+    most recent past run, in which the ticker appears in that track; its entry
+    is the price the first time it was published in that streak. Names not held
+    in the most recent past run have no active streak and are omitted (the
+    caller treats them as posted today)."""
+    path = os.path.join(history_dir, "picks.csv")
+    if not os.path.exists(path):
+        return {}
+    h = pd.read_csv(path, dtype={"run_date": str})
+    h = h[h["run_date"] < as_of]  # ignore any same-day rows from an earlier re-run
+    if h.empty or "price" not in h.columns:
+        return {}
+    runs = sorted(h["run_date"].unique())
+    last = runs[-1]
+    out: dict = {}
+    for (track, ticker), g in h.groupby(["track", "ticker"]):
+        present = set(g["run_date"])
+        if last not in present:
+            continue  # not currently held -> no active streak
+        start = last
+        for rd in reversed(runs[:-1]):
+            if rd in present:
+                start = rd
+            else:
+                break
+        row = g[g["run_date"] == start].iloc[0]
+        out[(track, ticker)] = {"entry_date": start, "entry_price": float(row["price"])}
+    return out
+
+
+def attach_since_posted(picks: pd.DataFrame, track: str, entry_map: dict, as_of: str) -> pd.DataFrame:
+    """Add entry_price / entry_date / since_posted_pct to a picks frame. A held
+    name references its holding-streak entry; a new (or breached) name is posted
+    today, so its entry is the current price and since-posted is 0."""
+    if not len(picks):
+        return picks
+    picks = picks.copy()
+    ep, ed, sp = [], [], []
+    for _, r in picks.iterrows():
+        e = entry_map.get((track, r["ticker"]))
+        if r["status"] == "held" and e:
+            entry_price, entry_date = e["entry_price"], e["entry_date"]
+        else:
+            entry_price, entry_date = float(r["price"]), as_of
+        ep.append(round(entry_price, 2))
+        ed.append(entry_date)
+        sp.append(round((float(r["price"]) - entry_price) / entry_price, 4) if entry_price else 0.0)
+    picks["entry_price"] = ep
+    picks["entry_date"] = ed
+    picks["since_posted_pct"] = sp
+    return picks
+
+
+def realized_performance(history_path: str, close: pd.DataFrame, bench_close: dict,
+                         as_of: str, min_coverage: float = 0.5) -> dict:
+    """How the *actually published* picks have done since they were posted —
+    the out-of-sample, real-world counterpart to the survivorship-biased
+    backtest. For every past monthly cohort (run_date < as_of) of each sleeve,
+    computes the buy-and-hold return of the published weights from the posted
+    price to the latest close, and the same-span return of each benchmark.
+
+    Deliberately simple and clearly caveated: it holds the published weights
+    untouched to today (no monthly rebalance, and the trailing stops are NOT
+    simulated), and it can only price names still in the current panel — cohorts
+    are flagged with their price coverage and dropped below `min_coverage`."""
+    if not os.path.exists(history_path):
+        return {}
+    h = pd.read_csv(history_path, dtype={"run_date": str})
+    h = h[h["run_date"] < as_of]
+    if h.empty or "price" not in h.columns:
+        return {}
+    as_of_ts = close.index[-1]
+
+    def bench_ret(series: pd.Series, d0: pd.Timestamp):
+        s = series.dropna()
+        if s.empty:
+            return None
+        p0 = s.asof(d0)
+        if p0 is None or not np.isfinite(p0) or p0 <= 0:
+            return None
+        return float(s.iloc[-1] / p0 - 1.0)
+
+    cohorts = []
+    for (d, track), g in h.groupby(["run_date", "track"]):
+        d_ts = pd.Timestamp(d)
+        num = wsum = 0.0
+        priced = 0
+        for _, r in g.iterrows():
+            t = r["ticker"]
+            if t not in close.columns:
+                continue
+            col = close[t].dropna()
+            if col.empty:
+                continue
+            p0, p1 = float(r["price"]), float(col.iloc[-1])
+            w = float(r.get("weight", 0.0) or 0.0)
+            if p0 > 0 and np.isfinite(p1) and w > 0:
+                num += w * (p1 / p0 - 1.0)
+                wsum += w
+                priced += 1
+        n = len(g)
+        if priced == 0 or wsum <= 0 or priced / n < min_coverage:
+            continue
+        port = num / wsum
+        row = {"posted": d, "track": track, "days": int((as_of_ts - d_ts).days),
+               "n": n, "n_priced": priced, "coverage": round(priced / n, 3),
+               "portfolio_return": round(port, 4)}
+        for b, s in bench_close.items():
+            br = bench_ret(s, d_ts)
+            row[b.lower().lstrip("^")] = None if br is None else round(br, 4)
+        spy = row.get("spy")
+        row["excess_vs_spy"] = None if spy is None else round(port - spy, 4)
+        cohorts.append(row)
+    cohorts.sort(key=lambda c: (c["posted"], c["track"]), reverse=True)
+    return {"as_of": as_of, "cohorts": cohorts}
 
 
 def build_all(payload: dict, docs_dir: str, history_dir: str, title: str) -> None:
@@ -71,21 +192,23 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
         band = tr.get("stop_band", [0.05, 0.15])
         md += [f"## {tr['label']}", f"Live model: **{tr['live_label']}** · stop band "
                f"{band[0] * 100:.0f}–{band[1] * 100:.0f}%", "",
-               "| # | Ticker | Exchange | Sector | Weight | Last | Sell if it falls to | |",
-               "|---|--------|----------|--------|--------|------|---------------------|---|"]
+               "| # | Ticker | Exchange | Sector | Weight | Posted | Last | Since posted | Sell if it falls to | |",
+               "|---|--------|----------|--------|--------|--------|------|--------------|---------------------|---|"]
         txt.append(f"{tr['label']}  [model: {tr['live_label']}]")
         for i, row in enumerate(tr["picks"], 1):
             tag = {"held": "held", "new": "NEW", "breached": "STOP ALREADY HIT"}[row["status"]]
             drop = row.get("stop_drop_pct", 0.0)
             exch = row.get("exchange", "") or "–"
+            entry = row.get("entry_price", row["price"])
+            since = _fmt_pct(row.get("since_posted_pct", 0.0))
             md.append(f"| {i} | {row['ticker']} | {exch} | {row.get('sector', '–')} | "
-                      f"{row['weight'] * 100:.1f}% | ${row['price']:.2f} | "
+                      f"{row['weight'] * 100:.1f}% | ${entry:.2f} | ${row['price']:.2f} | {since} | "
                       f"${row['stop']:.2f} (−{drop * 100:.1f}%) | {tag} |")
             txt.append(f"  {i:>2}. {row['ticker']:<6} ({exch:<7})  {row['weight'] * 100:4.1f}%  "
-                       f"last ${row['price']:.2f}  sell at ${row['stop']:.2f} "
-                       f"(−{drop * 100:.1f}%)  [{tag}]")
+                       f"posted ${entry:.2f}  last ${row['price']:.2f} ({since})  "
+                       f"sell at ${row['stop']:.2f} (−{drop * 100:.1f}%)  [{tag}]")
         if tr.get("cash_pct", 0) > 0.005:
-            md.append(f"| | CASH | – | – | {tr['cash_pct'] * 100:.1f}% | | | not enough "
+            md.append(f"| | CASH | – | – | {tr['cash_pct'] * 100:.1f}% | | | | | not enough "
                       f"names cleared every screen |")
             txt.append(f"      CASH   {tr['cash_pct'] * 100:4.1f}%  (not enough names cleared every screen)")
         m, b = tr["metrics"], p["benchmarks"].get("SPY", {}).get("metrics", {})
@@ -93,8 +216,27 @@ def _picks_files(p: dict, docs_dir: str, title: str) -> None:
                f"{m.get('sharpe', '–')} · Max DD {_fmt_pct(m.get('max_drawdown'))} "
                f"(SPY over same span: CAGR {_fmt_pct(b.get('cagr'))}, Sharpe {b.get('sharpe', '–')})", ""]
         txt.append("")
+
+    realized = (p.get("realized") or {}).get("cohorts") or []
+    if realized:
+        md += ["## How past picks have actually done",
+               "_Real return of each sleeve's published picks, held from the posted price to "
+               f"{p['as_of']} (stops not simulated), vs SPY over the same span._", "",
+               "| Sleeve | Posted | Held | Return | SPY | vs SPY |",
+               "|--------|--------|------|--------|-----|--------|"]
+        txt += ["How past picks have actually done (buy-and-hold to today, stops not simulated):"]
+        for c in realized:
+            md.append(f"| {c['track'].capitalize()} | {c['posted']} | {c['days']}d | "
+                      f"{_fmt_pct(c['portfolio_return'])} | {_fmt_pct(c.get('spy'))} | "
+                      f"{_fmt_pct(c.get('excess_vs_spy'))} |")
+            txt.append(f"  {c['track'].capitalize():<13} posted {c['posted']} ({c['days']}d):  "
+                       f"picks {_fmt_pct(c['portfolio_return'])}  ·  SPY {_fmt_pct(c.get('spy'))}  ·  "
+                       f"vs SPY {_fmt_pct(c.get('excess_vs_spy'))}")
+        md.append("")
+        txt.append("")
+
     md += ["---", f"_{DISCLAIMER}_"]
-    txt += ["Sell levels are advisory trailing stops, capped at 15% below the recent high.",
+    txt += ["Sell levels are advisory trailing stops, capped at 10% below the recent high.",
             "The bracketed % is how far the stock must fall from today's price to trigger it.",
             "Educational only — not investment advice."]
     with open(os.path.join(docs_dir, "picks.md"), "w") as f:
@@ -197,6 +339,12 @@ td .new{font-size:9.5px;letter-spacing:.1em;color:var(--bg);background:var(--jad
 td .brch{font-size:9.5px;letter-spacing:.1em;color:var(--bg);background:var(--rose);border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:1px}
 td.stop{color:var(--rose)}
 td.stop .drop{display:block;font-size:10.5px;color:var(--faint)}
+td.since .sub{display:block;font-size:10px;color:var(--faint)}
+td.since.pos{color:var(--jade)} td.since.neg{color:var(--rose)}
+.last .livedot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--jade);margin-left:5px;vertical-align:1px;animation:livepulse 2s infinite}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(95,203,146,.5)}70%{box-shadow:0 0 0 5px rgba(95,203,146,0)}100%{box-shadow:0 0 0 0 rgba(95,203,146,0)}}
+.livebadge{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+.livebadge.on{color:var(--jade)}
 tr.cash td{color:var(--sky)}
 /* sector mix bar */
 .mix{margin-top:14px}
@@ -273,10 +421,11 @@ footer p{max-width:80ch;margin-bottom:10px}
   <h2>Current picks</h2>
   <p class="lede">Buy list at the latest close. Each name carries a suggested
   <span class="term" data-term="stop">sell level</span> — a
-  <span class="term" data-term="trailing">trailing stop</span> that never sits more than 15% below the
+  <span class="term" data-term="trailing">trailing stop</span> that never sits more than 10% below the
   recent high. The bracketed percentage is how far the stock has to fall <em>from today's price</em>
   before you'd sell it. A brand-new pick gets the full band; a name that's already pulled back from
-  its high shows a smaller number, because it is that much closer to the exit.</p>
+  its high shows a smaller number, because it is that much closer to the exit. <b>Since posted</b> is
+  how far each name has moved from the price at which it first entered the sleeve. <span id="livebadge" class="livebadge"></span></p>
   <div class="cards" id="cards"></div>
 </section>
 
@@ -299,6 +448,18 @@ footer p{max-width:80ch;margin-bottom:10px}
   <span class="term" data-term="maxdd">Max DD</span> is the worst peak-to-trough fall you'd have had
   to sit through.</p>
   <div class="panel mtable" id="mtable"></div>
+</section>
+
+<section id="realized">
+  <div class="kicker">Reality check</div>
+  <h2>How the published picks have actually done</h2>
+  <p class="lede">The chart above is a <em>backtest</em>: it applies today's holdings to the past, so it
+  flatters itself (survivorship bias). This is the honest counterpart — the real return of each sleeve's
+  picks <b>exactly as they were published</b>, held untouched from the posted price to today, next to SPY
+  and QQQ over the same stretch. One row per sleeve is added every month. Stops aren't simulated here and
+  there's no monthly rebalance; it's a plain buy-and-hold of what the page told you that month, so it
+  needs a couple of months of live history before it says much.</p>
+  <div class="panel mtable" id="realized-table"></div>
 </section>
 
 <section id="how" class="how">
@@ -399,6 +560,7 @@ footer p{max-width:80ch;margin-bottom:10px}
 const DATA = __DATA__;
 const fmtP=(x,d=1)=>x==null||isNaN(x)?"–":(100*x).toFixed(d)+"%";
 const fmtS=(x,d=2)=>x==null||isNaN(x)?"–":(+x).toFixed(d);
+const signPct=(x,d=1)=>x==null||isNaN(x)?"–":(x>=0?"+":"−")+(100*Math.abs(x)).toFixed(d)+"%";
 const cls=x=>x>=0?"pos":"neg";
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -416,7 +578,7 @@ const GLOSSARY={
  vol:["Volatility","How much a price bounces around, day to day. High volatility means bigger swings in both directions — more potential gain, more potential pain."],
  invvol:["Inverse-volatility weighting","Calmer stocks get a bigger share of the money, jumpier stocks a smaller one. The aim is for every holding to contribute a similar amount of risk, instead of one wild stock dominating the portfolio."],
  stop:["Sell level (stop-loss)","A price at which you'd sell to cut a loss. If the stock closes below it, you're out. It's a discipline device: it decides in advance how much you're willing to lose on a position."],
- trailing:["Trailing stop","A sell level that rises as the stock rises but never falls. It locks in gains on the way up while still capping the loss if the trend reverses. Here it's set below the highest close since you bought, capped at 15%."],
+ trailing:["Trailing stop","A sell level that rises as the stock rises but never falls. It locks in gains on the way up while still capping the loss if the trend reverses. Here it's set below the highest close since you bought, capped at 10%."],
  atr:["ATR","Average True Range — the average size of a stock's daily price swing over the last 22 trading days. Used to set stops: a jumpy stock needs more room before you call the trend broken."],
  sectorcap:["Sector cap","A hard limit on how many holdings can come from one industry group (technology, healthcare, energy…). It stops the whole portfolio betting on a single corner of the market at the same time."],
  cash:["Cash allocation","Money deliberately left uninvested, rather than stretched into a weaker pick just to fill every slot. Happens when a sleeve's screens — momentum, volatility, or the sector cap — leave fewer qualifying names than its target count."],
@@ -534,13 +696,16 @@ const secColor=(()=>{const m={};let i=0;return s=>(m[s]??=SECCOL[i++%SECCOL.leng
 const cards=document.getElementById("cards");
 for(const key of ORDER){
   const t=DATA.tracks[key],color=COLORS[key]||"jade";
-  const rows=t.picks.map((r,i)=>`<tr>
+  const rows=t.picks.map((r,i)=>{
+    const since=r.since_posted_pct||0, entry=(r.entry_price!=null?r.entry_price:r.price);
+    return `<tr data-ticker="${esc(r.ticker)}" data-entry="${entry}" data-stop="${r.stop}" data-run="${r.price}">
     <td class="tick">${i+1}&nbsp; ${esc(r.ticker)}${r.status==="new"?'<span class="new">NEW</span>':r.status==="breached"?'<span class="brch">STOP HIT</span>':""}
       <span class="sec">${[r.exchange,r.sector].filter(Boolean).map(esc).join(" · ")}</span></td>
-    <td>${fmtP(r.weight)}</td><td>$${r.price.toFixed(2)}</td>
-    <td class="stop">$${r.stop.toFixed(2)}<span class="drop">(−${(100*(r.stop_drop_pct||0)).toFixed(1)}%)</span></td></tr>`).join("")
+    <td>${fmtP(r.weight)}</td><td class="last">$${r.price.toFixed(2)}</td>
+    <td class="since ${since>=0?'pos':'neg'}">${signPct(since)}<span class="sub">from $${entry.toFixed(2)}</span></td>
+    <td class="stop">$${r.stop.toFixed(2)}<span class="drop">(−${(100*(r.stop_drop_pct||0)).toFixed(1)}%)</span></td></tr>`;}).join("")
    +((t.cash_pct||0)>0.005?`<tr class="cash"><td class="tick">— <span class="term" data-term="cash">CASH</span><span class="sec">screens left this slot unfilled</span></td>
-      <td>${fmtP(t.cash_pct)}</td><td>–</td><td>–</td></tr>`:"");
+      <td>${fmtP(t.cash_pct)}</td><td>–</td><td>–</td><td>–</td></tr>`:"");
   const mix=Object.entries(t.sector_mix||{});
   const total=mix.reduce((a,[,v])=>a+v,0)||1;
   const mixHTML=mix.length?`<div class="mix">
@@ -559,9 +724,78 @@ for(const key of ORDER){
     <div class="meta">live model <b>${esc(t.live_label)}</b></div>
     <table aria-label="${esc(key)} picks"><thead><tr><th>Pick</th>
       <th><span class="term" data-term="invvol">Weight</span></th><th>Last</th>
+      <th>Since posted</th>
       <th><span class="term" data-term="trailing">Sell at</span></th></tr></thead>
     <tbody>${rows}</tbody></table>${mixHTML}</div>`);
 }
+
+/* ---------------- live quotes (best-effort, overrides run-time closes) ----------------
+   The page ships with every pick's latest-close price baked in, so it is always
+   complete and correct as of the last monthly refresh. On load we ALSO try to
+   pull live quotes and, if they arrive, overwrite Last, recompute Since-posted
+   against the baked-in entry price, and recompute each stop's distance from the
+   new price. Anything that fails is swallowed and the baked-in closes stand —
+   the page never depends on the network.
+
+   Quotes come from Yahoo's public v8 chart JSON (regularMarketPrice), which is
+   key-free but sends no CORS header, so the browser can't read it directly. We
+   try it directly first (in case the environment allows it) and then through a
+   public CORS proxy. Only the (public) ticker symbols leave the page, and only
+   to fetch their prices. To drop the third-party dependency entirely, remove the
+   proxied builder from URLS below — the page still works, it just won't go live. */
+const liveBadge=document.getElementById("livebadge");
+if(liveBadge) liveBadge.textContent="prices as of "+DATA.as_of+" close";
+function markLive(){
+  if(!liveBadge) return;
+  const now=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  liveBadge.textContent="live prices · "+now;
+  liveBadge.classList.add("on");
+}
+const chartURL=s=>"https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(s)+"?range=1d&interval=1d";
+const URLS=[
+  chartURL,                                                     // direct (works where CORS allows)
+  s=>"https://corsproxy.io/?"+encodeURIComponent(chartURL(s)),  // via public CORS proxy
+];
+async function tryJSON(url){
+  const ctrl=new AbortController(); const to=setTimeout(()=>ctrl.abort(),7000);
+  try{
+    const resp=await fetch(url,{cache:"no-store",signal:ctrl.signal});
+    return resp.ok ? await resp.json() : null;
+  }catch(e){ return null; }
+  finally{ clearTimeout(to); }
+}
+async function quoteFor(sym){
+  for(const build of URLS){
+    const j=await tryJSON(build(sym));
+    const p=j&&j.chart&&j.chart.result&&j.chart.result[0]&&j.chart.result[0].meta
+            ? j.chart.result[0].meta.regularMarketPrice : null;
+    if(isFinite(p)&&p>0) return p;
+  }
+  return null;
+}
+async function fetchLive(){
+  const trs=[...document.querySelectorAll("tr[data-ticker]")];
+  if(!trs.length) return;
+  const syms=[...new Set(trs.map(tr=>tr.dataset.ticker.toUpperCase()))];
+  const quote={};
+  (await Promise.all(syms.map(async s=>[s.toLowerCase(), await quoteFor(s)])))
+    .forEach(([s,p])=>{ if(p) quote[s]=p; });
+  let any=false;
+  trs.forEach(tr=>{
+    const q=quote[tr.dataset.ticker.toLowerCase()];
+    if(!q) return; any=true;
+    const entry=parseFloat(tr.dataset.entry), stop=parseFloat(tr.dataset.stop);
+    const last=tr.querySelector(".last");
+    if(last) last.innerHTML="$"+q.toFixed(2)+'<span class="livedot" title="live quote"></span>';
+    const since=entry?(q-entry)/entry:0, sc=tr.querySelector(".since");
+    if(sc){ sc.className="since "+(since>=0?"pos":"neg");
+      sc.innerHTML=signPct(since)+'<span class="sub">from $'+entry.toFixed(2)+"</span>"; }
+    const drop=q>0?Math.max(0,(q-stop)/q):0, st=tr.querySelector(".stop");
+    if(st) st.innerHTML="$"+stop.toFixed(2)+'<span class="drop">(−'+(100*drop).toFixed(1)+"%)</span>";
+  });
+  if(any) markLive();
+}
+fetchLive();
 
 /* ---------------- equity chart ---------------- */
 const BCOL={SPY:"#8fa0a8",QQQ:"#c98f6d","^DJI":"#9a8fbf",DIA:"#9a8fbf"};
@@ -595,6 +829,25 @@ document.getElementById("mtable").innerHTML=`<table>
  ${TH("Sortino","sortino")}${TH("Vol","vol")}${TH("Max DD","maxdd")}${TH("Calmar","calmar")}
  ${TH("Win mo.","winrate")}${TH("Total","totalret")}</tr></thead>
  <tbody>${mrows}</tbody></table>`;
+
+/* ---------------- realized picks track record ---------------- */
+(function(){
+  const R=(DATA.realized&&DATA.realized.cohorts)||[], sec=document.getElementById("realized");
+  if(!R.length){ if(sec) sec.style.display="none"; return; }
+  const sc=x=>x==null?"":cls(x), pc=x=>x==null?"–":signPct(x);
+  const rows=R.map(c=>`<tr><td class="name">${esc(cap(c.track))}</td><td>${esc(c.posted)}</td>
+    <td>${c.days}d</td><td>${c.n_priced}/${c.n}</td>
+    <td class="${sc(c.portfolio_return)}">${pc(c.portfolio_return)}</td>
+    <td class="${sc(c.spy)}">${pc(c.spy)}</td><td class="${sc(c.qqq)}">${pc(c.qqq)}</td>
+    <td class="${sc(c.excess_vs_spy)}">${pc(c.excess_vs_spy)}</td></tr>`).join("");
+  document.getElementById("realized-table").innerHTML=`<table>
+    <thead><tr><th style="text-align:left">Sleeve</th><th>Posted</th><th>Held</th><th>Priced</th>
+      <th>Return</th><th>SPY</th><th>QQQ</th><th>vs SPY</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <p class="legend-note" style="margin-top:12px">Buy-and-hold of the published weights from the posted
+     close to ${esc(DATA.realized.as_of)}; stops not simulated. “Priced” is how many of the sleeve's names
+     can still be priced today; sleeves are dropped when too few can.</p>`;
+})();
 
 /* ---------------- leaderboard ---------------- */
 const lrows=DATA.leaderboard.map(r=>`<tr><td class="name">${esc(r.track)}</td><td class="name">${esc(r.label)}${

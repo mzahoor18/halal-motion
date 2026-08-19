@@ -12,32 +12,32 @@ atr_multiple: 3.0              # raw stop distance (x ATR-22) before the % band 
 benchmarks: [SPY, QQQ, "^DJI"]  # SPY/QQQ: dividend-adjusted ETFs; ^DJI: Dow price index
 
 # Three sleeves, ordered from most to least risk. stop_min_pct/stop_max_pct clamp
-# every trailing stop into a sane band (never wider than 15%).
+# every trailing stop into a sane band (never wider than 10%).
 tracks:
   aggressive:
-    n: 8
+    n: 5
     weighting: inv_vol
-    stop_min_pct: 0.10
-    stop_max_pct: 0.15
-    label: "Aggressive — top 8, concentrated"
-    blurb: "The eight strongest trends in the halal universe, sized by inverse volatility. No sector limits, widest stops. Highest expected return and the hardest drawdowns."
+    stop_min_pct: 0.08
+    stop_max_pct: 0.10
+    label: "Aggressive — top 5, concentrated"
+    blurb: "The five strongest trends in the halal universe, sized by inverse volatility. No sector limits, widest stops. Highest expected return and the hardest drawdowns."
   balanced:
-    n: 20
+    n: 10
     weighting: inv_vol
     max_per_sector: 3
-    stop_min_pct: 0.08
-    stop_max_pct: 0.12
-    label: "Balanced — top 20, sector-capped"
-    blurb: "Twenty names with no more than three from any one sector, so the sleeve can't quietly become an all-tech bet. Middle-of-the-road stops."
+    stop_min_pct: 0.06
+    stop_max_pct: 0.08
+    label: "Balanced — top 10, sector-capped"
+    blurb: "Ten names with no more than three from any one sector, so the sleeve can't quietly become an all-tech bet. Middle-of-the-road stops."
   conservative:
-    n: 25
+    n: 15
     weighting: inv_vol
     max_per_sector: 3
     vol_screen_pct: 0.5        # only the calmest half of the universe is eligible
     require_positive: true     # negative-momentum slots stay in cash
     stop_min_pct: 0.05
-    stop_max_pct: 0.08
-    label: "Conservative — top 25, low-volatility, sector-capped"
+    stop_max_pct: 0.07
+    label: "Conservative — top 15, low-volatility, sector-capped"
     blurb: "Ranks only the calmest half of the universe, caps each sector at three names, holds cash rather than forcing picks when momentum is negative, and runs the tightest stops."
 
 # GICS sub-industries excluded regardless of the Musaffa ratio verdict — catches

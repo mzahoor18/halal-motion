@@ -123,8 +123,14 @@ def main() -> None:
     pdata = data_mod.PriceData(pdata_all.close[stock_cols], pdata_all.high[stock_cols],
                                pdata_all.low[stock_cols]).usable()
     close = pdata.close
+    as_of = close.index[-1].date().isoformat()
     log.info("price panel: %d tickers x %d days (%s -> %s)", close.shape[1], close.shape[0],
              close.index[0].date(), close.index[-1].date())
+
+    # Entry price per (track, ticker) for names currently on a holding streak,
+    # read from the append-only history *before* this run is written. Lets each
+    # pick show how far it has moved since it was first posted.
+    entry_map = report.load_holding_entry(hist_dir, as_of)
 
     # ---------------- sectors (for diversification caps) ----------------
     sectors = load_sectors(sector_path, list(close.columns), refresh=args.source == "yfinance")
@@ -176,6 +182,7 @@ def main() -> None:
         picks = current_picks(pdata, live_sig, spec, atr_mult, sectors, prev_set, pre)
         if len(picks):
             picks["exchange"] = picks["ticker"].map(exchange_of).fillna("")
+            picks = report.attach_since_posted(picks, key, entry_map, as_of)
         labels, values = equity_points(meta)
         cash_pct = max(0.0, 1.0 - float(picks.weight.sum())) if len(picks) else 1.0
         tracks_payload[key] = {
@@ -233,8 +240,16 @@ def main() -> None:
     log.info("ridge leans on: %s", ", ".join(
         f"{r.feature}{'+' if r.coef > 0 else '−'}" for _, r in coefs.head(5).iterrows()))
 
+    # ---------------- realized picks track record ----------------
+    # How the picks we actually published have done since — the real,
+    # out-of-sample counterpart to the survivorship-biased backtest above.
+    realized = report.realized_performance(
+        os.path.join(hist_dir, "picks.csv"), close, bench_close, as_of)
+    if realized.get("cohorts"):
+        log.info("realized cohorts: %d (oldest %s)", len(realized["cohorts"]),
+                 realized["cohorts"][-1]["posted"])
+
     # ---------------- payload & outputs ----------------
-    as_of = close.index[-1].date().isoformat()
     period = f"{meta_months_ref[0].strftime('%b %Y')} – {meta_months_ref[-1].strftime('%b %Y')}"
     payload = {
         "as_of": as_of,
@@ -263,6 +278,7 @@ def main() -> None:
         },
         "tracks": tracks_payload,
         "benchmarks": bench_payload,
+        "realized": realized,
         "leaderboard": leaderboard_rows,
         "model_menu": {
             "variants": len(variants),
