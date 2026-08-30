@@ -161,3 +161,33 @@ run_date,track,variant,ticker,weight,price,stop,status,sector,stop_drop_pct,exch
 2026-08-19,conservative,mom_6,WAT,0.058,415.8,386.69,new,Healthcare,0.07,NYSE
 2026-08-19,conservative,mom_6,CSCO,0.0574,110.55,102.81,breached,Technology,0.07,NASDAQ
 2026-08-19,conservative,mom_6,BBY,0.0552,89.21,82.97,held,Consumer Cyclical,0.07,NYSE
+2026-08-28,aggressive,mom_3+stops,SN,0.2621,191.23,172.69,new,Consumer Cyclical,0.097,NYSE
+2026-08-28,aggressive,mom_3+stops,CRL,0.2391,291.5,262.35,new,Healthcare,0.1,NYSE
+2026-08-28,aggressive,mom_3+stops,ELF,0.1967,104.1,93.69,new,Consumer Defensive,0.1,NYSE
+2026-08-28,aggressive,mom_3+stops,CORT,0.1792,113.88,111.21,held,Healthcare,0.0234,NASDAQ
+2026-08-28,aggressive,mom_3+stops,TEAM,0.1229,190.41,171.37,new,Technology,0.1,NASDAQ
+2026-08-28,balanced,mom_3,SN,0.1304,191.23,177.43,held,Consumer Cyclical,0.0722,NYSE
+2026-08-28,balanced,mom_3,DASH,0.1268,236.74,217.8,new,Consumer Cyclical,0.08,NASDAQ
+2026-08-28,balanced,mom_3,CRL,0.119,291.5,268.18,new,Healthcare,0.08,NYSE
+2026-08-28,balanced,mom_3,ESTC,0.1001,99.91,91.92,new,Technology,0.08,NYSE
+2026-08-28,balanced,mom_3,RHI,0.099,45.31,41.69,held,Industrials,0.08,NYSE
+2026-08-28,balanced,mom_3,PATH,0.0988,18.15,16.7,new,Technology,0.08,NYSE
+2026-08-28,balanced,mom_3,ELF,0.0979,104.1,95.77,new,Consumer Defensive,0.08,NYSE
+2026-08-28,balanced,mom_3,CORT,0.0892,113.88,113.68,held,Healthcare,0.0017,NASDAQ
+2026-08-28,balanced,mom_3,CAI,0.0777,25.63,23.58,new,Healthcare,0.08,NASDAQ
+2026-08-28,balanced,mom_3,TEAM,0.0612,190.41,175.18,new,Technology,0.08,NASDAQ
+2026-08-28,conservative,mom_6,WELL,0.0846,238.07,227.42,held,Real Estate,0.0447,NYSE
+2026-08-28,conservative,mom_6,EXPD,0.0805,190.97,177.6,new,Industrials,0.07,NYSE
+2026-08-28,conservative,mom_6,RS,0.0787,387.59,360.46,new,Basic Materials,0.07,NYSE
+2026-08-28,conservative,mom_6,MSM,0.0782,119.2,117.87,held,Industrials,0.0112,NYSE
+2026-08-28,conservative,mom_6,NEU,0.0716,914.69,894.59,held,Basic Materials,0.022,NYSE
+2026-08-28,conservative,mom_6,EOG,0.0673,143.35,142.34,held,Energy,0.0071,NYSE
+2026-08-28,conservative,mom_6,VRSN,0.067,291.93,271.49,new,Technology,0.07,NASDAQ
+2026-08-28,conservative,mom_6,WST,0.066,337.47,332.28,held,Healthcare,0.0154,NYSE
+2026-08-28,conservative,mom_6,NUE,0.0643,250.5,232.96,breached,Basic Materials,0.07,NYSE
+2026-08-28,conservative,mom_6,FFIV,0.0625,394.24,393.34,held,Technology,0.0023,NASDAQ
+2026-08-28,conservative,mom_6,GPC,0.061,137.51,127.88,new,Consumer Cyclical,0.07,NYSE
+2026-08-28,conservative,mom_6,WAT,0.0556,414.69,385.66,new,Healthcare,0.07,NYSE
+2026-08-28,conservative,mom_6,CSCO,0.0552,109.93,102.23,breached,Technology,0.07,NASDAQ
+2026-08-28,conservative,mom_6,SNDR,0.054,34.44,32.03,new,Industrials,0.07,NYSE
+2026-08-28,conservative,mom_6,RVTY,0.0534,128.8,119.78,new,Healthcare,0.07,NYSE

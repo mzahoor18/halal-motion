@@ -86,6 +86,7 @@ CGNX,mnzl
 CHD,both
 CHE,mnzl
 CHRW,both
+CHTR,mnzl
 CHWY,mnzl
 CIEN,both
 CL,both
@@ -140,7 +141,7 @@ DOX,mnzl
 DT,mnzl
 DTM,mnzl
 DUOL,mnzl
-DVN,both
+DVN,mnzl
 DXCM,both
 EBAY,both
 ECG,mnzl
@@ -168,12 +169,13 @@ EXEL,mnzl
 EXP,mnzl
 EXPD,both
 EXPE,spus
+FANG,spus
 FAST,both
 FCN,mnzl
 FCX,spus
 FDX,mnzl
 FDXF,both
-FERG,mnzl
+FERG,both
 FFIV,both
 FICO,both
 FIVE,mnzl
@@ -257,8 +259,6 @@ KMB,both
 KNX,mnzl
 KVUE,both
 KVYO,mnzl
-LBRDA,mnzl
-LBRDK,mnzl
 LEA,mnzl
 LECO,mnzl
 LEN,mnzl
@@ -284,7 +284,6 @@ LULU,both
 LUV,mnzl
 LYFT,mnzl
 M,mnzl
-MAA,spus
 MANH,mnzl
 MAR,mnzl
 MAS,both
@@ -348,7 +347,7 @@ ORCL,both
 ORLY,both
 OTIS,both
 OVV,mnzl
-OXY,mnzl
+OXY,both
 P,mnzl
 PANW,both
 PATH,mnzl
@@ -416,7 +415,6 @@ SCI,mnzl
 SHW,both
 SITE,mnzl
 SLB,both
-SMCI,spus
 SMMT,mnzl
 SMTC,mnzl
 SN,mnzl

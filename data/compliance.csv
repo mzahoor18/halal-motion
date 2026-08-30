@@ -87,6 +87,7 @@ CGNX,COMPLIANT,NASDAQ,Electronic Equipment & Instruments
 CHD,COMPLIANT,NYSE,Household Products
 CHE,COMPLIANT,NYSE,Health Care  Services
 CHRW,COMPLIANT,NASDAQ,Air Freight & Logistics
+CHTR,NON_COMPLIANT,NASDAQ,Cable & Satellite
 CHWY,NON_COMPLIANT,NYSE,Other Specialty Retail
 CIEN,COMPLIANT,NYSE,Communications Equipment
 CL,COMPLIANT,NYSE,Household Products
@@ -170,6 +171,7 @@ EXEL,COMPLIANT,NASDAQ,Biotechnology
 EXP,COMPLIANT,NYSE,Construction Materials
 EXPD,COMPLIANT,NYSE,Air Freight & Logistics
 EXPE,NON_COMPLIANT,NASDAQ,"Hotels, Resorts & Cruise Lines"
+FANG,NON_COMPLIANT,NASDAQ,Oil & Gas Exploration & Production
 FAST,COMPLIANT,NASDAQ,Trading Companies & Distributors
 FCN,QUESTIONABLE,NYSE,Research & Consulting Services
 FCX,NON_COMPLIANT,NYSE,Copper
