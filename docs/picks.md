@@ -1,5 +1,5 @@
 # Halal Motion — picks for September 2026
-_As of 2026-08-28 close · educational project, not investment advice._
+_As of 2026-09-01 close · educational project, not investment advice._
 
 _Musaffa screen: 357/508 fund holdings compliant. Excluded this run: ABBV (NYSE), ACN (NYSE), ADI (NASDAQ), ADM (NYSE), AGCO (NYSE), AHR (NYSE), APA (NASDAQ), APP (NASDAQ), ARW (NYSE), ATO (NYSE), AU (NYSE), AUGO (NASDAQ), AUR (NASDAQ), AVT (NASDAQ), AVTR (NYSE), BEPC (NYSE), BG (NYSE), BIO (NYSE), BKNG (NASDAQ), BKR (NASDAQ), BMNR (NYSE), BWA (NYSE), CART (NASDAQ), CAVA (NYSE), CBRE (NYSE), CDE (NYSE), CEG (NASDAQ), CHTR (NASDAQ), CHWY (NYSE), CMG (NYSE), COO (NASDAQ), COP (NYSE), CRH (NYSE), CTSH (NASDAQ), CVNA (NYSE), DAL (NYSE), DGX (NYSE), DINO (NYSE), DLR (NYSE), DLTR (NASDAQ), DOCN (NYSE), DOW (NYSE), DTM (NYSE), DUOL (NASDAQ), DVN (NYSE), EBAY (NASDAQ), EGP (NYSE), ESAB (NYSE), ESI (NYSE), EXPE (NASDAQ), FANG (NASDAQ), FCN (NYSE), FCX (NYSE), FDX (NYSE), FDXF (NYSE), FIVE (NASDAQ), FTAI (NASDAQ), G (NYSE), GLXY (NASDAQ), GOOGL (NASDAQ), GSAT (NASDAQ), GTES (NYSE), GXO (NYSE), HALO (NASDAQ), HAYW (NYSE), HL (NYSE), HPQ (NYSE), HSIC (NASDAQ), IBM (NYSE), IFF (NYSE), INGM (NYSE), INSM (NASDAQ), IONQ (NYSE), IONS (NASDAQ), IP (NYSE), JAN (NYSE), JHX (NYSE), JLL (NYSE), KD (NYSE), KHC (NASDAQ), LEA (NYSE), LH (NYSE), LINE (NASDAQ), LITE (NASDAQ), LKQ (NASDAQ), LLYVA (NASDAQ), LLYVK (NASDAQ), LOAR (NYSE), LSCC (NASDAQ), LUV (NYSE), LYFT (NASDAQ), M (NYSE), MAR (NASDAQ), MDLZ (NASDAQ), MFP, MOS (NYSE), MSFT (NASDAQ), MSTR (NASDAQ), MTDR (NYSE), MTSI (NASDAQ), NEM (NYSE), NFG (NYSE), NOV (NYSE), NOW (NYSE), NVST (NYSE), ORCL (NYSE), OVV (NYSE), OXY (NYSE), PAYC (NYSE), PCAR (NASDAQ), PEP (NASDAQ), PFE (NYSE), PINS (NYSE), PLD (NYSE), PLNT (NYSE), PPLI (NASDAQ), PSX (NYSE), PVH (NYSE), QXO (NYSE), RDDT (NYSE), REGN (NASDAQ), REXR (NYSE), RIVN (NASDAQ), RKLB (NASDAQ), ROP (NASDAQ), RYN (NYSE), SANM (NASDAQ), SCCO (NYSE), SCI (NYSE), SMMT (NASDAQ), SNA (NYSE), SNX (NYSE), SOLS (NASDAQ), SPCX (NASDAQ), SRE (NYSE), SUI (NYSE), SW (NYSE), SWK (NYSE), T (NYSE), TGT (NYSE), TKR (NYSE), UAL (NASDAQ), UHS (NYSE), UTHR (NASDAQ), VIAV (NASDAQ), VMRK, WDAY (NASDAQ), WING (NASDAQ), WLK (NYSE), ZBH (NYSE), ZM (NASDAQ)._
 
@@ -12,71 +12,74 @@ Live model: **3-month momentum · stops** · stop band 8–10%
 
 | # | Ticker | Exchange | Sector | Weight | Posted | Last | Since posted | Sell if it falls to | |
 |---|--------|----------|--------|--------|--------|------|--------------|---------------------|---|
-| 1 | SN | NYSE | Consumer Cyclical | 26.2% | $191.23 | $191.23 | +0.0% | $172.69 (−9.7%) | NEW |
-| 2 | CRL | NYSE | Healthcare | 23.9% | $291.50 | $291.50 | +0.0% | $262.35 (−10.0%) | NEW |
-| 3 | ELF | NYSE | Consumer Defensive | 19.7% | $104.10 | $104.10 | +0.0% | $93.69 (−10.0%) | NEW |
-| 4 | CORT | NASDAQ | Healthcare | 17.9% | $114.49 | $113.88 | -0.5% | $111.21 (−2.3%) | held |
-| 5 | TEAM | NASDAQ | Technology | 12.3% | $190.41 | $190.41 | +0.0% | $171.37 (−10.0%) | NEW |
+| 1 | CRL | NYSE | Healthcare | 25.3% | $289.89 | $288.73 | -0.4% | $262.74 (−9.0%) | held |
+| 2 | ELF | NYSE | Consumer Defensive | 21.6% | $99.65 | $109.58 | +10.0% | $99.72 (−9.0%) | held |
+| 3 | RHI | NYSE | Industrials | 21.1% | $45.93 | $45.93 | +0.0% | $41.80 (−9.0%) | NEW |
+| 4 | CORT | NASDAQ | Healthcare | 19.0% | $114.49 | $113.65 | -0.7% | $103.42 (−9.0%) | held |
+| 5 | TEAM | NASDAQ | Technology | 13.1% | $174.23 | $192.31 | +10.4% | $173.08 (−10.0%) | held |
 
-Backtest since 2020: CAGR +56.6% · Sharpe 1.16 · Max DD -28.8% (SPY over same span: CAGR +15.4%, Sharpe 0.903)
+Backtest since 2020: CAGR +52.7% · Sharpe 1.135 · Max DD -27.7% (SPY over same span: CAGR +15.2%, Sharpe 0.895)
 
 ## Balanced — top 10, sector-capped
 Live model: **3-month momentum** · stop band 6–8%
 
 | # | Ticker | Exchange | Sector | Weight | Posted | Last | Since posted | Sell if it falls to | |
 |---|--------|----------|--------|--------|--------|------|--------------|---------------------|---|
-| 1 | SN | NYSE | Consumer Cyclical | 13.0% | $181.29 | $191.23 | +5.5% | $177.43 (−7.2%) | held |
-| 2 | DASH | NASDAQ | Consumer Cyclical | 12.7% | $236.74 | $236.74 | +0.0% | $217.80 (−8.0%) | NEW |
-| 3 | CRL | NYSE | Healthcare | 11.9% | $291.50 | $291.50 | +0.0% | $268.18 (−8.0%) | NEW |
-| 4 | ESTC | NYSE | Technology | 10.0% | $99.91 | $99.91 | +0.0% | $91.92 (−8.0%) | NEW |
-| 5 | RHI | NYSE | Industrials | 9.9% | $43.53 | $45.31 | +4.1% | $41.69 (−8.0%) | held |
-| 6 | PATH | NYSE | Technology | 9.9% | $18.15 | $18.15 | +0.0% | $16.70 (−8.0%) | NEW |
-| 7 | ELF | NYSE | Consumer Defensive | 9.8% | $104.10 | $104.10 | +0.0% | $95.77 (−8.0%) | NEW |
-| 8 | CORT | NASDAQ | Healthcare | 8.9% | $119.02 | $113.88 | -4.3% | $113.68 (−0.2%) | held |
-| 9 | CAI | NASDAQ | Healthcare | 7.8% | $25.63 | $25.63 | +0.0% | $23.58 (−8.0%) | NEW |
-| 10 | TEAM | NASDAQ | Technology | 6.1% | $190.41 | $190.41 | +0.0% | $175.18 (−8.0%) | NEW |
+| 1 | SN | NYSE | Consumer Cyclical | 13.1% | $181.29 | $189.26 | +4.4% | $176.02 (−7.0%) | held |
+| 2 | DASH | NASDAQ | Consumer Cyclical | 12.6% | $228.19 | $228.19 | +0.0% | $212.22 (−7.0%) | NEW |
+| 3 | CRL | NYSE | Healthcare | 11.9% | $289.89 | $288.73 | -0.4% | $268.51 (−7.0%) | held |
+| 4 | ELF | NYSE | Consumer Defensive | 10.2% | $99.65 | $109.58 | +10.0% | $101.91 (−7.0%) | held |
+| 5 | PATH | NYSE | Technology | 9.9% | $18.15 | $18.59 | +2.4% | $17.11 (−8.0%) | held |
+| 6 | RHI | NYSE | Industrials | 9.9% | $43.53 | $45.93 | +5.5% | $42.71 (−7.0%) | held |
+| 7 | GTLB | NASDAQ | Technology | 9.5% | $45.90 | $45.90 | +0.0% | $42.68 (−7.0%) | NEW |
+| 8 | CORT | NASDAQ | Healthcare | 8.9% | $119.02 | $113.65 | -4.5% | $105.69 (−7.0%) | held |
+| 9 | CAI | NASDAQ | Healthcare | 7.8% | $25.63 | $25.36 | -1.1% | $23.59 (−7.0%) | held |
+| 10 | TEAM | NASDAQ | Technology | 6.2% | $174.23 | $192.31 | +10.4% | $176.93 (−8.0%) | held |
 
-Backtest since 2020: CAGR +46.3% · Sharpe 1.311 · Max DD -28.5% (SPY over same span: CAGR +15.4%, Sharpe 0.903)
+Backtest since 2020: CAGR +44.5% · Sharpe 1.276 · Max DD -28.5% (SPY over same span: CAGR +15.2%, Sharpe 0.895)
 
 ## Conservative — top 15, low-volatility, sector-capped
-Live model: **6-month momentum** · stop band 5–7%
+Live model: **12-1 momentum** · stop band 5–7%
 
 | # | Ticker | Exchange | Sector | Weight | Posted | Last | Since posted | Sell if it falls to | |
 |---|--------|----------|--------|--------|--------|------|--------------|---------------------|---|
-| 1 | WELL | NYSE | Real Estate | 8.5% | $238.07 | $238.07 | +0.0% | $227.42 (−4.5%) | held |
-| 2 | EXPD | NYSE | Industrials | 8.1% | $190.97 | $190.97 | +0.0% | $177.60 (−7.0%) | NEW |
-| 3 | RS | NYSE | Basic Materials | 7.9% | $387.59 | $387.59 | +0.0% | $360.46 (−7.0%) | NEW |
-| 4 | MSM | NYSE | Industrials | 7.8% | $123.40 | $119.20 | -3.4% | $117.87 (−1.1%) | held |
-| 5 | NEU | NYSE | Basic Materials | 7.2% | $850.16 | $914.69 | +7.6% | $894.59 (−2.2%) | held |
-| 6 | EOG | NYSE | Energy | 6.7% | $148.69 | $143.35 | -3.6% | $142.34 (−0.7%) | held |
-| 7 | VRSN | NASDAQ | Technology | 6.7% | $291.93 | $291.93 | +0.0% | $271.49 (−7.0%) | NEW |
-| 8 | WST | NYSE | Healthcare | 6.6% | $340.96 | $337.47 | -1.0% | $332.28 (−1.5%) | held |
-| 9 | NUE | NYSE | Basic Materials | 6.4% | $250.50 | $250.50 | +0.0% | $232.96 (−7.0%) | STOP ALREADY HIT |
-| 10 | FFIV | NASDAQ | Technology | 6.2% | $402.57 | $394.24 | -2.1% | $393.34 (−0.2%) | held |
-| 11 | GPC | NYSE | Consumer Cyclical | 6.1% | $137.51 | $137.51 | +0.0% | $127.88 (−7.0%) | NEW |
-| 12 | WAT | NYSE | Healthcare | 5.6% | $414.69 | $414.69 | +0.0% | $385.66 (−7.0%) | NEW |
-| 13 | CSCO | NASDAQ | Technology | 5.5% | $109.93 | $109.93 | +0.0% | $102.23 (−7.0%) | STOP ALREADY HIT |
-| 14 | SNDR | NYSE | Industrials | 5.4% | $34.44 | $34.44 | +0.0% | $32.03 (−7.0%) | NEW |
-| 15 | RVTY | NYSE | Healthcare | 5.3% | $128.80 | $128.80 | +0.0% | $119.78 (−7.0%) | NEW |
+| 1 | JNJ | NYSE | Healthcare | 10.1% | $270.85 | $270.85 | +0.0% | $254.60 (−6.0%) | held |
+| 2 | AAPL | NASDAQ | Technology | 8.2% | $316.09 | $316.09 | +0.0% | $297.17 (−6.0%) | held |
+| 3 | DD | NYSE | Basic Materials | 7.1% | $133.80 | $133.80 | +0.0% | $125.78 (−6.0%) | held |
+| 4 | ROST | NASDAQ | Consumer Cyclical | 7.1% | $226.90 | $226.90 | +0.0% | $213.28 (−6.0%) | held |
+| 5 | INCY | NASDAQ | Healthcare | 6.8% | $124.60 | $124.60 | +0.0% | $117.12 (−6.0%) | NEW |
+| 6 | MRK | NYSE | Healthcare | 6.8% | $150.67 | $150.67 | +0.0% | $141.63 (−6.0%) | held |
+| 7 | NUE | NYSE | Basic Materials | 6.6% | $257.29 | $246.28 | -4.3% | $231.50 (−6.0%) | held |
+| 8 | HAL | NYSE | Energy | 6.5% | $36.76 | $36.76 | +0.0% | $34.18 (−7.0%) | held |
+| 9 | FTI | NYSE | Energy | 6.5% | $78.22 | $78.22 | +0.0% | $73.53 (−6.0%) | held |
+| 10 | MLI | NYSE | Industrials | 6.1% | $62.25 | $62.25 | +0.0% | $58.51 (−6.0%) | held |
+| 11 | SLB | NYSE | Energy | 5.9% | $59.35 | $59.35 | +0.0% | $55.78 (−6.0%) | held |
+| 12 | CSCO | NASDAQ | Technology | 5.7% | $115.99 | $110.22 | -5.0% | $103.61 (−6.0%) | held |
+| 13 | STLD | NASDAQ | Basic Materials | 5.7% | $229.26 | $229.26 | +0.0% | $215.50 (−6.0%) | held |
+| 14 | XPO | NYSE | Industrials | 5.6% | $196.56 | $196.56 | +0.0% | $184.77 (−6.0%) | NEW |
+| 15 | CMI | NYSE | Industrials | 5.5% | $557.48 | $557.48 | +0.0% | $524.04 (−6.0%) | held |
 
-Backtest since 2020: CAGR +10.2% · Sharpe 0.612 · Max DD -26.1% (SPY over same span: CAGR +15.4%, Sharpe 0.903)
+Backtest since 2020: CAGR +13.0% · Sharpe 0.762 · Max DD -26.1% (SPY over same span: CAGR +15.2%, Sharpe 0.895)
 
 ## How past picks have actually done
-_Real return of each sleeve's published picks, held from the posted price to 2026-08-28 (stops not simulated), vs SPY over the same span._
+_Real return of each sleeve's published picks, held from the posted price to 2026-09-01 (stops not simulated), vs SPY over the same span._
 
 | Sleeve | Posted | Held | Return | SPY | vs SPY |
 |--------|--------|------|--------|-----|--------|
-| Conservative | 2026-08-19 | 9d | -0.7% | +0.0% | -0.8% |
-| Balanced | 2026-08-19 | 9d | +1.7% | +0.0% | +1.7% |
-| Aggressive | 2026-08-19 | 9d | +1.7% | +0.0% | +1.7% |
-| Conservative | 2026-08-03 | 25d | -4.6% | +1.5% | -6.2% |
-| Balanced | 2026-08-03 | 25d | +1.2% | +1.5% | -0.3% |
-| Aggressive | 2026-08-03 | 25d | +3.8% | +1.5% | +2.2% |
-| Conservative | 2026-07-31 | 28d | -4.2% | +3.0% | -7.2% |
-| Balanced | 2026-07-31 | 28d | -0.7% | +3.0% | -3.7% |
-| Aggressive | 2026-07-31 | 28d | +2.6% | +3.0% | -0.4% |
-| Focused | 2024-04-24 | 856d | +81.3% | +56.3% | +25.0% |
-| Balanced | 2024-04-24 | 856d | +33.1% | +56.3% | -23.2% |
+| Conservative | 2026-08-28 | 4d | -0.1% | -1.0% | +0.9% |
+| Balanced | 2026-08-28 | 4d | -0.3% | -1.0% | +0.7% |
+| Aggressive | 2026-08-28 | 4d | +0.6% | -1.0% | +1.6% |
+| Conservative | 2026-08-19 | 13d | -0.7% | -0.9% | +0.3% |
+| Balanced | 2026-08-19 | 13d | +2.0% | -0.9% | +3.0% |
+| Aggressive | 2026-08-19 | 13d | +2.7% | -0.9% | +3.7% |
+| Conservative | 2026-08-03 | 29d | -4.5% | +0.5% | -5.1% |
+| Balanced | 2026-08-03 | 29d | +1.1% | +0.5% | +0.5% |
+| Aggressive | 2026-08-03 | 29d | +4.5% | +0.5% | +4.0% |
+| Conservative | 2026-07-31 | 32d | -4.2% | +2.0% | -6.2% |
+| Balanced | 2026-07-31 | 32d | -0.8% | +2.0% | -2.8% |
+| Aggressive | 2026-07-31 | 32d | +2.8% | +2.0% | +0.9% |
+| Focused | 2024-04-24 | 860d | +81.0% | +54.8% | +26.3% |
+| Balanced | 2024-04-24 | 860d | +31.7% | +54.8% | -23.1% |
 
 ---
 _Educational project by a private individual — not investment advice, not a solicitation. Backtested results use today's fund holdings applied historically (survivorship bias) and assumed costs; live results will differ. Past performance never guarantees future results. Do your own research._
