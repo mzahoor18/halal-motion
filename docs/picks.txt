@@ -7,56 +7,56 @@ Business-activity screen excluded: VIK (NYSE)
 BDS/boycott screen excluded: SBUX (NASDAQ)
 
 Aggressive — top 5, concentrated  [model: 3-month momentum · stops]
-   1. CRL    (NYSE   )  25.3%  posted $289.89  last $288.73 (-0.4%)  sell at $262.74 (−9.0%)  [held]
-   2. ELF    (NYSE   )  21.6%  posted $99.65  last $109.58 (+10.0%)  sell at $99.72 (−9.0%)  [held]
-   3. RHI    (NYSE   )  21.1%  posted $45.93  last $45.93 (+0.0%)  sell at $41.80 (−9.0%)  [NEW]
-   4. CORT   (NASDAQ )  19.0%  posted $114.49  last $113.65 (-0.7%)  sell at $103.42 (−9.0%)  [held]
-   5. TEAM   (NASDAQ )  13.1%  posted $174.23  last $192.31 (+10.4%)  sell at $173.08 (−10.0%)  [held]
+   1. CRL    (NYSE   )  25.1%  posted $289.89  last $284.85 (-1.7%)  sell at $259.21 (−9.0%)  [held]
+   2. NTRA   (NASDAQ )  21.6%  posted $320.83  last $320.83 (+0.0%)  sell at $291.96 (−9.0%)  [NEW]
+   3. ELF    (NYSE   )  21.4%  posted $99.65  last $108.39 (+8.8%)  sell at $98.63 (−9.0%)  [held]
+   4. CORT   (NASDAQ )  18.9%  posted $114.49  last $114.28 (-0.2%)  sell at $103.99 (−9.0%)  [held]
+   5. TEAM   (NASDAQ )  13.0%  posted $174.23  last $189.01 (+8.5%)  sell at $170.11 (−10.0%)  [held]
 
 Balanced — top 10, sector-capped  [model: 3-month momentum]
-   1. SN     (NYSE   )  13.1%  posted $181.29  last $189.26 (+4.4%)  sell at $176.02 (−7.0%)  [held]
-   2. DASH   (NASDAQ )  12.6%  posted $228.19  last $228.19 (+0.0%)  sell at $212.22 (−7.0%)  [NEW]
-   3. CRL    (NYSE   )  11.9%  posted $289.89  last $288.73 (-0.4%)  sell at $268.51 (−7.0%)  [held]
-   4. ELF    (NYSE   )  10.2%  posted $99.65  last $109.58 (+10.0%)  sell at $101.91 (−7.0%)  [held]
-   5. PATH   (NYSE   )   9.9%  posted $18.15  last $18.59 (+2.4%)  sell at $17.11 (−8.0%)  [held]
-   6. RHI    (NYSE   )   9.9%  posted $43.53  last $45.93 (+5.5%)  sell at $42.71 (−7.0%)  [held]
-   7. GTLB   (NASDAQ )   9.5%  posted $45.90  last $45.90 (+0.0%)  sell at $42.68 (−7.0%)  [NEW]
-   8. CORT   (NASDAQ )   8.9%  posted $119.02  last $113.65 (-4.5%)  sell at $105.69 (−7.0%)  [held]
-   9. CAI    (NASDAQ )   7.8%  posted $25.63  last $25.36 (-1.1%)  sell at $23.59 (−7.0%)  [held]
-  10. TEAM   (NASDAQ )   6.2%  posted $174.23  last $192.31 (+10.4%)  sell at $176.93 (−8.0%)  [held]
+   1. SN     (NYSE   )  12.7%  posted $181.29  last $183.98 (+1.5%)  sell at $171.10 (−7.0%)  [held]
+   2. DASH   (NASDAQ )  12.4%  posted $229.43  last $229.43 (+0.0%)  sell at $213.37 (−7.0%)  [NEW]
+   3. CRL    (NYSE   )  11.6%  posted $289.89  last $284.85 (-1.7%)  sell at $264.91 (−7.0%)  [held]
+   4. NTRA   (NASDAQ )  10.0%  posted $320.83  last $320.83 (+0.0%)  sell at $298.38 (−7.0%)  [NEW]
+   5. ELF    (NYSE   )   9.9%  posted $99.65  last $108.39 (+8.8%)  sell at $100.80 (−7.0%)  [held]
+   6. PATH   (NYSE   )   9.7%  posted $18.15  last $18.28 (+0.7%)  sell at $16.82 (−8.0%)  [held]
+   7. RHI    (NYSE   )   9.7%  posted $43.53  last $44.26 (+1.7%)  sell at $41.17 (−7.0%)  [held]
+   8. GTLB   (NASDAQ )   9.3%  posted $45.35  last $45.35 (+0.0%)  sell at $42.17 (−7.0%)  [NEW]
+   9. CORT   (NASDAQ )   8.7%  posted $119.02  last $114.28 (-4.0%)  sell at $106.28 (−7.0%)  [held]
+  10. TEAM   (NASDAQ )   6.0%  posted $174.23  last $189.01 (+8.5%)  sell at $173.89 (−8.0%)  [held]
 
-Conservative — top 15, low-volatility, sector-capped  [model: 12-1 momentum]
-   1. JNJ    (NYSE   )  10.1%  posted $270.85  last $270.85 (+0.0%)  sell at $254.60 (−6.0%)  [held]
-   2. AAPL   (NASDAQ )   8.2%  posted $316.09  last $316.09 (+0.0%)  sell at $297.17 (−6.0%)  [held]
-   3. DD     (NYSE   )   7.1%  posted $133.80  last $133.80 (+0.0%)  sell at $125.78 (−6.0%)  [held]
-   4. ROST   (NASDAQ )   7.1%  posted $226.90  last $226.90 (+0.0%)  sell at $213.28 (−6.0%)  [held]
-   5. INCY   (NASDAQ )   6.8%  posted $124.60  last $124.60 (+0.0%)  sell at $117.12 (−6.0%)  [NEW]
-   6. MRK    (NYSE   )   6.8%  posted $150.67  last $150.67 (+0.0%)  sell at $141.63 (−6.0%)  [held]
-   7. NUE    (NYSE   )   6.6%  posted $257.29  last $246.28 (-4.3%)  sell at $231.50 (−6.0%)  [held]
-   8. HAL    (NYSE   )   6.5%  posted $36.76  last $36.76 (+0.0%)  sell at $34.18 (−7.0%)  [held]
-   9. FTI    (NYSE   )   6.5%  posted $78.22  last $78.22 (+0.0%)  sell at $73.53 (−6.0%)  [held]
-  10. MLI    (NYSE   )   6.1%  posted $62.25  last $62.25 (+0.0%)  sell at $58.51 (−6.0%)  [held]
-  11. SLB    (NYSE   )   5.9%  posted $59.35  last $59.35 (+0.0%)  sell at $55.78 (−6.0%)  [held]
-  12. CSCO   (NASDAQ )   5.7%  posted $115.99  last $110.22 (-5.0%)  sell at $103.61 (−6.0%)  [held]
-  13. STLD   (NASDAQ )   5.7%  posted $229.26  last $229.26 (+0.0%)  sell at $215.50 (−6.0%)  [held]
-  14. XPO    (NYSE   )   5.6%  posted $196.56  last $196.56 (+0.0%)  sell at $184.77 (−6.0%)  [NEW]
-  15. CMI    (NYSE   )   5.5%  posted $557.48  last $557.48 (+0.0%)  sell at $524.04 (−6.0%)  [held]
+Conservative — top 15, low-volatility, sector-capped  [model: 6-month momentum]
+   1. EXPD   (NYSE   )   8.3%  posted $186.48  last $189.14 (+1.4%)  sell at $177.79 (−6.0%)  [held]
+   2. RS     (NYSE   )   8.2%  posted $387.59  last $390.86 (+0.8%)  sell at $367.40 (−6.0%)  [held]
+   3. MSM    (NYSE   )   8.2%  posted $123.40  last $118.64 (-3.9%)  sell at $111.52 (−6.0%)  [held]
+   4. NEU    (NYSE   )   7.4%  posted $850.16  last $905.72 (+6.5%)  sell at $851.38 (−6.0%)  [held]
+   5. VRSN   (NASDAQ )   7.0%  posted $273.03  last $293.30 (+7.4%)  sell at $275.70 (−6.0%)  [held]
+   6. WST    (NYSE   )   6.9%  posted $340.96  last $339.84 (-0.3%)  sell at $319.45 (−6.0%)  [held]
+   7. NUE    (NYSE   )   6.7%  posted $257.29  last $250.88 (-2.5%)  sell at $235.82 (−6.0%)  [held]
+   8. FTI    (NYSE   )   6.5%  posted $78.18  last $78.18 (+0.0%)  sell at $73.49 (−6.0%)  [held]
+   9. FFIV   (NASDAQ )   6.5%  posted $402.57  last $392.35 (-2.5%)  sell at $368.81 (−6.0%)  [held]
+  10. EXEL   (NASDAQ )   6.2%  posted $55.47  last $55.47 (+0.0%)  sell at $52.14 (−6.0%)  [NEW]
+  11. SLB    (NYSE   )   5.9%  posted $58.45  last $58.45 (+0.0%)  sell at $54.94 (−6.0%)  [held]
+  12. CSCO   (NASDAQ )   5.7%  posted $115.99  last $109.21 (-5.9%)  sell at $102.66 (−6.0%)  [held]
+  13. SNDR   (NYSE   )   5.6%  posted $34.44  last $34.02 (-1.2%)  sell at $31.98 (−6.0%)  [held]
+  14. RVTY   (NYSE   )   5.5%  posted $128.80  last $126.50 (-1.8%)  sell at $118.91 (−6.0%)  [held]
+  15. BBY    (NYSE   )   5.5%  posted $81.30  last $81.30 (+0.0%)  sell at $76.42 (−6.0%)  [NEW]
 
 How past picks have actually done (buy-and-hold to today, stops not simulated):
-  Conservative  posted 2026-08-28 (4d):  picks -0.1%  ·  SPY -1.0%  ·  vs SPY +0.9%
-  Balanced      posted 2026-08-28 (4d):  picks -0.3%  ·  SPY -1.0%  ·  vs SPY +0.7%
-  Aggressive    posted 2026-08-28 (4d):  picks +0.6%  ·  SPY -1.0%  ·  vs SPY +1.6%
-  Conservative  posted 2026-08-19 (13d):  picks -0.7%  ·  SPY -0.9%  ·  vs SPY +0.3%
-  Balanced      posted 2026-08-19 (13d):  picks +2.0%  ·  SPY -0.9%  ·  vs SPY +3.0%
-  Aggressive    posted 2026-08-19 (13d):  picks +2.7%  ·  SPY -0.9%  ·  vs SPY +3.7%
-  Conservative  posted 2026-08-03 (29d):  picks -4.5%  ·  SPY +0.5%  ·  vs SPY -5.1%
-  Balanced      posted 2026-08-03 (29d):  picks +1.1%  ·  SPY +0.5%  ·  vs SPY +0.5%
-  Aggressive    posted 2026-08-03 (29d):  picks +4.5%  ·  SPY +0.5%  ·  vs SPY +4.0%
-  Conservative  posted 2026-07-31 (32d):  picks -4.2%  ·  SPY +2.0%  ·  vs SPY -6.2%
-  Balanced      posted 2026-07-31 (32d):  picks -0.8%  ·  SPY +2.0%  ·  vs SPY -2.8%
-  Aggressive    posted 2026-07-31 (32d):  picks +2.8%  ·  SPY +2.0%  ·  vs SPY +0.9%
-  Focused       posted 2024-04-24 (860d):  picks +81.0%  ·  SPY +54.8%  ·  vs SPY +26.3%
-  Balanced      posted 2024-04-24 (860d):  picks +31.7%  ·  SPY +54.8%  ·  vs SPY -23.1%
+  Conservative  posted 2026-08-28 (4d):  picks -0.1%  ·  SPY -0.8%  ·  vs SPY +0.6%
+  Balanced      posted 2026-08-28 (4d):  picks -1.8%  ·  SPY -0.8%  ·  vs SPY -1.0%
+  Aggressive    posted 2026-08-28 (4d):  picks -0.8%  ·  SPY -0.8%  ·  vs SPY +0.0%
+  Conservative  posted 2026-08-19 (13d):  picks -0.7%  ·  SPY -0.8%  ·  vs SPY +0.0%
+  Balanced      posted 2026-08-19 (13d):  picks +0.8%  ·  SPY -0.8%  ·  vs SPY +1.5%
+  Aggressive    posted 2026-08-19 (13d):  picks +1.7%  ·  SPY -0.8%  ·  vs SPY +2.5%
+  Conservative  posted 2026-08-03 (29d):  picks -4.7%  ·  SPY +0.8%  ·  vs SPY -5.5%
+  Balanced      posted 2026-08-03 (29d):  picks +0.9%  ·  SPY +0.8%  ·  vs SPY +0.2%
+  Aggressive    posted 2026-08-03 (29d):  picks +1.9%  ·  SPY +0.8%  ·  vs SPY +1.1%
+  Conservative  posted 2026-07-31 (32d):  picks -4.5%  ·  SPY +2.2%  ·  vs SPY -6.7%
+  Balanced      posted 2026-07-31 (32d):  picks -0.7%  ·  SPY +2.2%  ·  vs SPY -2.9%
+  Aggressive    posted 2026-07-31 (32d):  picks +0.9%  ·  SPY +2.2%  ·  vs SPY -1.3%
+  Focused       posted 2024-04-24 (860d):  picks +83.6%  ·  SPY +55.1%  ·  vs SPY +28.5%
+  Balanced      posted 2024-04-24 (860d):  picks +31.4%  ·  SPY +55.1%  ·  vs SPY -23.7%
 
 Sell levels are advisory trailing stops, capped at 10% below the recent high.
 The bracketed % is how far the stock must fall from today's price to trigger it.
