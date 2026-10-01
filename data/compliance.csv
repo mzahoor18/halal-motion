@@ -5,6 +5,7 @@ AAOI,COMPLIANT,NASDAQ,Communications Equipment
 AAON,COMPLIANT,NASDAQ,Building Products
 AAPL,COMPLIANT,NASDAQ,"Technology Hardware, Storage & Peripherals"
 ABBV,NON_COMPLIANT,NYSE,Biotechnology
+ABNB,NON_COMPLIANT,NASDAQ,"Hotels, Resorts & Cruise Lines"
 ABT,COMPLIANT,NYSE,Health Care Equipment
 ACM,COMPLIANT,NYSE,Construction & Engineering
 ACN,NON_COMPLIANT,NYSE,IT Consulting & Other Services
@@ -33,6 +34,7 @@ APD,COMPLIANT,NYSE,Industrial Gases
 APG,COMPLIANT,NYSE,Construction & Engineering
 APP,QUESTIONABLE,NASDAQ,Application Software
 APPF,COMPLIANT,NASDAQ,Application Software
+APTV,NON_COMPLIANT,NYSE,Automotive Parts & Equipment
 AR,COMPLIANT,NYSE,Oil & Gas Exploration & Production
 ARW,NON_COMPLIANT,NYSE,Technology Distributors
 AS,COMPLIANT,NYSE,"Apparel, Accessories & Luxury Goods"
@@ -132,6 +134,7 @@ DHI,COMPLIANT,NYSE,Homebuilding
 DHR,COMPLIANT,NYSE,Life Sciences Tools & Services
 DINO,NON_COMPLIANT,NYSE,Oil & Gas Refining & Marketing
 DKS,COMPLIANT,NYSE,Other Specialty Retail
+DLB,QUESTIONABLE,NYSE,Systems Software
 DLR,NON_COMPLIANT,NYSE,Data Center REITs
 DLTR,QUESTIONABLE,NASDAQ,Consumer Staples Merchandise Retail
 DOCN,NON_COMPLIANT,NYSE,Internet Services & Infrastructure
@@ -139,6 +142,7 @@ DOCU,COMPLIANT,NASDAQ,Application Software
 DOV,COMPLIANT,NYSE,Industrial Machinery & Supplies & Components
 DOW,NON_COMPLIANT,NYSE,Commodity Chemicals
 DOX,COMPLIANT,NASDAQ,IT Consulting & Other Services
+DPC,COMPLIANT,NYSE,Heavy Electrical Equipment
 DT,COMPLIANT,NYSE,Application Software
 DTM,NON_COMPLIANT,NYSE,Oil & Gas Storage & Transportation
 DUOL,QUESTIONABLE,NASDAQ,Education Services
@@ -199,6 +203,7 @@ GAP,COMPLIANT,NYSE,Apparel Retail
 GDDY,COMPLIANT,NYSE,Internet Services & Infrastructure
 GEHC,COMPLIANT,NASDAQ,Health Care Equipment
 GEV,COMPLIANT,NYSE,Heavy Electrical Equipment
+GFL,NON_COMPLIANT,NYSE,Environmental & Facilities Services
 GFS,COMPLIANT,NASDAQ,Semiconductors
 GGG,COMPLIANT,NYSE,Industrial Machinery & Supplies & Components
 GH,COMPLIANT,NASDAQ,Health Care  Services
@@ -235,6 +240,7 @@ IFF,QUESTIONABLE,NYSE,Specialty Chemicals
 ILMN,COMPLIANT,NASDAQ,Life Sciences Tools & Services
 INCY,COMPLIANT,NASDAQ,Biotechnology
 INGM,NON_COMPLIANT,NYSE,Technology Distributors
+INIO,COMPLIANT,NASDAQ,Heavy Electrical Equipment
 INSM,NON_COMPLIANT,NASDAQ,Biotechnology
 IONQ,NON_COMPLIANT,NYSE,"Technology Hardware, Storage & Peripherals"
 IONS,NON_COMPLIANT,NASDAQ,Biotechnology
@@ -292,6 +298,7 @@ MAA,NON_COMPLIANT,NYSE,Multi-Family Residential REITs
 MANH,COMPLIANT,NASDAQ,Application Software
 MAR,QUESTIONABLE,NASDAQ,"Hotels, Resorts & Cruise Lines"
 MAS,COMPLIANT,NYSE,Building Products
+MBGL,NON_COMPLIANT,NYSE,Research & Consulting Services
 MCHP,COMPLIANT,NASDAQ,Semiconductors
 MCK,COMPLIANT,NYSE,Health Care Distributors
 MDB,COMPLIANT,NASDAQ,Internet Services & Infrastructure
@@ -417,6 +424,7 @@ SANM,NON_COMPLIANT,NASDAQ,Electronic Manufacturing Services
 SBUX,COMPLIANT,NASDAQ,Restaurants
 SCCO,QUESTIONABLE,NYSE,Copper
 SCI,NON_COMPLIANT,NYSE,Specialized Consumer Services
+SGI,COMPLIANT,NYSE,Home Furnishings
 SHW,COMPLIANT,NYSE,Specialty Chemicals
 SITE,COMPLIANT,NYSE,Trading Companies & Distributors
 SLB,COMPLIANT,NYSE,Oil & Gas Equipment & Services
@@ -490,6 +498,8 @@ VMRK,UNKNOWN,,
 VRSN,COMPLIANT,NASDAQ,Internet Services & Infrastructure
 VRT,COMPLIANT,NYSE,Electrical Components & Equipment
 VRTX,COMPLIANT,NASDAQ,Biotechnology
+VYLR,UNKNOWN,,
+W,NON_COMPLIANT,NYSE,Homefurnishing Retail
 WAB,COMPLIANT,NYSE,Construction Machinery & Heavy Transportation Equipment
 WAT,COMPLIANT,NYSE,Life Sciences Tools & Services
 WDAY,NON_COMPLIANT,NASDAQ,Application Software

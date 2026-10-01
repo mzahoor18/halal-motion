@@ -4,7 +4,8 @@ AA,mnzl
 AAOI,mnzl
 AAON,mnzl
 AAPL,both
-ABBV,spus
+ABBV,both
+ABNB,mnzl
 ABT,both
 ACM,mnzl
 ACN,spus
@@ -16,7 +17,6 @@ AEIS,mnzl
 AGCO,mnzl
 AHR,mnzl
 AIT,mnzl
-AKAM,both
 ALAB,mnzl
 ALB,both
 ALGM,mnzl
@@ -33,6 +33,7 @@ APD,both
 APG,mnzl
 APP,mnzl
 APPF,mnzl
+APTV,mnzl
 AR,mnzl
 ARW,mnzl
 AS,mnzl
@@ -52,7 +53,7 @@ AYI,mnzl
 AZO,both
 BBY,spus
 BDX,both
-BE,mnzl
+BE,both
 BEPC,mnzl
 BFAM,mnzl
 BG,mnzl
@@ -61,9 +62,7 @@ BIO,mnzl
 BIRK,mnzl
 BKNG,spus
 BKR,mnzl
-BLDR,both
-BMNR,mnzl
-BMRN,mnzl
+BLDR,mnzl
 BRKR,mnzl
 BROS,mnzl
 BSX,both
@@ -86,17 +85,15 @@ CGNX,mnzl
 CHD,both
 CHE,mnzl
 CHRW,both
-CHTR,mnzl
 CHWY,mnzl
 CIEN,both
 CL,both
 CLH,mnzl
-CLX,both
+CLX,mnzl
 CMG,mnzl
 CMI,both
 CNM,mnzl
 COHR,both
-COKE,mnzl
 COLM,mnzl
 COO,both
 COP,both
@@ -131,6 +128,7 @@ DHI,both
 DHR,both
 DINO,mnzl
 DKS,mnzl
+DLB,mnzl
 DLR,mnzl
 DLTR,mnzl
 DOCN,mnzl
@@ -138,6 +136,7 @@ DOCU,mnzl
 DOV,both
 DOW,mnzl
 DOX,mnzl
+DPC,mnzl
 DT,mnzl
 DTM,mnzl
 DUOL,mnzl
@@ -160,7 +159,6 @@ ENTG,mnzl
 EOG,both
 EPAM,mnzl
 EQIX,both
-ESAB,mnzl
 ESI,mnzl
 ESTC,mnzl
 EW,both
@@ -197,6 +195,7 @@ GAP,mnzl
 GDDY,both
 GEHC,both
 GEV,both
+GFL,mnzl
 GFS,mnzl
 GGG,mnzl
 GH,mnzl
@@ -230,11 +229,11 @@ IDXX,both
 IESC,mnzl
 IEX,both
 IFF,mnzl
-ILMN,mnzl
+ILMN,both
 INCY,both
 INGM,mnzl
+INIO,mnzl
 INSM,mnzl
-IONQ,mnzl
 IONS,mnzl
 IP,mnzl
 IPGP,mnzl
@@ -250,7 +249,6 @@ JCI,both
 JHX,mnzl
 JLL,mnzl
 JNJ,both
-KD,mnzl
 KEX,mnzl
 KEYS,mnzl
 KHC,mnzl
@@ -287,6 +285,7 @@ M,mnzl
 MANH,mnzl
 MAR,mnzl
 MAS,both
+MBGL,mnzl
 MCHP,both
 MCK,both
 MDB,mnzl
@@ -322,7 +321,6 @@ NBIX,mnzl
 NDSN,both
 NEM,both
 NEU,mnzl
-NFG,mnzl
 NKE,both
 NOV,mnzl
 NOW,both
@@ -343,12 +341,12 @@ OLLI,mnzl
 ON,both
 ONON,mnzl
 ONTO,mnzl
-ORCL,both
+ORCL,spus
 ORLY,both
 OTIS,both
 OVV,mnzl
 OXY,both
-P,mnzl
+P,both
 PANW,both
 PATH,mnzl
 PAYC,mnzl
@@ -362,8 +360,7 @@ PG,both
 PHM,both
 PINS,mnzl
 PKG,both
-PLD,both
-PLNT,mnzl
+PLD,mnzl
 PNR,both
 PODD,both
 POOL,mnzl
@@ -391,7 +388,6 @@ REYN,mnzl
 RGEN,mnzl
 RHI,mnzl
 RIVN,mnzl
-RKLB,mnzl
 RL,both
 RMBS,mnzl
 RMD,both
@@ -409,12 +405,13 @@ S,mnzl
 SAIA,mnzl
 SAIL,mnzl
 SANM,mnzl
-SBUX,mnzl
 SCCO,mnzl
 SCI,mnzl
+SGI,mnzl
 SHW,both
 SITE,mnzl
 SLB,both
+SMCI,mnzl
 SMMT,mnzl
 SMTC,mnzl
 SN,mnzl
@@ -439,7 +436,6 @@ SW,mnzl
 SWK,mnzl
 SWKS,spus
 SYK,both
-T,mnzl
 TEAM,mnzl
 TECH,both
 TEL,spus
@@ -459,7 +455,7 @@ TSCO,both
 TSLA,both
 TT,both
 TTC,mnzl
-TTD,both
+TTD,mnzl
 TTEK,mnzl
 TWLO,mnzl
 TXN,both
@@ -484,6 +480,8 @@ VMRK,mnzl
 VRSN,both
 VRT,both
 VRTX,both
+VYLR,spus
+W,mnzl
 WAB,both
 WAT,both
 WDAY,both
